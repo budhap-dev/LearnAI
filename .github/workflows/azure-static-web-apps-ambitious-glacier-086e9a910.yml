@@ -1,4 +1,6 @@
 name: Build and deploy
+# NOTE: this file name is required by Azure Static Web Apps (GitHub OIDC deployment authorization
+# identifies the app by the workflow file name). Do not rename it.
 
 on:
   push:
