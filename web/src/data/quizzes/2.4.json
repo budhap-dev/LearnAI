@@ -1,0 +1,142 @@
+[
+  {
+    "id": "2.4-q1",
+    "topic": "attention",
+    "difficulty": 1,
+    "stem": "In plain terms, what does attention let each token do?",
+    "options": [
+      "Skip ahead to see the answer",
+      "Look at the earlier tokens, weight which ones matter, and blend in what it took",
+      "Store the token for the next API call",
+      "Look up the token's definition in a dictionary"
+    ],
+    "answer": 1,
+    "explanation": "'Look back, weight, blend' — computed fresh in every layer for every input. This is the mechanism behind 'context'."
+  },
+  {
+    "id": "2.4-q2",
+    "topic": "context dependence",
+    "difficulty": 2,
+    "stem": "'bank' near 'interest rate' and 'bank' near 'river' are the same token id. How can the model treat them differently?",
+    "options": [
+      "The tokeniser assigns different ids based on the sentence",
+      "The model keeps two copies of every ambiguous word",
+      "It cannot — this is a known failure",
+      "Attention rewrites each token's vector using its neighbours, so the same id gets different vectors in different contexts"
+    ],
+    "answer": 3,
+    "explanation": "In a transformer every token's representation is computed in context. That is why one embedding table can serve many meanings."
+  },
+  {
+    "id": "2.4-q3",
+    "topic": "cost",
+    "difficulty": 2,
+    "stem": "Attention compares every token with every earlier token. What follows for cost?",
+    "options": [
+      "Cost falls as prompts get longer",
+      "Cost is constant regardless of length",
+      "Attention work grows roughly with the square of the prompt length — long prompts are disproportionately expensive",
+      "Only output tokens cost anything"
+    ],
+    "answer": 2,
+    "explanation": "The rest of the network is linear, so the whole is between linear and quadratic — but long context is never free."
+  },
+  {
+    "id": "2.4-q4",
+    "topic": "memory",
+    "difficulty": 1,
+    "stem": "Where does the 'memory' in a multi-turn chat actually live?",
+    "options": [
+      "In the KV cache on the provider's servers, permanently",
+      "In the prompt — your application re-sends the history every call",
+      "Inside the model between calls",
+      "In the tokeniser"
+    ],
+    "answer": 1,
+    "explanation": "There is no state between calls. Nothing persists unless your code sends it again."
+  },
+  {
+    "id": "2.4-q5",
+    "topic": "lost in the middle",
+    "difficulty": 3,
+    "stem": "A key fact sits in the middle of a 60k-token prompt and the answer ignores it. Which explanation fits this lesson?",
+    "options": [
+      "Attention is diluted across many tokens and biased toward the start and end of the prompt",
+      "The tokeniser dropped the middle",
+      "The model's weights were updated mid-request",
+      "Middle tokens are cheaper and therefore skipped"
+    ],
+    "answer": 0,
+    "explanation": "Position is an input; very long prompts show weaker attention to the middle. Retrieve just the passage, or move it to the edges (Lesson 2.5)."
+  },
+  {
+    "id": "2.4-q6",
+    "topic": "latency",
+    "difficulty": 2,
+    "stem": "Why are 'time to first token' and 'tokens per second' separate metrics?",
+    "options": [
+      "The prompt is processed in parallel (fast), then output tokens are produced one loop iteration at a time (slow)",
+      "Providers report whichever is smaller",
+      "Only one applies to streaming responses",
+      "They measure the same thing in different units"
+    ],
+    "answer": 0,
+    "explanation": "Attention runs across the whole prompt at once; generation is sequential. Lesson 9.3 builds latency budgets from both."
+  },
+  {
+    "id": "2.4-q7",
+    "topic": "prompt caching",
+    "difficulty": 2,
+    "stem": "What does prompt caching (Lesson 5.5) reuse under the hood?",
+    "options": [
+      "The keys and values computed for an unchanged prompt prefix — the KV cache",
+      "The previous answer",
+      "The tokeniser's merge table",
+      "The embedding of the user's name"
+    ],
+    "answer": 0,
+    "explanation": "If the prefix has not changed, its attention keys/values need not be recomputed. This is why only stable prefixes are cacheable."
+  },
+  {
+    "id": "2.4-q8",
+    "topic": "knowledge",
+    "difficulty": 2,
+    "stem": "Which pair correctly distinguishes the two places knowledge can be?",
+    "options": [
+      "Public vs private training data",
+      "Parametric (in the weights, fixed at training) vs in-context (in the prompt, supplied by you)",
+      "Short-term vs long-term memory inside the model",
+      "Cached vs uncached"
+    ],
+    "answer": 1,
+    "explanation": "RAG moves facts into the prompt; fine-tuning tries to add to the weights; prompting arranges the prompt so attention finds it."
+  },
+  {
+    "id": "2.4-q9",
+    "topic": "architecture",
+    "difficulty": 1,
+    "stem": "A transformer block consists of…",
+    "options": [
+      "Self-attention followed by a feed-forward layer, stacked many times",
+      "A tokeniser followed by a database lookup",
+      "A recurrent loop over characters",
+      "An embedding table and nothing else"
+    ],
+    "answer": 0,
+    "explanation": "Attention mixes information across tokens; the feed-forward layer transforms each token on its own and holds most stored knowledge."
+  },
+  {
+    "id": "2.4-q10",
+    "topic": "design",
+    "difficulty": 3,
+    "stem": "Your assistant 'forgets' instructions given ten turns ago. Which fix is most consistent with this lesson?",
+    "options": [
+      "Pin the instructions in the system prompt or a facts block that is re-sent every turn",
+      "Ask the model to try harder to remember",
+      "Increase temperature so it explores earlier turns",
+      "Switch to a model with a larger vocabulary"
+    ],
+    "answer": 0,
+    "explanation": "Only what is in the current prompt is reachable. Instructions that must persist must be re-sent, ideally at the start (Lesson 2.5)."
+  }
+]

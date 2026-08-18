@@ -1,0 +1,142 @@
+[
+  {
+    "id": "2.7-q1",
+    "topic": "sampler",
+    "difficulty": 1,
+    "stem": "Temperature, top-p and top-k are settings of…",
+    "options": [
+      "The sampler that picks a token from the model's distribution",
+      "The tokeniser",
+      "The model's weights",
+      "The retriever"
+    ],
+    "answer": 0,
+    "explanation": "They change how a token is picked, never what the model computed."
+  },
+  {
+    "id": "2.7-q2",
+    "topic": "temperature",
+    "difficulty": 2,
+    "stem": "What does temperature do mathematically?",
+    "options": [
+      "Changes the vocabulary size",
+      "Adds random noise to the weights",
+      "Divides the logits before softmax — sharpening (<1) or flattening (>1) the distribution",
+      "Removes tokens below a probability threshold"
+    ],
+    "answer": 2,
+    "explanation": "T→0 becomes greedy; T>1 lets rare tokens through. It never adds knowledge about those tokens."
+  },
+  {
+    "id": "2.7-q3",
+    "topic": "top-p",
+    "difficulty": 2,
+    "stem": "Why is top-p (nucleus) usually preferred over top-k?",
+    "options": [
+      "It guarantees determinism",
+      "It is faster to compute",
+      "It ignores temperature",
+      "It adapts: a confident step keeps one or two tokens, an open step keeps many"
+    ],
+    "answer": 3,
+    "explanation": "Top-k is blind to how spread out the distribution is; top-p keeps 'enough' mass whatever the shape."
+  },
+  {
+    "id": "2.7-q4",
+    "topic": "T=0",
+    "difficulty": 2,
+    "stem": "Setting temperature to 0 makes the system…",
+    "options": [
+      "Fully deterministic across all calls",
+      "Repeatable at the sampler only — batching, versions and hardware still shift the logits, and near-ties flip",
+      "More accurate",
+      "Faster"
+    ],
+    "answer": 1,
+    "explanation": "T=0 removes the sampler's randomness, not the model's. Design and evaluate as if every call is a sample."
+  },
+  {
+    "id": "2.7-q5",
+    "topic": "seed",
+    "difficulty": 2,
+    "stem": "What does a seed guarantee?",
+    "options": [
+      "Identical outputs forever",
+      "The same answer across model versions",
+      "Repeatable picks from the same distribution — useful for tests, not a production determinism guarantee",
+      "Lower cost"
+    ],
+    "answer": 2,
+    "explanation": "The seed controls the random draws; it cannot control what arrives at the sampler."
+  },
+  {
+    "id": "2.7-q6",
+    "topic": "settings",
+    "difficulty": 2,
+    "stem": "Best starting settings for a JSON extraction task?",
+    "options": [
+      "High temperature (1.2), top-p 1.0",
+      "Low temperature (0–0.3), top-p ~0.9–1.0",
+      "Temperature 2.0 for thoroughness",
+      "Temperature 1.0, top-k 1"
+    ],
+    "answer": 1,
+    "explanation": "One right shape; minimise variance. Higher temperatures are for tasks where you want the tail."
+  },
+  {
+    "id": "2.7-q7",
+    "topic": "creativity",
+    "difficulty": 2,
+    "stem": "At T = 2 the token 'purple' gets 3.5% probability. What has changed about the model's knowledge of 'purple'?",
+    "options": [
+      "It has learned purple is relevant",
+      "The logit for purple was rewritten",
+      "Nothing — temperature is a noise dial on the pick, not a creativity dial on the model",
+      "Its embedding for purple moved"
+    ],
+    "answer": 2,
+    "explanation": "The distribution was flattened; the model computed the same logits."
+  },
+  {
+    "id": "2.7-q8",
+    "topic": "evals",
+    "difficulty": 3,
+    "stem": "Given sampling, how should you evaluate a prompt change?",
+    "options": [
+      "Run once at T=0 and diff the strings",
+      "Run each test case several times and compare pass rates, using schemas rather than exact string matches",
+      "Compare one output by eye",
+      "Only test with the seed fixed"
+    ],
+    "answer": 1,
+    "explanation": "Outputs are samples; measure rates and validate structure (Lessons 4.3, 8.4)."
+  },
+  {
+    "id": "2.7-q9",
+    "topic": "interaction",
+    "difficulty": 2,
+    "stem": "Why change temperature and top-p one at a time?",
+    "options": [
+      "Top-p resets temperature",
+      "APIs reject requests that set both",
+      "They are the same knob",
+      "They interact — temperature reshapes the distribution and top-p cuts what was reshaped"
+    ],
+    "answer": 3,
+    "explanation": "Tuning both simultaneously turns a quick decision into an afternoon."
+  },
+  {
+    "id": "2.7-q10",
+    "topic": "two jobs",
+    "difficulty": 3,
+    "stem": "Generating five candidates and picking the best with a scoring model: which settings?",
+    "options": [
+      "Generator: T ~1.0, top-p 0.95 for diversity; scorer: T 0–0.2 for a consistent judgement",
+      "Both at T=0",
+      "Both at T=1.5",
+      "Generator T=0, scorer T=1.5"
+    ],
+    "answer": 0,
+    "explanation": "Different jobs, different variance appetites."
+  }
+]
