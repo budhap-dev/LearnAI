@@ -46,7 +46,7 @@ function makePreBlock(data: LessonData | null) {
     }
     if (/language-output/.test(className)) {
       if (!data) return <p className="muted">Loading output…</p>;
-      return <OutputBlock output={data.output[body] ?? {}} marker={body} />;
+      return <OutputBlock output={data.output[body] ?? {}} marker={body} recorded={data.recorded} />;
     }
     return (
       <CodeBlock source={body}>

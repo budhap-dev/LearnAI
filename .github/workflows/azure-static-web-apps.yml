@@ -39,6 +39,13 @@ jobs:
         run: npm ci && npm run typecheck
         working-directory: examples/ts
 
+      # The llm adapter must replay cassettes identically in both languages, with no key.
+      - name: Adapter smoke test (replay, both languages)
+        run: |
+          (cd examples/python && python3 smoke_llm.py) > py.out
+          (cd examples/ts && node smoke_llm.ts) > ts.out
+          diff py.out ts.out
+
       - name: Install site
         run: npm ci
         working-directory: web

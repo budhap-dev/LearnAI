@@ -1,0 +1,24 @@
+{
+  "request": {
+    "model": "claude-opus-5",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Reply with exactly: adapter smoke test ok"
+      }
+    ],
+    "max_tokens": 32,
+    "system": "You are a test double. Reply with the exact text requested and nothing else."
+  },
+  "response": {
+    "text": "adapter smoke test ok",
+    "model": "claude-opus-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 33,
+      "output_tokens": 7
+    }
+  },
+  "recorded_at": "2026-08-18",
+  "recorded_by": "fixture"
+}

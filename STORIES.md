@@ -422,11 +422,11 @@ snippet can never drift from the code that ran.
 - [x] Both languages shown as tabs; language choice remembered and synced across every block
 - [x] Missing region ⇒ build error
 
-### US-204 · Verified output blocks *(Must, M)* · 🟡 partial — *deterministic capture done in both languages, Py/TS agreement enforced; cassette replay/record for LLM-dependent examples not started*
+### US-204 · Verified output blocks *(Must, M)* · ✅ done — *deterministic capture in both languages with Py/TS agreement enforced; cassette replay/record for LLM-dependent examples via the `llm` adapter*
 - [x] Python and TS harnesses run every lesson's example, capture stdout per marker to JSON
-- [ ] LLM-dependent examples run through the adapter in **replay** mode against cassettes
-- [ ] `RECORD=1` refreshes cassettes with a real key; cassette diff reviewed in PR
-- [ ] Output block shows model + recorded date when it came from a cassette
+- [x] LLM-dependent examples run through the adapter in **replay** mode against cassettes
+- [x] `LEARNAI_LLM_MODE=record` refreshes cassettes with a real key; cassette diff reviewed in PR
+- [x] Output block shows model + recorded date when it came from a cassette
 
 ### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 14 / 66 — *Modules 1 and 2 complete*
 - [ ] Notes for all lessons in §8, each with objectives, body, diagrams, exercises
@@ -520,15 +520,15 @@ about it.
 
 ## E9 — Authoring, examples & CI
 
-### US-901 · Examples workspace *(Must, M)* · 🟡 partial — *layout, `section()` helpers and both harnesses done; `llm` adapter not started*
+### US-901 · Examples workspace *(Must, M)* · ✅ done — *layout, `section()` helpers, both harnesses, and the `llm` adapter (replay/record/live) in both languages*
 - [x] `examples/python` (stdlib, `python3 -m harness`) and `examples/ts` (Node 24 native TS, `node harness.ts`) with a shared
       layout: `mNN_topic/lNN_name.{py,ts}`
-- [ ] `llm` adapter in both languages: `complete()`, `stream()`, `embed()`, `tools()` — one
-      default provider, replay/record modes, token + cost accounting
+- [x] `llm` adapter in both languages: `complete()` with replay/record/live modes, shared cassettes keyed by a cross-language canonical-request hash, token accounting, recorded model + date surfaced to the site
+- [ ] `stream()`, `embed()`, `tools()` — added when the first lesson needs each (5.2, 2.3-style real embeddings in Module 6, 5.3)
 - [x] Every example runnable standalone: `python3 examples/python/m02_llms/l02_tokens.py` / `node examples/ts/m02_llms/l02_tokens.ts`
 
 ### US-902 · Continuous integration *(Must, M)* · 🟡 partial — *typecheck + run all examples + capture + content validate + site build on every PR; no link/axe/Lighthouse* — lint + run all examples (replay mode) + capture + content validate + site build on every PR; link check; axe; Lighthouse budget
-### US-903 · Cassette discipline *(Must, S)* · ⬜ — cassettes carry model, date, request hash; stale (> 6 months) cassettes warn in the build; `RECORD=1` workflow documented
+### US-903 · Cassette discipline *(Must, S)* · ✅ done — cassettes carry request, model, date, recorder; stale (> 183 days) cassettes warn in the build; `LEARNAI_LLM_MODE=record` workflow documented in README and examples/shared/cassettes/README.md; adapter smoke test (both languages, diffed) runs in CI
 ### US-904 · Content authoring guide *(Should, S)* · ⬜ — how to add a lesson, region markers, diagram, explorer, questions, cassette
 
 ---
@@ -876,6 +876,8 @@ themed · ≤15 KB gz lazy chunk · has a "what am I looking at" caption and a "
 4. ~~M1 site features: check cards, pathways, progress dashboard, search~~ — **done.**
 5. ~~Module 1 (Foundations)~~ — **done**; the Orientation route is now complete through
    Module 2.
-6. Design the `llm` adapter + cassette record/replay (US-901/903), then Module 4 (Prompting).
-   Module 3 (Classic ML) is the alternative — it needs no LLM calls but does need scikit-learn
-   or a from-scratch tree/regression in both languages.
+6. ~~Design the `llm` adapter + cassette record/replay~~ — **done** (replay verified in both
+   languages; no cassette has been recorded against the real API yet — that needs credentials).
+7. Module 4 (Prompting): write the examples, then **record the cassettes with a real key**
+   (one-off, reviewed diff), then notes/quizzes. Module 3 (Classic ML) is the no-key
+   alternative.

@@ -44,6 +44,8 @@ export interface LessonData {
   files: Partial<Record<Language, string>>;
   code: Record<string, Partial<Record<Language, string>>>;
   output: Record<string, Partial<Record<Language, string>>>;
+  /** Model responses replayed from cassettes, if the example called a model. */
+  recorded: { model: string; recorded_at: string }[];
 }
 
 export const LEVEL_LABEL: Record<Level, string> = {

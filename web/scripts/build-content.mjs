@@ -131,6 +131,7 @@ for (const dir of await readdir(DOCS, { withFileTypes: true })) {
     const code = {};   // region -> { python?: string, ts?: string }
     const output = {}; // marker -> { python?: string, ts?: string }
     const files = {};
+    const recorded = new Map(); // "model|date" -> { model, recorded_at }
     for (const language of fm.languages) {
       const capture = await readCapture(language, fm.id);
       if (!capture) {
@@ -138,6 +139,7 @@ for (const dir of await readdir(DOCS, { withFileTypes: true })) {
         continue;
       }
       files[language] = capture.file;
+      for (const r of capture.recorded ?? []) recorded.set(`${r.model}|${r.recorded_at}`, r);
       for (const [region, text] of Object.entries(capture.regions)) (code[region] ??= {})[language] = text;
       for (const [marker, text] of Object.entries(capture.outputs)) (output[marker] ??= {})[language] = text;
     }
@@ -176,7 +178,12 @@ for (const dir of await readdir(DOCS, { withFileTypes: true })) {
 
     lessons.push(fm);
     await writeFile(join(OUT_NOTES, `${fm.id}.md`), split.body);
-    await writeFile(join(OUT_LESSONS, `${fm.id}.json`), JSON.stringify({ id: fm.id, files, code, output }));
+    // Recorded model responses older than six months are worth a look - warn, don't fail.
+    for (const r of recorded.values()) {
+      const age = (Date.now() - new Date(r.recorded_at).getTime()) / 86_400_000;
+      if (age > 183) console.warn(`  warning: ${fm.id} replays a response recorded ${r.recorded_at} with ${r.model} (${Math.round(age)} days old) - consider re-recording`);
+    }
+    await writeFile(join(OUT_LESSONS, `${fm.id}.json`), JSON.stringify({ id: fm.id, files, code, output, recorded: [...recorded.values()] }));
     searchIndex.push({
       id: fm.id,
       title: fm.title,

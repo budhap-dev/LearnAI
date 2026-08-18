@@ -8,9 +8,12 @@
     "list": "node harness.ts list",
     "run": "node harness.ts run",
     "capture": "node harness.ts capture ../../web/public/data/captures/ts",
+    "record": "LEARNAI_LLM_MODE=record node harness.ts capture ../../web/public/data/captures/ts",
+    "smoke": "node smoke_llm.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.117.1",
     "@types/node": "^24.13.3",
     "typescript": "~6.0.2"
   }

@@ -1,0 +1,2 @@
+# Only needed to RECORD new cassettes (LEARNAI_LLM_MODE=record). Replay needs nothing.
+anthropic>=0.60

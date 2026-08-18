@@ -11,7 +11,8 @@
  */
 
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { MARKER } from './src/learnai/index.ts';
@@ -84,14 +85,33 @@ function splitSections(stdout: string): Record<string, string> {
   return sections;
 }
 
-function run(path: string): string {
-  // Each example runs in its own process so examples cannot leak state into each other.
+interface Recorded {
+  model: string;
+  recorded_at: string;
+}
+
+/** Run one example in its own process; return its stdout and the cassette recordings it used. */
+function run(path: string): { stdout: string; recorded: Recorded[] } {
+  const dir = mkdtempSync(join(tmpdir(), 'learnai-'));
+  const log = join(dir, 'cassettes.jsonl');
+  writeFileSync(log, '');
   try {
-    return execFileSync(process.execPath, [path], { encoding: 'utf8', cwd: ROOT, stdio: 'pipe' });
+    const stdout = execFileSync(process.execPath, [path], {
+      encoding: 'utf8',
+      cwd: ROOT,
+      stdio: 'pipe',
+      env: { ...process.env, LEARNAI_CASSETTE_LOG: log },
+    });
+    const used = readFileSync(log, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l) as Recorded);
+    const unique = new Map(used.map((u) => [`${u.model}|${u.recorded_at}`, u]));
+    const recorded = [...unique.values()].sort((a, b) => `${a.model}|${a.recorded_at}`.localeCompare(`${b.model}|${b.recorded_at}`));
+    return { stdout, recorded };
   } catch (error) {
     const stderr = (error as { stderr?: string }).stderr ?? '';
     console.error(`example failed: ${relative(ROOT, path)}\n${stderr}`);
     process.exit(1);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
   }
 }
 
@@ -100,12 +120,15 @@ function capture(outDir: string): void {
   const lessons = discover();
   for (const [lessonId, path] of lessons) {
     const source = readFileSync(path, 'utf8');
+    const { stdout, recorded } = run(path);
     const payload = {
       lesson: lessonId,
       language: 'ts',
       file: relative(REPO, path).split('\\').join('/'),
       regions: extractRegions(source),
-      outputs: splitSections(run(path)),
+      outputs: splitSections(stdout),
+      // Which model + date the recorded responses came from, if the example called one.
+      recorded,
     };
     writeFileSync(join(outDir, `${lessonId}.json`), JSON.stringify(payload, null, 2));
     console.log(
@@ -125,7 +148,7 @@ if (command === 'list') {
     console.error(`no example for lesson ${arg}`);
     process.exit(1);
   }
-  process.stdout.write(run(path));
+  process.stdout.write(run(path).stdout);
 } else if (command === 'capture') {
   capture(arg ?? 'captures');
 } else {
