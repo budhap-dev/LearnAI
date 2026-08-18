@@ -1,0 +1,17 @@
+{
+  "name": "learnai-examples-ts",
+  "private": true,
+  "type": "module",
+  "description": "Runnable TypeScript examples for LearnAI - one file per lesson, run directly by Node 24+",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "list": "node harness.ts list",
+    "run": "node harness.ts run",
+    "capture": "node harness.ts capture ../../web/public/data/captures/ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "typescript": "~6.0.2"
+  }
+}

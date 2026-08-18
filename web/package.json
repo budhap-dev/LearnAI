@@ -1,0 +1,38 @@
+{
+  "name": "learnai-web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "capture": "npm run capture:py && npm run capture:ts",
+    "capture:py": "cd ../examples/python && python3 -m harness capture ../../web/public/data/captures/python",
+    "capture:ts": "cd ../examples/ts && node harness.ts capture ../../web/public/data/captures/ts",
+    "content": "node scripts/build-content.mjs",
+    "dev": "npm run capture && npm run content && vite",
+    "build": "npm run capture && npm run content && tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "oxlint ."
+  },
+  "dependencies": {
+    "gpt-tokenizer": "^4.0.0",
+    "highlight.js": "^11.12.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.18.2",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "oxlint": "^1.75.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0",
+    "yaml": "^2.8.0",
+    "zod": "^4.1.0"
+  }
+}

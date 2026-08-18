@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Learn AI for software engineers - from what a token is to production LLM systems. Diagrams, interactive explorers, and runnable Python and TypeScript examples."
+    />
+    <title>Learn AI</title>
+  </head>
+  <body>
+    <script>
+      // Applied inline, before React loads, so the page never flashes the wrong theme.
+      try {
+        // Keep the fallback in sync with DEFAULT_THEME in src/lib/theme.ts.
+        var theme = localStorage.getItem('learnai.theme') || 'slate';
+        if (theme !== 'system') document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
