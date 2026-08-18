@@ -924,3 +924,13 @@ ol.emb-list li button { flex: 1; }
 .check .options { margin: 0.5rem 0; }
 .check-why { margin: 0.6rem 0 0; font-size: 0.92rem; }
 .bar-list .level { justify-self: start; }
+
+/* gradient descent */
+.gd-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.7fr); gap: 1rem; align-items: start; }
+.gd-surface { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); }
+.gd-fit { width: 100%; height: auto; border-radius: 8px; border: 1px dashed var(--border); background: var(--bg); }
+.gd-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.4rem 1rem; margin: 0.6rem 0 0; font-size: 0.86rem; }
+.gd-stats div { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding: 0.15rem 0; }
+.gd-stats dt { color: var(--muted); }
+.gd-stats dd { margin: 0; font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) { .gd-layout { grid-template-columns: 1fr; } }

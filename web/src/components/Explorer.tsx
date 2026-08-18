@@ -54,6 +54,13 @@ export const EXPLORERS: ExplorerInfo[] = [
     lesson: '2.5',
     load: () => import('./explorers/ContextBudget'),
   },
+  {
+    id: 'gradient-descent',
+    name: 'Gradient descent',
+    teaches: 'How every model is trained: two parameters, a loss surface, a learning rate — step, watch it descend, crank it and watch it diverge.',
+    lesson: '1.2',
+    load: () => import('./explorers/GradientDescent'),
+  },
 ];
 
 const byId = Object.fromEntries(EXPLORERS.map((e) => [e.id, e]));

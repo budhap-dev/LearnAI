@@ -13,6 +13,7 @@ export const C = {
   soft: 'var(--accent-soft)',
   border: 'var(--border)',
   surface: 'var(--surface)',
+  bg: 'var(--bg)',
   correct: 'var(--correct)',
   correctSoft: 'var(--correct-soft)',
   wrong: 'var(--wrong)',

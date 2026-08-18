@@ -1,0 +1,142 @@
+[
+  {
+    "id": "1.6-q1",
+    "topic": "taxonomy",
+    "difficulty": 1,
+    "stem": "The four sources of AI failure in this lesson are…",
+    "options": [
+      "Bugs, outages, hackers, users",
+      "Hardware, software, network, people",
+      "Python, TypeScript, prompts, data",
+      "Model, input, system, organisation"
+    ],
+    "answer": 3,
+    "explanation": "Sorting by source tells you where the fix lives."
+  },
+  {
+    "id": "1.6-q2",
+    "topic": "fabrication",
+    "difficulty": 2,
+    "stem": "A model states a false product spec. Where does the fix live?",
+    "options": [
+      "Input and checks — retrieve the real spec, require citation, refuse otherwise",
+      "A restart",
+      "Training the support team",
+      "A bigger model"
+    ],
+    "answer": 0,
+    "explanation": "Fabrication is structural; design around it."
+  },
+  {
+    "id": "1.6-q3",
+    "topic": "injection",
+    "difficulty": 2,
+    "stem": "Why is prompt injection new?",
+    "options": [
+      "Software has never had a component that reads data and might obey it",
+      "It is a variant of SQL injection",
+      "It only affects images",
+      "It is not new"
+    ],
+    "answer": 0,
+    "explanation": "Any read-and-act system has an injection surface."
+  },
+  {
+    "id": "1.6-q4",
+    "topic": "cost",
+    "difficulty": 2,
+    "stem": "Bill tripled, traffic flat. Most likely?",
+    "options": [
+      "Currency change",
+      "Vendor price hike",
+      "More tokens per request — longer history, more retrieval, a retry loop or a non-terminating agent",
+      "Users typing more"
+    ],
+    "answer": 2,
+    "explanation": "Cost = tokens × calls; sudden multiples are system changes."
+  },
+  {
+    "id": "1.6-q5",
+    "topic": "truncation",
+    "difficulty": 2,
+    "stem": "Silent truncation is prevented by…",
+    "options": [
+      "Explicit budgets and logging finish_reason and tokens per part",
+      "Lower temperature",
+      "Retries",
+      "A bigger window"
+    ],
+    "answer": 0,
+    "explanation": "Lesson 2.5."
+  },
+  {
+    "id": "1.6-q6",
+    "topic": "versions",
+    "difficulty": 2,
+    "stem": "Behaviour shifted overnight with no deploy. Likely?",
+    "options": [
+      "The vendor changed the model version — pin, eval on upgrade, canary",
+      "Cache expiry",
+      "Cosmic rays",
+      "Users changed"
+    ],
+    "answer": 0,
+    "explanation": "Lesson 9.8."
+  },
+  {
+    "id": "1.6-q7",
+    "topic": "bias",
+    "difficulty": 2,
+    "stem": "Bias in a model comes from…",
+    "options": [
+      "Random noise",
+      "The tokeniser",
+      "Patterns in training data and labels — evaluate across groups, keep humans on consequential decisions",
+      "The learning rate"
+    ],
+    "answer": 2,
+    "explanation": "It reproduces what it was trained on."
+  },
+  {
+    "id": "1.6-q8",
+    "topic": "org",
+    "difficulty": 2,
+    "stem": "Which is an organisational failure?",
+    "options": [
+      "No eval before launch and no owner for the prompt",
+      "Knowledge cutoff",
+      "Quadratic attention cost",
+      "Non-determinism"
+    ],
+    "answer": 0,
+    "explanation": "Process failures cause the most expensive incidents."
+  },
+  {
+    "id": "1.6-q9",
+    "topic": "sentence",
+    "difficulty": 1,
+    "stem": "The sentence every design doc needs?",
+    "options": [
+      "'The model is state of the art'",
+      "'When the model is wrong, …' finished with a specific path",
+      "'Temperature is 0'",
+      "'We use the largest context window'"
+    ],
+    "answer": 1,
+    "explanation": "If nobody can finish it, the feature is not designed."
+  },
+  {
+    "id": "1.6-q10",
+    "topic": "logs",
+    "difficulty": 2,
+    "stem": "Which log fields cover all four failure columns?",
+    "options": [
+      "Status code and latency",
+      "Only the answer text",
+      "Prompt/model version, tokens per part + finish reason, retrieved sources, tool calls, validation outcome",
+      "User id"
+    ],
+    "answer": 2,
+    "explanation": "Together they diagnose model, input, system and process."
+  }
+]

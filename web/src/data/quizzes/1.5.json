@@ -1,0 +1,142 @@
+[
+  {
+    "id": "1.5-q1",
+    "topic": "layers",
+    "difficulty": 1,
+    "stem": "Which layers do most product teams build in?",
+    "options": [
+      "All six equally",
+      "Applications/agents and orchestration/tooling",
+      "Hardware and training",
+      "Models and serving"
+    ],
+    "answer": 1,
+    "explanation": "Buy the model, rent the hardware, build on top."
+  },
+  {
+    "id": "1.5-q2",
+    "topic": "self-host",
+    "difficulty": 2,
+    "stem": "Self-hosting an open model means taking ownership of…",
+    "options": [
+      "Serving and hardware too — GPUs, capacity, an inference server, upgrades, on-call",
+      "Only the model file",
+      "Nothing extra",
+      "The training data"
+    ],
+    "answer": 0,
+    "explanation": "It can be right for privacy or unit economics; it is an operations commitment."
+  },
+  {
+    "id": "1.5-q3",
+    "topic": "open weights",
+    "difficulty": 2,
+    "stem": "'Open weights' guarantees…",
+    "options": [
+      "Commercial use",
+      "You can run the model — not that data/recipe are open or that the licence allows your use",
+      "Open training data",
+      "Free hosting"
+    ],
+    "answer": 1,
+    "explanation": "Read the licence."
+  },
+  {
+    "id": "1.5-q4",
+    "topic": "model kinds",
+    "difficulty": 1,
+    "stem": "Which is NOT one of the four model kinds in this lesson?",
+    "options": [
+      "Open-weight",
+      "Rule-based expert systems",
+      "Frontier hosted",
+      "Embedding models"
+    ],
+    "answer": 1,
+    "explanation": "Small/specialised is the fourth; expert systems are outer-ring AI, not models you pick here."
+  },
+  {
+    "id": "1.5-q5",
+    "topic": "region",
+    "difficulty": 2,
+    "stem": "Customer text must stay in-region. Which options survive?",
+    "options": [
+      "None",
+      "Self-hosting, or a hosted model via a cloud platform with in-region processing and a suitable agreement",
+      "Only self-hosting",
+      "Any vendor API"
+    ],
+    "answer": 1,
+    "explanation": "Region and data handling are serving-layer properties; check the contract."
+  },
+  {
+    "id": "1.5-q6",
+    "topic": "hardware leak",
+    "difficulty": 2,
+    "stem": "How does the hardware layer reach a product engineer?",
+    "options": [
+      "Per-token pricing, latency that scales with tokens, rate limits",
+      "Via the tokeniser",
+      "Through the UI",
+      "It does not"
+    ],
+    "answer": 0,
+    "explanation": "Capacity is rationed and metered."
+  },
+  {
+    "id": "1.5-q7",
+    "topic": "versions",
+    "difficulty": 2,
+    "stem": "A vendor ships a new model version. Which layer changed and what should you do?",
+    "options": [
+      "Hardware — nothing",
+      "Applications — restart",
+      "Tooling — update the SDK",
+      "Training & data — run your evals before adopting; pin versions"
+    ],
+    "answer": 3,
+    "explanation": "Behaviour shifts with training; evals notice."
+  },
+  {
+    "id": "1.5-q8",
+    "topic": "default",
+    "difficulty": 2,
+    "stem": "Sensible default posture?",
+    "options": [
+      "Hosted first, gateway in front so it is reversible, self-host by exception",
+      "Pick one vendor forever",
+      "Frontier only, no gateway",
+      "Self-host everything"
+    ],
+    "answer": 0,
+    "explanation": "Keeps the choice reversible while learning what the workload needs."
+  },
+  {
+    "id": "1.5-q9",
+    "topic": "embedding",
+    "difficulty": 1,
+    "stem": "Embedding models are usually used…",
+    "options": [
+      "Instead of all other models",
+      "Only in training",
+      "Alongside a generation model, for search/RAG/clustering",
+      "Only for images"
+    ],
+    "answer": 2,
+    "explanation": "Text → vector for retrieval (Lesson 2.3)."
+  },
+  {
+    "id": "1.5-q10",
+    "topic": "small models",
+    "difficulty": 2,
+    "stem": "When does a small/specialised model beat a frontier one?",
+    "options": [
+      "Long multi-step agents",
+      "Classification, extraction, routing where latency and cost matter and it can be fine-tuned",
+      "Never",
+      "Open-ended reasoning"
+    ],
+    "answer": 1,
+    "explanation": "Settle with an eval on real data."
+  }
+]

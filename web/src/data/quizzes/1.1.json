@@ -1,0 +1,142 @@
+[
+  {
+    "id": "1.1-q1",
+    "topic": "rings",
+    "difficulty": 1,
+    "stem": "Which statement about the rings is correct?",
+    "options": [
+      "Machine learning is a subset of generative AI",
+      "Every LLM is deep learning, which is machine learning, which is AI",
+      "AI and machine learning are the same thing",
+      "Deep learning includes hand-written rule engines"
+    ],
+    "answer": 1,
+    "explanation": "The rings nest: GenAI ⊂ DL ⊂ ML ⊂ AI. A rule engine is AI without being ML."
+  },
+  {
+    "id": "1.1-q2",
+    "topic": "rules vs learned",
+    "difficulty": 2,
+    "stem": "A behaviour is learned from data rather than written. What follows for testing?",
+    "options": [
+      "Only manual testing is possible",
+      "Measure rates over a set of examples rather than asserting exact outputs",
+      "Testing is unnecessary because the model was validated during training",
+      "Nothing changes — assert exact outputs as usual"
+    ],
+    "answer": 1,
+    "explanation": "Learned behaviour is evaluated statistically. Exact-output assertions are for written rules."
+  },
+  {
+    "id": "1.1-q3",
+    "topic": "vendor claim",
+    "difficulty": 1,
+    "stem": "A product 'uses AI'. What do you know about how it works?",
+    "options": [
+      "It uses a neural network",
+      "It uses an LLM",
+      "It was trained on customer data",
+      "Almost nothing — ask which ring, whether behaviour is written or learned, and from what data"
+    ],
+    "answer": 3,
+    "explanation": "'AI' is a family name spanning rule engines to LLMs."
+  },
+  {
+    "id": "1.1-q4",
+    "topic": "when not to learn",
+    "difficulty": 2,
+    "stem": "Uploaded files must have a valid ISO date in the name. Best approach?",
+    "options": [
+      "A fine-tuned classifier",
+      "An LLM with a careful prompt",
+      "Embeddings and nearest-neighbour",
+      "A regular expression — the rule is known and exceptions are few"
+    ],
+    "answer": 3,
+    "explanation": "If the logic can be written, write it: cheaper, faster, testable, explainable."
+  },
+  {
+    "id": "1.1-q5",
+    "topic": "five questions",
+    "difficulty": 2,
+    "stem": "Which question most directly exposes whether an AI feature can be measured?",
+    "options": [
+      "What does 'correct' mean, and do we have examples of it?",
+      "Should we use Python or TypeScript?",
+      "How big is the context window?",
+      "Which vendor should we use?"
+    ],
+    "answer": 0,
+    "explanation": "Without a definition of correct and examples of it, no eval is possible (Module 8)."
+  },
+  {
+    "id": "1.1-q6",
+    "topic": "classic ML",
+    "difficulty": 1,
+    "stem": "Most 'AI in production' over the last decade — fraud scores, recommendations, forecasts — has been…",
+    "options": [
+      "Large language models",
+      "Rule engines only",
+      "Machine learning on tabular data, not generative AI",
+      "Reinforcement learning"
+    ],
+    "answer": 2,
+    "explanation": "Classic supervised ML is the workhorse; Module 3 covers it."
+  },
+  {
+    "id": "1.1-q7",
+    "topic": "explaining decisions",
+    "difficulty": 2,
+    "stem": "Why is a learned model's decision harder to explain than a rule's?",
+    "options": [
+      "Explanations are legally restricted",
+      "Models are encrypted",
+      "The 'reason' is a pattern distributed across parameters, not a line of code you can read",
+      "Vendors hide the code"
+    ],
+    "answer": 2,
+    "explanation": "Partial explanations exist, but there is no code path to point at."
+  },
+  {
+    "id": "1.1-q8",
+    "topic": "cost",
+    "difficulty": 2,
+    "stem": "How does per-call cost differ between a rule and a model?",
+    "options": [
+      "Rules cost more because they run on CPUs",
+      "They cost the same",
+      "A rule costs ~nothing per call; a model costs tokens or GPU time every time",
+      "Models are cheaper per call"
+    ],
+    "answer": 2,
+    "explanation": "Metered inference is a design constraint from day one (Lessons 2.2, 9.4)."
+  },
+  {
+    "id": "1.1-q9",
+    "topic": "failure shape",
+    "difficulty": 2,
+    "stem": "A learned component's typical failure looks like…",
+    "options": [
+      "A stack trace",
+      "A wrong answer that sounds right, often not reproducible",
+      "A timeout",
+      "A compile error"
+    ],
+    "answer": 1,
+    "explanation": "Plausible wrong outputs, silently — which is why checks and evals matter."
+  },
+  {
+    "id": "1.1-q10",
+    "topic": "changing behaviour",
+    "difficulty": 2,
+    "stem": "To change a learned system's behaviour you…",
+    "options": [
+      "Change the data, retrain/fine-tune, or change the prompt — not edit an if-statement",
+      "Edit the code path",
+      "Increase the context window",
+      "Restart the service"
+    ],
+    "answer": 0,
+    "explanation": "The logic lives in data and parameters, not in branches."
+  }
+]
