@@ -1,58 +1,110 @@
-name: Azure Static Web Apps CI/CD
+name: Build and deploy
+# NOTE: this file name is required by Azure Static Web Apps (GitHub OIDC deployment authorization
+# identifies the app by the workflow file name). Do not rename it.
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
   pull_request:
     types: [opened, synchronize, reopened, closed]
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+  build_and_deploy:
+    if: github.event_name == 'push' || github.event.action != 'closed'
     runs-on: ubuntu-latest
-    name: Build and Deploy Job
+    name: Build and deploy
     permissions:
-       id-token: write
-       contents: read
+      id-token: write   # the Static Web App authorises deploys via GitHub OIDC
+      contents: read
+      pull-requests: write   # staging-URL comment on PRs
+    env:
+      # Empty until the Azure Static Web App exists and its token is added as a repo secret.
+      # Until then the build and verification steps still run - only the deploy is skipped.
+      SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_GLACIER_086E9A910 }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      # The examples are the correctness harness. Every lesson's Python and TypeScript
+      # example runs here and its output is captured; the site build then verifies that
+      # every ```code / ```output fence in the notes resolves and that both languages agree.
+      - uses: actions/setup-python@v5
         with:
-          submodules: true
-          lfs: false
-      - name: Install OIDC Client from Core Package
+          python-version: '3.13'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: |
+            web/package-lock.json
+            examples/ts/package-lock.json
+
+      - name: Typecheck TypeScript examples
+        run: npm ci && npm run typecheck
+        working-directory: examples/ts
+
+      # The llm adapter must replay cassettes identically in both languages, with no key.
+      - name: Adapter smoke test (replay, both languages)
+        run: |
+          (cd examples/python && python3 smoke_llm.py) > py.out
+          (cd examples/ts && node smoke_llm.ts) > ts.out
+          diff py.out ts.out
+
+      - name: Install site
+        run: npm ci
+        working-directory: web
+
+      - name: Build site (runs and captures every example, validates content)
+        run: npm run build
+        working-directory: web
+
+      # The app was created with "deployment authorization: GitHub", so the deploy action needs
+      # a GitHub OIDC token as well as the deployment token (this is what Azure's generated
+      # workflow does).
+      - name: Install OIDC client
+        if: env.SWA_TOKEN != ''
         run: npm install @actions/core@1.6.0 @actions/http-client
-      - name: Get Id Token
-        uses: actions/github-script@v6
+      - name: Get id token
+        if: env.SWA_TOKEN != ''
+        uses: actions/github-script@v7
         id: idtoken
         with:
-           script: |
-               const coredemo = require('@actions/core')
-               return await coredemo.getIDToken()
-           result-encoding: string
-      - name: Build And Deploy
-        id: builddeploy
+          script: |
+            const coredemo = require('@actions/core')
+            return await coredemo.getIDToken()
+          result-encoding: string
+
+      - name: Deploy to Azure Static Web Apps
+        if: env.SWA_TOKEN != ''
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_GLACIER_086E9A910 }}
-          action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "./web" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "build" # Built app content directory - optional
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           github_id_token: ${{ steps.idtoken.outputs.result }}
-          ###### End of Repository/Build Configurations ######
+          action: upload
+          app_location: web/dist
+          # No api_location on purpose: adding an API is what takes this off the free tier.
+          api_location: ''
+          skip_app_build: true
 
-  close_pull_request_job:
+      - name: Deployment skipped
+        if: env.SWA_TOKEN == ''
+        run: |
+          echo "::notice::Site built successfully but was not deployed."
+          echo "::notice::Create an Azure Static Web App on the Free plan, then add its"
+          echo "::notice::deployment token as the AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_GLACIER_086E9A910 secret."
+
+  close_pull_request:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
-    name: Close Pull Request Job
+    name: Close staging environment
+    env:
+      SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_GLACIER_086E9A910 }}
     steps:
-      - name: Close Pull Request
-        id: closepullrequest
+      - if: env.SWA_TOKEN != ''
         uses: Azure/static-web-apps-deploy@v1
         with:
-          action: "close"
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_GLACIER_086E9A910 }}
+          action: close
