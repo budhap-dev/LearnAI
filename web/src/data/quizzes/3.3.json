@@ -1,0 +1,142 @@
+[
+  {
+    "id": "3.3-q1",
+    "topic": "held-out",
+    "difficulty": 1,
+    "stem": "Where must evaluation numbers come from?",
+    "options": [
+      "The largest dataset",
+      "Any rows",
+      "Training rows",
+      "Rows the model never trained on"
+    ],
+    "answer": 3,
+    "explanation": "Training-set numbers flatter every model."
+  },
+  {
+    "id": "3.3-q2",
+    "topic": "baseline",
+    "difficulty": 2,
+    "stem": "With 30% positives, 'always predict no' has 70% accuracy. What follows?",
+    "options": [
+      "Positives are too rare to model",
+      "70% is a good model",
+      "Accuracy misleads with imbalance; use recall/precision on the rare class and beat this baseline",
+      "Use accuracy anyway"
+    ],
+    "answer": 2,
+    "explanation": "Every model must beat a baseline on a metric that reflects the goal."
+  },
+  {
+    "id": "3.3-q3",
+    "topic": "precision",
+    "difficulty": 1,
+    "stem": "Precision is…",
+    "options": [
+      "Positives over negatives",
+      "Of what we flagged, how much was real",
+      "Right answers over all",
+      "Of the real, how much we caught"
+    ],
+    "answer": 1,
+    "explanation": "TP / (TP + FP)."
+  },
+  {
+    "id": "3.3-q4",
+    "topic": "recall",
+    "difficulty": 1,
+    "stem": "Recall is…",
+    "options": [
+      "F1 divided by precision",
+      "Right answers over all",
+      "Of what we flagged, how much was real",
+      "Of the real cases, how many we caught"
+    ],
+    "answer": 3,
+    "explanation": "TP / (TP + FN)."
+  },
+  {
+    "id": "3.3-q5",
+    "topic": "threshold",
+    "difficulty": 2,
+    "stem": "Reviewers complain about false alarms. Honest offer?",
+    "options": [
+      "Nothing can change",
+      "Raise the threshold: fewer FP, more FN — decide the line together",
+      "Retrain until both are perfect",
+      "Lower the threshold"
+    ],
+    "answer": 1,
+    "explanation": "At a fixed model the threshold trades precision for recall."
+  },
+  {
+    "id": "3.3-q6",
+    "topic": "auc",
+    "difficulty": 2,
+    "stem": "AUC measures…",
+    "options": [
+      "Training loss",
+      "Accuracy at 0.5",
+      "Cost per error",
+      "Ranking quality — P(random positive outranks random negative), threshold-free"
+    ],
+    "answer": 3,
+    "explanation": "Compare models on AUC; choose thresholds afterwards."
+  },
+  {
+    "id": "3.3-q7",
+    "topic": "leakage",
+    "difficulty": 2,
+    "stem": "0.94 AUC on a random split of 3 years of data; production is much worse. Likely?",
+    "options": [
+      "Needs more trees",
+      "Bad luck",
+      "Random split let the model train on the future — split by time",
+      "Threshold wrong"
+    ],
+    "answer": 2,
+    "explanation": "Evaluate the way production experiences it: past → future."
+  },
+  {
+    "id": "3.3-q8",
+    "topic": "leakage-2",
+    "difficulty": 2,
+    "stem": "A feature 'refund_issued' when predicting fraud is…",
+    "options": [
+      "Fine for trees only",
+      "Leakage — not known at prediction time",
+      "A strong legitimate feature",
+      "Fine if scaled"
+    ],
+    "answer": 1,
+    "explanation": "Ask 'would we know this at prediction time?' for every feature."
+  },
+  {
+    "id": "3.3-q9",
+    "topic": "slices",
+    "difficulty": 2,
+    "stem": "Why look at metrics per segment?",
+    "options": [
+      "Segments always perform equally",
+      "Averages hide the group the model fails for; this is where bias shows",
+      "To increase AUC",
+      "It is required by law"
+    ],
+    "answer": 1,
+    "explanation": "Slices and a read sample, not one number."
+  },
+  {
+    "id": "3.3-q10",
+    "topic": "llm",
+    "difficulty": 2,
+    "stem": "Evaluating an LLM classifier uses…",
+    "options": [
+      "No evaluation — LLMs are pretrained",
+      "Only vibes",
+      "Training loss",
+      "The same discipline: held-out set, confusion matrix, precision/recall, slices, a read sample"
+    ],
+    "answer": 3,
+    "explanation": "Module 8 is this vocabulary applied."
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "3.4-q1",
+    "topic": "kmeans",
+    "difficulty": 1,
+    "stem": "k-means does…",
+    "options": [
+      "Score anomalies",
+      "Fit a boundary from labels",
+      "Assign points to nearest centre, move centres to means, repeat",
+      "Predict a number"
+    ],
+    "answer": 2,
+    "explanation": "Simple, fast, deterministic given a start."
+  },
+  {
+    "id": "3.4-q2",
+    "topic": "k",
+    "difficulty": 2,
+    "stem": "How do you know a clustering worked?",
+    "options": [
+      "People can name the groups and would act differently on them",
+      "Loss is zero",
+      "It converged",
+      "Clusters are equal size"
+    ],
+    "answer": 0,
+    "explanation": "No labels — usefulness is the test."
+  },
+  {
+    "id": "3.4-q3",
+    "topic": "scaling",
+    "difficulty": 2,
+    "stem": "Adding 'spend in cents' made every cluster a spend band. Why?",
+    "options": [
+      "k too small",
+      "Spend is most important",
+      "Unscaled range dominates distance — scale features first",
+      "k-means requires cents"
+    ],
+    "answer": 2,
+    "explanation": "Distance-based methods weight by numeric range."
+  },
+  {
+    "id": "3.4-q4",
+    "topic": "zscore",
+    "difficulty": 2,
+    "stem": "A z-score of +3.24 means…",
+    "options": [
+      "The value is 3.24 standard deviations above the mean — a classic anomaly line",
+      "3.24% chance of anomaly",
+      "The row is in cluster 3",
+      "Nothing without labels"
+    ],
+    "answer": 0,
+    "explanation": "Crude, explainable, often enough."
+  },
+  {
+    "id": "3.4-q5",
+    "topic": "assumptions",
+    "difficulty": 2,
+    "stem": "z-scores assume…",
+    "options": [
+      "Labelled data",
+      "A roughly bell-shaped baseline",
+      "Nothing",
+      "Scaled features"
+    ],
+    "answer": 1,
+    "explanation": "For heavy tails use median/MAD; for multi-dimensional anomalies use isolation forests."
+  },
+  {
+    "id": "3.4-q6",
+    "topic": "bootstrap",
+    "difficulty": 2,
+    "stem": "Ten thousand unlabelled tickets. Sensible plan?",
+    "options": [
+      "Embed + cluster, name clusters, label a sample, train a classifier",
+      "Read them all",
+      "Wait for labels",
+      "Ask an LLM to summarise each"
+    ],
+    "answer": 0,
+    "explanation": "The labels-from-nothing bootstrap (Lesson 1.3)."
+  },
+  {
+    "id": "3.4-q7",
+    "topic": "start",
+    "difficulty": 2,
+    "stem": "Different runs of k-means gave different clusters. Why?",
+    "options": [
+      "The data changed",
+      "k-means is random by design and unusable",
+      "Feature scaling changed",
+      "The starting centres matter; real implementations run several starts"
+    ],
+    "answer": 3,
+    "explanation": "Fix the start for reproducibility; try several to check stability."
+  },
+  {
+    "id": "3.4-q8",
+    "topic": "deploys",
+    "difficulty": 3,
+    "stem": "Host anomaly detector alerts constantly during deploys. Problem type?",
+    "options": [
+      "Too few hosts",
+      "Anomaly detection is broken",
+      "Modelling of normal — deploys are a known regime; add it as a feature or a separate baseline",
+      "z-scores cannot work"
+    ],
+    "answer": 2,
+    "explanation": "The definition of normal was incomplete."
+  },
+  {
+    "id": "3.4-q9",
+    "topic": "first tier",
+    "difficulty": 2,
+    "stem": "Clustering and anomaly detection are typically…",
+    "options": [
+      "The cheap first tier before labels, models or LLM calls",
+      "Replaced by LLMs",
+      "The last resort",
+      "Only for research"
+    ],
+    "answer": 0,
+    "explanation": "Cluster before deciding what to build; flag before a person looks."
+  },
+  {
+    "id": "3.4-q10",
+    "topic": "dedup",
+    "difficulty": 1,
+    "stem": "Find near-duplicate documents with…",
+    "options": [
+      "A classifier",
+      "z-scores on length",
+      "Embeddings + a high-similarity threshold",
+      "k-means with k = 2"
+    ],
+    "answer": 2,
+    "explanation": "No clustering needed."
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "3.1-q1",
+    "topic": "three questions",
+    "difficulty": 1,
+    "stem": "The three questions that decide rules vs classic ML vs LLM are…",
+    "options": [
+      "Which vendor? Which language? Which cloud?",
+      "Do we have GPUs? Do we have a data scientist? Do we have budget?",
+      "Can you write the rule? Tabular data + labels? Free-form language + judgement?",
+      "Is it cheap? Is it fast? Is it new?"
+    ],
+    "answer": 2,
+    "explanation": "They settle most cases; the fourth option is embeddings + nearest neighbour."
+  },
+  {
+    "id": "3.1-q2",
+    "topic": "tabular",
+    "difficulty": 2,
+    "stem": "Predict SLA breach from queue, priority, hour, tier, age. First choice?",
+    "options": [
+      "Embeddings of the ticket title",
+      "A rule: priority high → breach",
+      "A classic classifier on the metadata — labelled rows, tabular, fast, explainable",
+      "An LLM reading the ticket text"
+    ],
+    "answer": 2,
+    "explanation": "Rows + labels + speed + explainability = boosted trees or logistic regression."
+  },
+  {
+    "id": "3.1-q3",
+    "topic": "composite",
+    "difficulty": 2,
+    "stem": "The composite pattern that wins most often is…",
+    "options": [
+      "LLM end to end for everything",
+      "Rules end to end for everything",
+      "Classic ML reading raw text",
+      "LLM to turn language into structure → classic ML or rules on the structure"
+    ],
+    "answer": 3,
+    "explanation": "Each part does what it is good at and is testable in its own way."
+  },
+  {
+    "id": "3.1-q4",
+    "topic": "explainability",
+    "difficulty": 2,
+    "stem": "A decision must be explained to a regulator. Which options survive?",
+    "options": [
+      "LLM only",
+      "None",
+      "Any — LLM explanations are reliable",
+      "Rules and classic ML (feature contributions)"
+    ],
+    "answer": 3,
+    "explanation": "An LLM's stated reason is generated text, not the mechanism."
+  },
+  {
+    "id": "3.1-q5",
+    "topic": "cost",
+    "difficulty": 1,
+    "stem": "Per-call cost of classic ML vs an LLM?",
+    "options": [
+      "LLM cheaper",
+      "Both metered equally",
+      "Both free",
+      "Classic ~0 in ms; LLM metered per token in seconds"
+    ],
+    "answer": 3,
+    "explanation": "Latency and price differ by orders of magnitude."
+  },
+  {
+    "id": "3.1-q6",
+    "topic": "embeddings option",
+    "difficulty": 2,
+    "stem": "'Find similar tickets' is best served by…",
+    "options": [
+      "Embeddings + nearest neighbour — no generation call",
+      "An LLM comparing every pair",
+      "A regression model",
+      "A rule on keywords"
+    ],
+    "answer": 0,
+    "explanation": "Similarity is the embeddings primitive (Lesson 2.3)."
+  },
+  {
+    "id": "3.1-q7",
+    "topic": "no data",
+    "difficulty": 2,
+    "stem": "No labelled data and no definition of correct. What now?",
+    "options": [
+      "Cluster and deploy",
+      "Not a learning problem yet: ship the rule, log everything, revisit with labels",
+      "Train an LLM",
+      "Buy a model"
+    ],
+    "answer": 1,
+    "explanation": "Lesson 1.3: labels are the constraint."
+  },
+  {
+    "id": "3.1-q8",
+    "topic": "free-text",
+    "difficulty": 2,
+    "stem": "Customers ask free-text billing questions. Design?",
+    "options": [
+      "Retrieve policy passages, LLM answers with citations, code handles side effects",
+      "Rules on keywords",
+      "One LLM call end to end",
+      "Classifier picking canned answers only"
+    ],
+    "answer": 0,
+    "explanation": "Language → LLM, grounded by retrieval, never acting alone."
+  },
+  {
+    "id": "3.1-q9",
+    "topic": "unverifiable",
+    "difficulty": 3,
+    "stem": "Cost of being wrong is high and no code/source/human can check the output. What do you automate?",
+    "options": [
+      "The preparation for a human decision, not the decision",
+      "The decision — with a firm prompt",
+      "Nothing at all",
+      "The decision, at temperature 0"
+    ],
+    "answer": 0,
+    "explanation": "Automate what can be checked; keep the unverifiable decision with a person."
+  },
+  {
+    "id": "3.1-q10",
+    "topic": "first tier",
+    "difficulty": 2,
+    "stem": "Which is a good cheap first tier in front of an LLM?",
+    "options": [
+      "A classifier or embedding lookup that handles the common cases",
+      "A longer prompt",
+      "A bigger LLM",
+      "A second LLM"
+    ],
+    "answer": 0,
+    "explanation": "Cheap tiers reduce cost and latency; the LLM handles the tail."
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "3.2-q1",
+    "topic": "definition",
+    "difficulty": 1,
+    "stem": "A classic classifier is…",
+    "options": [
+      "A lookup table of past cases",
+      "A vector database",
+      "A function from features to a score, with parameters fitted to labelled rows",
+      "A set of hand-written rules"
+    ],
+    "answer": 2,
+    "explanation": "Everything else — trees, boosting, nets — is a different function family, same loop."
+  },
+  {
+    "id": "3.2-q2",
+    "topic": "logistic",
+    "difficulty": 2,
+    "stem": "Logistic regression computes…",
+    "options": [
+      "A tree of questions",
+      "A cluster assignment",
+      "A weighted sum of features squashed into (0,1)",
+      "The nearest labelled row"
+    ],
+    "answer": 2,
+    "explanation": "Weights are the explanation — why it is often first and last."
+  },
+  {
+    "id": "3.2-q3",
+    "topic": "threshold",
+    "difficulty": 2,
+    "stem": "p = 0.72 for a row means…",
+    "options": [
+      "A score readable as a probability; a decision needs a threshold",
+      "The row is positive",
+      "The model is uncertain",
+      "72% accuracy"
+    ],
+    "answer": 0,
+    "explanation": "The threshold is a product choice (Lesson 3.3)."
+  },
+  {
+    "id": "3.2-q4",
+    "topic": "features",
+    "difficulty": 2,
+    "stem": "Which rule prevents the most production bugs?",
+    "options": [
+      "Use one-hot for everything",
+      "Always use raw features",
+      "Refit the scaler on each request",
+      "The same feature code runs at training and serving; statistics fitted on training data only"
+    ],
+    "answer": 3,
+    "explanation": "Training/serving skew and leakage are the classic failures."
+  },
+  {
+    "id": "3.2-q5",
+    "topic": "boosting",
+    "difficulty": 2,
+    "stem": "Gradient boosting is…",
+    "options": [
+      "Logistic regression with more features",
+      "One very deep tree",
+      "A neural network",
+      "Many small trees fitted in sequence, each correcting the residual errors of the previous"
+    ],
+    "answer": 3,
+    "explanation": "The strongest default on tabular data; the mechanism is the stump repeated."
+  },
+  {
+    "id": "3.2-q6",
+    "topic": "stump",
+    "difficulty": 1,
+    "stem": "A decision stump is…",
+    "options": [
+      "A cluster centre",
+      "A one-question tree",
+      "A tree with 100 levels",
+      "A linear model"
+    ],
+    "answer": 1,
+    "explanation": "Trees ask questions; a stump asks one."
+  },
+  {
+    "id": "3.2-q7",
+    "topic": "regression",
+    "difficulty": 2,
+    "stem": "Predicting next month's spend (a number) is…",
+    "options": [
+      "Regression — error measured by size (MAE/RMSE)",
+      "Clustering",
+      "Classification",
+      "Anomaly detection"
+    ],
+    "answer": 0,
+    "explanation": "Quantities → regression forms of the same models."
+  },
+  {
+    "id": "3.2-q8",
+    "topic": "new rows",
+    "difficulty": 2,
+    "stem": "Both models scored (500, 0.3), unlike anything in training. Lesson?",
+    "options": [
+      "Models produce outputs regardless; evaluation and monitoring decide belief",
+      "The models are broken",
+      "Extrapolation is always fine",
+      "Trees never extrapolate"
+    ],
+    "answer": 0,
+    "explanation": "Same as 2.8: outputs, not knowledge of grounds."
+  },
+  {
+    "id": "3.2-q9",
+    "topic": "families",
+    "difficulty": 2,
+    "stem": "Reasonable order of tools for tabular data?",
+    "options": [
+      "Neural nets first",
+      "Logistic/linear first, boosted trees when it bends, neural nets for unstructured data",
+      "kNN for everything",
+      "Boosted trees always"
+    ],
+    "answer": 1,
+    "explanation": "Start simple and explainable; escalate on evidence."
+  },
+  {
+    "id": "3.2-q10",
+    "topic": "categorical",
+    "difficulty": 2,
+    "stem": "A 40-value categorical column into logistic regression?",
+    "options": [
+      "One-hot or target encoding",
+      "Assign integers 1–40 and treat as numeric",
+      "Pass the string",
+      "Drop it"
+    ],
+    "answer": 0,
+    "explanation": "Linear models need meaningful numeric inputs; integer codes imply order."
+  }
+]

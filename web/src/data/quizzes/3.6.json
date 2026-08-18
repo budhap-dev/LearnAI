@@ -1,0 +1,142 @@
+[
+  {
+    "id": "3.6-q1",
+    "topic": "definition",
+    "difficulty": 1,
+    "stem": "A neural network is…",
+    "options": [
+      "A decision tree",
+      "A rule engine",
+      "Stacked layers of weighted sums and simple non-linear squashes",
+      "A database"
+    ],
+    "answer": 2,
+    "explanation": "Logistic regression, stacked."
+  },
+  {
+    "id": "3.6-q2",
+    "topic": "training",
+    "difficulty": 1,
+    "stem": "How is a network trained?",
+    "options": [
+      "By hand-tuning weights",
+      "The gradient loop from Lesson 1.2, automated across all weights by back-propagation",
+      "By clustering",
+      "By rules"
+    ],
+    "answer": 1,
+    "explanation": "Same loop, more parameters."
+  },
+  {
+    "id": "3.6-q3",
+    "topic": "why won",
+    "difficulty": 2,
+    "stem": "Deep learning won because of…",
+    "options": [
+      "Better marketing",
+      "Data, GPUs and learned features",
+      "Smaller models",
+      "Rules"
+    ],
+    "answer": 1,
+    "explanation": "On unstructured data, nothing else can use the data at that scale."
+  },
+  {
+    "id": "3.6-q4",
+    "topic": "tabular",
+    "difficulty": 2,
+    "stem": "4,000 rows of tabular data — a deep network?",
+    "options": [
+      "Yes, always",
+      "Start with logistic regression and boosted trees; nets need far more data here",
+      "Never use ML",
+      "Use k-means"
+    ],
+    "answer": 1,
+    "explanation": "Networks lose on small tabular data."
+  },
+  {
+    "id": "3.6-q5",
+    "topic": "embeddings",
+    "difficulty": 2,
+    "stem": "Embeddings are…",
+    "options": [
+      "Hand-designed features",
+      "Cluster ids",
+      "Random numbers",
+      "Vectors flowing between layers of a network trained so similar inputs land near each other"
+    ],
+    "answer": 3,
+    "explanation": "Learned representations (Lesson 2.3)."
+  },
+  {
+    "id": "3.6-q6",
+    "topic": "transformer",
+    "difficulty": 2,
+    "stem": "A transformer is a neural network plus…",
+    "options": [
+      "A GPU",
+      "A rule engine",
+      "Attention, so each token's vector is updated using the others",
+      "A database"
+    ],
+    "answer": 2,
+    "explanation": "Lesson 2.4."
+  },
+  {
+    "id": "3.6-q7",
+    "topic": "llm one-liner",
+    "difficulty": 2,
+    "stem": "An LLM is best described as…",
+    "options": [
+      "An expert system",
+      "A database of the internet",
+      "A search index",
+      "A very large network fitted by gradient descent to predict the next token of internet-scale text"
+    ],
+    "answer": 3,
+    "explanation": "No lookup; learned weights."
+  },
+  {
+    "id": "3.6-q8",
+    "topic": "cost",
+    "difficulty": 2,
+    "stem": "Why are tokens the unit of price and time?",
+    "options": [
+      "Because of the tokeniser licence",
+      "The matrix multiplications run once per token",
+      "Tokens are characters",
+      "Vendors chose it arbitrarily"
+    ],
+    "answer": 1,
+    "explanation": "Inference cost is the maths per token."
+  },
+  {
+    "id": "3.6-q9",
+    "topic": "need",
+    "difficulty": 1,
+    "stem": "To build well with these models you need…",
+    "options": [
+      "A PhD",
+      "To derive back-prop",
+      "GPU programming",
+      "The picture and the judgement, not the maths of back-propagation"
+    ],
+    "answer": 3,
+    "explanation": "Details arrive with the task (Module 10)."
+  },
+  {
+    "id": "3.6-q10",
+    "topic": "tricks",
+    "difficulty": 3,
+    "stem": "Billion-parameter loss surfaces have many valleys. So…",
+    "options": [
+      "One step suffices",
+      "Training needs tricks — momentum, adaptive steps, schedules — because the simple loop can stall",
+      "Training is impossible",
+      "Loss is irrelevant"
+    ],
+    "answer": 1,
+    "explanation": "Empirical tuning is why ML engineering exists."
+  }
+]

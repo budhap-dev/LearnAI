@@ -1,0 +1,142 @@
+[
+  {
+    "id": "3.5-q1",
+    "topic": "skew",
+    "difficulty": 2,
+    "stem": "Notebook log-transforms amount; serving passes it raw. Result?",
+    "options": [
+      "A crash",
+      "Every prediction silently wrong — training/serving skew",
+      "Better accuracy",
+      "Nothing"
+    ],
+    "answer": 1,
+    "explanation": "One shared feature function, called from both places."
+  },
+  {
+    "id": "3.5-q2",
+    "topic": "statistics",
+    "difficulty": 2,
+    "stem": "When are scaler statistics fitted?",
+    "options": [
+      "Never",
+      "On training data only, then frozen and applied",
+      "On each request",
+      "On the test set"
+    ],
+    "answer": 1,
+    "explanation": "Refitting on request data makes every request look average."
+  },
+  {
+    "id": "3.5-q3",
+    "topic": "artefact",
+    "difficulty": 2,
+    "stem": "A good model artefact is…",
+    "options": [
+      "Plain data — features, statistics, weights, threshold — with a version, stored with its metrics",
+      "A pickled Python object",
+      "A Docker image only",
+      "The notebook"
+    ],
+    "answer": 0,
+    "explanation": "Answers 'which model made this decision and how good was it?'"
+  },
+  {
+    "id": "3.5-q4",
+    "topic": "logging",
+    "difficulty": 2,
+    "stem": "Every prediction should be logged with…",
+    "options": [
+      "The training set",
+      "The user's password",
+      "The artefact version",
+      "Nothing"
+    ],
+    "answer": 2,
+    "explanation": "Traceability and rollback."
+  },
+  {
+    "id": "3.5-q5",
+    "topic": "batch",
+    "difficulty": 2,
+    "stem": "Churn scores for a weekly email campaign: online or batch?",
+    "options": [
+      "Neither",
+      "Online — always freshest",
+      "Streaming",
+      "Batch — nightly scores are fresh enough and simplest"
+    ],
+    "answer": 3,
+    "explanation": "Freshness/cost decision, not an ML one."
+  },
+  {
+    "id": "3.5-q6",
+    "topic": "drift",
+    "difficulty": 2,
+    "stem": "Input drift alerts fire, no fresh labels yet. Conclusion?",
+    "options": [
+      "Inputs no longer look like training data — investigate and prepare a retrain; not proof of failure",
+      "Model is wrong; roll back",
+      "Retrain immediately without evaluation",
+      "Ignore"
+    ],
+    "answer": 0,
+    "explanation": "Leading indicator; outcomes are the truth."
+  },
+  {
+    "id": "3.5-q7",
+    "topic": "rollback",
+    "difficulty": 2,
+    "stem": "Rollback of a bad model release means…",
+    "options": [
+      "Delete the logs",
+      "Retrain from scratch",
+      "Serve the previous artefact version, verify with golden rows, then diagnose",
+      "Restart the service"
+    ],
+    "answer": 2,
+    "explanation": "Same as any deploy."
+  },
+  {
+    "id": "3.5-q8",
+    "topic": "outcomes",
+    "difficulty": 2,
+    "stem": "Why can outcome quality lag drift alerts?",
+    "options": [
+      "They never lag",
+      "Outcomes are never measurable",
+      "Drift is faster to compute",
+      "Labels arrive days or weeks later"
+    ],
+    "answer": 3,
+    "explanation": "Alert on drift, act on outcomes."
+  },
+  {
+    "id": "3.5-q9",
+    "topic": "llm-parallel",
+    "difficulty": 3,
+    "stem": "The LLM analogue of a model artefact + version is…",
+    "options": [
+      "The vendor name",
+      "The system prompt only",
+      "Prompt version + model version + index version",
+      "The API key"
+    ],
+    "answer": 2,
+    "explanation": "Same release loop, nouns changed (Lessons 4.4, 9.8)."
+  },
+  {
+    "id": "3.5-q10",
+    "topic": "validation",
+    "difficulty": 2,
+    "stem": "Data-quality monitoring means…",
+    "options": [
+      "Only checking accuracy",
+      "Validating each request's features: nulls, ranges, schema",
+      "Nothing until an incident",
+      "Reading logs manually"
+    ],
+    "answer": 1,
+    "explanation": "Cheap checks catch upstream breakage before drift does."
+  }
+]

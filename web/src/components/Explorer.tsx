@@ -61,6 +61,13 @@ export const EXPLORERS: ExplorerInfo[] = [
     lesson: '1.2',
     load: () => import('./explorers/GradientDescent'),
   },
+  {
+    id: 'confusion-matrix',
+    name: 'Confusion matrix',
+    teaches: 'One threshold, four outcomes: precision and recall trade against each other, and the cost of each error type picks the threshold.',
+    lesson: '3.3',
+    load: () => import('./explorers/ConfusionMatrix'),
+  },
 ];
 
 const byId = Object.fromEntries(EXPLORERS.map((e) => [e.id, e]));

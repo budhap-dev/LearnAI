@@ -934,3 +934,14 @@ ol.emb-list li button { flex: 1; }
 .gd-stats dt { color: var(--muted); }
 .gd-stats dd { margin: 0; font-variant-numeric: tabular-nums; }
 @media (max-width: 640px) { .gd-layout { grid-template-columns: 1fr; } }
+
+/* confusion matrix */
+.cm-layout { display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; align-items: start; margin: 0.4rem 0; }
+.cm-table { border-collapse: separate; border-spacing: 4px; font-size: 0.86rem; }
+.cm-table th { font-weight: 600; color: var(--muted); padding: 0.2rem 0.5rem; text-align: center; }
+.cm-table td { width: 6.5rem; height: 3.2rem; text-align: center; border-radius: 8px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.cm-tp, .cm-tn { background: var(--correct-soft); color: var(--correct); }
+.cm-fp, .cm-fn { background: var(--wrong-soft); color: var(--wrong); }
+.cm-stats { grid-template-columns: repeat(2, 1fr); }
+.cm-chart { width: 100%; max-width: 30rem; height: auto; margin-top: 0.4rem; }
+@media (max-width: 640px) { .cm-layout { grid-template-columns: 1fr; } }
