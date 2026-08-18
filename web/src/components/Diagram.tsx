@@ -6,6 +6,9 @@ import {
 import {
   AiAsComponent, AiNestedSets, AiStack, FailureTaxonomy, ThreeKindsOfLearning, TrainVsInfer,
 } from './diagrams/foundations';
+import {
+  ClassicVsLlm, ConfusionMatrixDiagram, DecisionBoundary, KMeansSteps, MlLifecycle, NeuralNet,
+} from './diagrams/classicml';
 
 /**
  * Every diagram the notes can reference, by name. A note embeds one with a fence:
@@ -33,6 +36,12 @@ const REGISTRY: Record<string, ComponentType> = {
   'ai-as-component': AiAsComponent,
   'ai-stack': AiStack,
   'failure-taxonomy': FailureTaxonomy,
+  'classic-vs-llm': ClassicVsLlm,
+  'decision-boundary': DecisionBoundary,
+  'confusion-matrix': ConfusionMatrixDiagram,
+  'kmeans-steps': KMeansSteps,
+  'ml-lifecycle': MlLifecycle,
+  'neural-net': NeuralNet,
 };
 
 export function Diagram({ name }: { name: string }) {

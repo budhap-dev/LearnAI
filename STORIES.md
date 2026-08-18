@@ -20,12 +20,12 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | Area | State |
 |---|---|
 | **Deployed site** | 🟡 workflow written; Azure SWA resource + secret still to create |
-| **Lesson notes** | 🟡 **14 / 66** — Modules 1 and 2 complete |
-| **Example code (Python + TS)** | 🟡 6 / 48 — 1.2, 2.1, 2.2, 2.3, 2.5, 2.7 in both languages, byte-identical output enforced by the build |
+| **Lesson notes** | 🟡 **20 / 66** — Modules 1, 2 and 3 complete (the whole Basic level) |
+| **Example code (Python + TS)** | 🟡 10 / 48 — 1.2, 2.1, 2.2, 2.3, 2.5, 2.7, 3.2, 3.3, 3.4, 3.5 in both languages, byte-identical output enforced by the build |
 | **Verified output pipeline** | ✅ harnesses capture regions + outputs → build validates every fence and that Python/TS agree → site (cassettes for LLM-dependent examples still to design) |
-| **Diagrams** | 🟡 14 / ~120 — all of Modules 1 and 2 |
-| **Interactive explorers** | 🟡 6 / ~20 — tokeniser, sampling, embeddings, attention, context-budget, gradient-descent |
-| **Quizzes** | 🟡 140 / 660 — Modules 1 and 2, options shuffled; 28 check cards |
+| **Diagrams** | 🟡 20 / ~120 — all of Modules 1–3 |
+| **Interactive explorers** | 🟡 7 / ~20 — tokeniser, sampling, embeddings, attention, context-budget, gradient-descent, confusion-matrix |
+| **Quizzes** | 🟡 200 / 660 — Modules 1–3, options shuffled; 40 check cards |
 | **Site features** | 🟡 home with pathway chooser, syllabus (pathway-aware, route list), lesson page with Py/TS code tabs, output blocks, diagrams, explorers, check-yourself cards, quiz; **full-text search** (header + page); **progress dashboard** with export/import/reset; header progress ring; six themes |
 | **Pathways** | 🟡 Orientation · Builder · Architect — chooser, syllabus route order, pathway-aware prev/next; no depth toggles or audience-tagged questions yet |
 
@@ -428,7 +428,7 @@ snippet can never drift from the code that ran.
 - [x] `LEARNAI_LLM_MODE=record` refreshes cassettes with a real key; cassette diff reviewed in PR
 - [x] Output block shows model + recorded date when it came from a cassette
 
-### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 14 / 66 — *Modules 1 and 2 complete*
+### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 20 / 66 — *Modules 1–3 complete; Basic level done*
 - [ ] Notes for all lessons in §8, each with objectives, body, diagrams, exercises
 - [ ] Every code lesson has a Python and a TS example
 - [ ] Every lesson read for tone by pathway (Orientation ↔ Architect framing both work)
@@ -460,7 +460,7 @@ snippet can never drift from the code that ran.
 ### US-403 · Question type components *(Must, L)* · ⬜ — all nine LearnCSharp types ported + `design-choice`
 ### US-404 · Results screen *(Must, M)* · ⬜ — score, misses with links, per-topic breakdown, 80% rule
 ### US-405 · End-of-module tests *(Must, M)* · ⬜ — 20–40 questions per module, mixed types
-### US-406 · Question bank *(Must, XL)* · 🟡 140 / 660 — 660 questions (10 per lesson), each with explanation and review link
+### US-406 · Question bank *(Must, XL)* · 🟡 200 / 660 — 660 questions (10 per lesson), each with explanation and review link
 ### US-407 · Topic exams with marks *(Should, L)* · ⬜ — Foundation / Standard / Challenge sets from `difficulty`; graded, per-topic review
 
 ---
@@ -537,7 +537,7 @@ about it.
 
 ### US-1001 · Diagram component and registry *(Must, M)* · ✅ done — ported; typed registry + ```diagram fences, validated against frontmatter
 ### US-1002 · Mermaid at build time *(Should, S)* · ⬜ — sequence diagrams are the workhorse here (client → gateway → model → tool)
-### US-1003 · Core diagram set *(Must, XL)* · 🟡 14 / ~120 — all Module 1 and 2 diagrams; tranche 1 = the 25 marked ★
+### US-1003 · Core diagram set *(Must, XL)* · 🟡 20 / ~120 — all Module 1–3 diagrams; tranche 1 = the 25 marked ★
 ### US-1004 · Printable diagrams *(Could, S)* · ⬜
 
 ---
@@ -562,7 +562,7 @@ about it.
 ### US-1205 · Context-budget & chunking *(Must, M)* · 🟡 partial — *context-budget done (sliders, policy applied, dropped counts); chunking explorer with Module 6*
 ### US-1206 · RAG stepper and agent-loop stepper *(Must, L)* · ⬜ — step-through with state panel; "what would break here" hints
 ### US-1207 · BYO-key playground *(Could, M)* · ⬜ — key in sessionStorage; direct browser → provider call; shows tokens/cost/latency; clearly labelled optional; CSP allows only the provider host
-### US-1208 · Remaining explorers *(Should, L)* · 🟡 — *attention and gradient-descent done*; cost, eval-runner, nn-playground, confusion-matrix, injection-lab, hybrid-search, finetune-vs-rag
+### US-1208 · Remaining explorers *(Should, L)* · 🟡 — *attention, gradient-descent and confusion-matrix done*; cost, eval-runner, nn-playground (deferred — 3.6 uses the neural-net diagram + gradient-descent explorer), injection-lab, hybrid-search, finetune-vs-rag
 
 ---
 
@@ -878,6 +878,6 @@ themed · ≤15 KB gz lazy chunk · has a "what am I looking at" caption and a "
    Module 2.
 6. ~~Design the `llm` adapter + cassette record/replay~~ — **done** (replay verified in both
    languages; no cassette has been recorded against the real API yet — that needs credentials).
-7. Module 4 (Prompting): write the examples, then **record the cassettes with a real key**
-   (one-off, reviewed diff), then notes/quizzes. Module 3 (Classic ML) is the no-key
-   alternative.
+7. ~~Module 3 (Classic ML)~~ — **done**; the Basic level (Modules 1–3) is complete.
+8. Module 4 (Prompting): write the examples, then **record the cassettes with a real key**
+   (one-off, reviewed diff — needs the owner's credentials), then notes/quizzes.
