@@ -26,6 +26,34 @@ export const EXPLORERS: ExplorerInfo[] = [
     lesson: '2.2',
     load: () => import('./explorers/Tokeniser'),
   },
+  {
+    id: 'sampling',
+    name: 'Sampling',
+    teaches: 'Temperature, top-k and top-p reshape one next-token distribution - and why the same prompt gives different answers.',
+    lesson: '2.7',
+    load: () => import('./explorers/Sampling'),
+  },
+  {
+    id: 'embeddings',
+    name: 'Embeddings',
+    teaches: 'Meaning as position: cosine similarity and nearest neighbours over a small set of phrases.',
+    lesson: '2.3',
+    load: () => import('./explorers/Embeddings'),
+  },
+  {
+    id: 'attention',
+    name: 'Attention',
+    teaches: 'Which earlier tokens matter for this one - and how the same word means different things in context.',
+    lesson: '2.4',
+    load: () => import('./explorers/Attention'),
+  },
+  {
+    id: 'context-budget',
+    name: 'Context budget',
+    teaches: 'One fixed window shared by the system prompt, history, retrieved documents and the answer - what gets dropped when it overflows.',
+    lesson: '2.5',
+    load: () => import('./explorers/ContextBudget'),
+  },
 ];
 
 const byId = Object.fromEntries(EXPLORERS.map((e) => [e.id, e]));

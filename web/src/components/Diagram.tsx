@@ -1,5 +1,8 @@
 import type { ComponentType } from 'react';
-import { TokenPipeline } from './diagrams/llm';
+import {
+  ContextBudgetBar, KnowsVsGuesses, NextTokenLoop, TemperatureReshape, TokenPipeline,
+  TrainingPipeline, TransformerBlock, VectorSpace,
+} from './diagrams/llm';
 
 /**
  * Every diagram the notes can reference, by name. A note embeds one with a fence:
@@ -14,6 +17,13 @@ import { TokenPipeline } from './diagrams/llm';
  */
 const REGISTRY: Record<string, ComponentType> = {
   'token-pipeline': TokenPipeline,
+  'next-token-loop': NextTokenLoop,
+  'vector-space': VectorSpace,
+  'transformer-block': TransformerBlock,
+  'context-budget-bar': ContextBudgetBar,
+  'training-pipeline': TrainingPipeline,
+  'temperature-reshape': TemperatureReshape,
+  'knows-vs-guesses': KnowsVsGuesses,
 };
 
 export function Diagram({ name }: { name: string }) {

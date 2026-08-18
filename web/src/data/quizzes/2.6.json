@@ -1,0 +1,142 @@
+[
+  {
+    "id": "2.6-q1",
+    "topic": "stages",
+    "difficulty": 1,
+    "stem": "Which stage gives a model almost all of its raw capability?",
+    "options": [
+      "Prompt engineering",
+      "Supervised fine-tuning on chat examples",
+      "Preference tuning (RLHF/DPO)",
+      "Pretraining on next-token prediction over a huge text corpus"
+    ],
+    "answer": 3,
+    "explanation": "Stages two and three shape behaviour — format, helpfulness, refusals — but the capability comes from pretraining."
+  },
+  {
+    "id": "2.6-q2",
+    "topic": "cutoff",
+    "difficulty": 1,
+    "stem": "Why does the model not know your company's current pricing?",
+    "options": [
+      "Because it was fine-tuned not to discuss money",
+      "The model forgets numbers",
+      "Pricing is filtered out of training data",
+      "It is post-cutoff and private — not in the training pile — so it can only come from the prompt"
+    ],
+    "answer": 3,
+    "explanation": "The knowledge cutoff and privacy are structural. Supply such facts in the prompt (retrieval)."
+  },
+  {
+    "id": "2.6-q3",
+    "topic": "sycophancy",
+    "difficulty": 2,
+    "stem": "Why do models tend to agree with a false premise in a question?",
+    "options": [
+      "Preference tuning rewards agreeable, helpful-sounding answers",
+      "They cannot parse negation",
+      "Their temperature is too high",
+      "Because the premise is in the system prompt"
+    ],
+    "answer": 0,
+    "explanation": "It is a trained behaviour, not a bug in your prompt. State facts as context and ask neutral questions in pipelines."
+  },
+  {
+    "id": "2.6-q4",
+    "topic": "eager to answer",
+    "difficulty": 2,
+    "stem": "Why is a model reluctant to say 'I don't know'?",
+    "options": [
+      "Answers that decline were ranked below answers that help during preference tuning, and nothing represents absent knowledge",
+      "There is no token for 'no'",
+      "The system prompt forbids it",
+      "Because it always has the answer"
+    ],
+    "answer": 0,
+    "explanation": "Design an explicit way to decline (a not_found field) and verify what it says yes to."
+  },
+  {
+    "id": "2.6-q5",
+    "topic": "instructions",
+    "difficulty": 2,
+    "stem": "'Answer only if you are certain' in the system prompt does what?",
+    "options": [
+      "Nothing at all",
+      "Guarantees only correct answers",
+      "Shifts the distribution slightly — it helps at the margin but creates no knowledge check",
+      "Turns off preference tuning"
+    ],
+    "answer": 2,
+    "explanation": "Instructions steer; they do not enforce. Reliable fixes are retrieval, structured output, verification and a real refusal path."
+  },
+  {
+    "id": "2.6-q6",
+    "topic": "fine-tuning",
+    "difficulty": 2,
+    "stem": "What does 'fine-tuning your own model' (Module 10) correspond to in the pipeline?",
+    "options": [
+      "The supervised fine-tuning stage, run on your own (prompt, ideal answer) examples",
+      "Re-running pretraining on your data",
+      "Changing the sampler defaults",
+      "Adding documents to the prompt"
+    ],
+    "answer": 0,
+    "explanation": "Same step, your examples. It changes behaviour and format more reliably than it adds facts."
+  },
+  {
+    "id": "2.6-q7",
+    "topic": "rare knowledge",
+    "difficulty": 2,
+    "stem": "Where is confident invention most likely?",
+    "options": [
+      "Niche frameworks, small towns, specific citations — things rare in the training data",
+      "Well-known historical facts",
+      "Popular programming languages",
+      "Common English idioms"
+    ],
+    "answer": 0,
+    "explanation": "Common things are learned well; rare things are learned fuzzily but produced just as fluently."
+  },
+  {
+    "id": "2.6-q8",
+    "topic": "levers",
+    "difficulty": 3,
+    "stem": "The model keeps answering in English when users write French. Which lever?",
+    "options": [
+      "Prompt — set the response language explicitly; this is steerable behaviour",
+      "Different model — language is fixed at pretraining",
+      "Sampler — raise temperature",
+      "Nothing can change it"
+    ],
+    "answer": 0,
+    "explanation": "Format and language of response are fine-tuning-shaped behaviours a prompt can steer."
+  },
+  {
+    "id": "2.6-q9",
+    "topic": "levers-2",
+    "difficulty": 3,
+    "stem": "The model invents a library function that does not exist. Which lever?",
+    "options": [
+      "Prompt — tell it to be careful",
+      "Code — retrieve real docs into the prompt and/or add a tool that checks symbols exist",
+      "Fine-tune it on the library's README once",
+      "Sampler — set temperature to 0"
+    ],
+    "answer": 1,
+    "explanation": "Fabricated APIs are a grounding problem; ground the prompt and verify with code."
+  },
+  {
+    "id": "2.6-q10",
+    "topic": "refusal path",
+    "difficulty": 2,
+    "stem": "A good 'I don't know' design for a support assistant includes…",
+    "options": [
+      "A polite apology sentence",
+      "A structured output with a not_found status that code routes to escalation, plus measurement of how often it fires correctly",
+      "A longer system prompt",
+      "Lower temperature"
+    ],
+    "answer": 1,
+    "explanation": "Give the model a first-class way to decline, handle it in code, and measure precision/recall of refusals (Lesson 8.2)."
+  }
+]

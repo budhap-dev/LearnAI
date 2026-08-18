@@ -86,7 +86,13 @@ function splitSections(stdout: string): Record<string, string> {
 
 function run(path: string): string {
   // Each example runs in its own process so examples cannot leak state into each other.
-  return execFileSync(process.execPath, [path], { encoding: 'utf8', cwd: ROOT });
+  try {
+    return execFileSync(process.execPath, [path], { encoding: 'utf8', cwd: ROOT, stdio: 'pipe' });
+  } catch (error) {
+    const stderr = (error as { stderr?: string }).stderr ?? '';
+    console.error(`example failed: ${relative(ROOT, path)}\n${stderr}`);
+    process.exit(1);
+  }
 }
 
 function capture(outDir: string): void {

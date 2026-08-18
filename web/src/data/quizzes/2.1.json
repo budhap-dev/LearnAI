@@ -1,0 +1,142 @@
+[
+  {
+    "id": "2.1-q1",
+    "topic": "definition",
+    "difficulty": 1,
+    "stem": "Which statement most precisely describes what a language model computes?",
+    "options": [
+      "The most relevant document for a query",
+      "A parse tree for the sentence",
+      "A probability for every possible next token, given the text so far",
+      "A lookup of facts in a knowledge base"
+    ],
+    "answer": 2,
+    "explanation": "That is the whole contract: text so far → distribution over the next token. Everything else — chat, tools, reasoning — is built by running it in a loop."
+  },
+  {
+    "id": "2.1-q2",
+    "topic": "generation loop",
+    "difficulty": 1,
+    "stem": "How does a model produce a 300-token answer?",
+    "options": [
+      "In one forward pass that emits all 300 tokens at once",
+      "By retrieving a 300-token passage and editing it",
+      "By running the next-token prediction about 300 times, appending each pick to the input",
+      "By planning the whole answer, then writing it"
+    ],
+    "answer": 2,
+    "explanation": "Generation is autoregressive: predict, pick, append, repeat. Each new token conditions on all the earlier ones."
+  },
+  {
+    "id": "2.1-q3",
+    "topic": "hallucination",
+    "difficulty": 2,
+    "stem": "A model confidently invents a function that does not exist in a library. What is the most accurate description?",
+    "options": [
+      "A sampling error that temperature 0 eliminates",
+      "Evidence the model was trained on the wrong library",
+      "The mechanism working as designed on an input it had no grounds for — the most plausible continuation was produced",
+      "A rare bug that a stronger instruction will prevent"
+    ],
+    "answer": 2,
+    "explanation": "Next-token prediction produces plausible text whether or not grounds exist. Fixes live outside the model: real docs in the prompt, a tool that checks symbols, verification."
+  },
+  {
+    "id": "2.1-q4",
+    "topic": "greedy decoding",
+    "difficulty": 2,
+    "stem": "In the example, greedy decoding (always the top token) produced 'the model reads the model reads…'. Why?",
+    "options": [
+      "The corpus contained that exact sentence",
+      "Bigram models cannot represent sentence ends",
+      "The model ran out of context window",
+      "With no randomness, any repeated state repeats forever — greedy decoding has no source of variety"
+    ],
+    "answer": 3,
+    "explanation": "Greedy decoding is deterministic given the state; once the loop revisits a state it cycles. This is why real systems sample (Lesson 2.7)."
+  },
+  {
+    "id": "2.1-q5",
+    "topic": "locating a bug",
+    "difficulty": 2,
+    "stem": "Your assistant made up a refund policy. In the loop diagram, where does the fix most likely belong?",
+    "options": [
+      "The tokeniser — the policy was tokenised badly",
+      "The sampler — set temperature to 0",
+      "The model — ask it more firmly to be accurate",
+      "Your code — the real policy was not in the prompt and nothing verified the answer"
+    ],
+    "answer": 3,
+    "explanation": "Facts you care about must be in the prompt (retrieval) or checked afterwards. Instructions steer; they do not supply knowledge."
+  },
+  {
+    "id": "2.1-q6",
+    "topic": "prompt sensitivity",
+    "difficulty": 2,
+    "stem": "Why can rewording a prompt change the answer substantially?",
+    "options": [
+      "It cannot — only temperature changes answers",
+      "The prompt is the model's only input; any change alters the distribution over next tokens",
+      "Rewording changes the model's weights",
+      "The model caches previous prompts and compares them"
+    ],
+    "answer": 1,
+    "explanation": "Nothing else feeds the function. Wording, order and formatting all shift the distribution — sometimes a lot."
+  },
+  {
+    "id": "2.1-q7",
+    "topic": "memory",
+    "difficulty": 1,
+    "stem": "Between two API calls, what does the model remember about the first?",
+    "options": [
+      "Nothing — any 'memory' is history your code re-sends in the next prompt",
+      "Everything, for 24 hours",
+      "The last 10 messages",
+      "A summary it stores internally"
+    ],
+    "answer": 0,
+    "explanation": "The function's input is the prompt. State across calls is an application concern (Lesson 2.4, 2.5)."
+  },
+  {
+    "id": "2.1-q8",
+    "topic": "refusal",
+    "difficulty": 3,
+    "stem": "Why is 'I don't know' unreliable from a plain LLM?",
+    "options": [
+      "Models are forbidden from refusing",
+      "The vocabulary has no token for uncertainty",
+      "Nothing in next-token prediction represents the absence of knowledge; declining is itself just a learned continuation",
+      "Refusals are removed by top-p sampling"
+    ],
+    "answer": 2,
+    "explanation": "There is no first-class knowledge check. Give it a structured way to decline and verify the rest (Lessons 2.6, 2.8)."
+  },
+  {
+    "id": "2.1-q9",
+    "topic": "components",
+    "difficulty": 2,
+    "stem": "Which component decides *which* token is emitted from the distribution?",
+    "options": [
+      "The tokeniser",
+      "The sampler",
+      "The retriever",
+      "The embedding layer"
+    ],
+    "answer": 1,
+    "explanation": "The model proposes a distribution; the sampler picks. Temperature and top-p are sampler settings (Lesson 2.7)."
+  },
+  {
+    "id": "2.1-q10",
+    "topic": "design",
+    "difficulty": 2,
+    "stem": "You want to reduce made-up answers in a product Q&A feature. Which change is most effective?",
+    "options": [
+      "Add 'do not hallucinate' to the system prompt",
+      "Increase max_tokens so it can explain more",
+      "Lower the temperature to 0",
+      "Put the relevant product documents in the prompt and require citations"
+    ],
+    "answer": 3,
+    "explanation": "Move the facts from the model's memory into the prompt (RAG) and make answers checkable. Instructions and sampler settings only nudge."
+  }
+]

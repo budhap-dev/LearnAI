@@ -1,0 +1,142 @@
+[
+  {
+    "id": "2.3-q1",
+    "topic": "definition",
+    "difficulty": 1,
+    "stem": "What is an embedding?",
+    "options": [
+      "A compressed copy of the text",
+      "A vector representing a text, built so similar meanings point in similar directions",
+      "A list of keywords extracted from the text",
+      "A hash used to detect duplicates"
+    ],
+    "answer": 1,
+    "explanation": "It is geometry for meaning: compare vectors instead of text. Cosine similarity between them measures relatedness."
+  },
+  {
+    "id": "2.3-q2",
+    "topic": "cosine",
+    "difficulty": 2,
+    "stem": "Cosine similarity between two vectors measures…",
+    "options": [
+      "How many words the two texts share",
+      "The angle between them, ignoring their lengths",
+      "The number of shared dimensions",
+      "The Euclidean distance between their endpoints"
+    ],
+    "answer": 1,
+    "explanation": "Length is deliberately ignored so a long or frequent item does not look 'more similar' to everything."
+  },
+  {
+    "id": "2.3-q3",
+    "topic": "why it works",
+    "difficulty": 2,
+    "stem": "Why do count-based context vectors put 'cat' and 'dog' close together in the example?",
+    "options": [
+      "The corpus lists them next to each other",
+      "They occur in similar contexts, so their rows of neighbouring words look alike",
+      "They are both short words",
+      "They share letters"
+    ],
+    "answer": 1,
+    "explanation": "'Used in similar contexts' becomes 'similar vectors'. Neural embedding models learn a dense version of the same idea."
+  },
+  {
+    "id": "2.3-q4",
+    "topic": "limits",
+    "difficulty": 2,
+    "stem": "A retrieved FAQ scored 0.82 similarity to the user's question. What does that tell you?",
+    "options": [
+      "It is the best match among your documents; not that it answers the question",
+      "82% of the words match",
+      "The threshold for 'correct' has been met",
+      "The FAQ answers the question with 82% confidence"
+    ],
+    "answer": 0,
+    "explanation": "Similarity ranks; it never proves. RAG systems that skip this thought answer confidently from irrelevant context."
+  },
+  {
+    "id": "2.3-q5",
+    "topic": "thresholds",
+    "difficulty": 3,
+    "stem": "Your team moved from one embedding model to another and kept the 0.75 similarity threshold. What should you expect?",
+    "options": [
+      "Only queries in other languages are affected",
+      "The threshold is probably wrong now — each model has its own geometry, so re-measure on your data",
+      "Scores will be uniformly higher",
+      "Nothing changes; cosine is model-independent"
+    ],
+    "answer": 1,
+    "explanation": "Scores are not comparable across models. Thresholds must be measured per model, and all stored vectors must be regenerated too."
+  },
+  {
+    "id": "2.3-q6",
+    "topic": "same model both sides",
+    "difficulty": 2,
+    "stem": "Queries are embedded with model A and documents with model B. What happens?",
+    "options": [
+      "It works if both have the same dimension count",
+      "It works because cosine normalises lengths",
+      "It only fails for long documents",
+      "Vectors do not line up — nearest neighbours are meaningless"
+    ],
+    "answer": 3,
+    "explanation": "Same model, same version on both sides. Store the model name with the vectors."
+  },
+  {
+    "id": "2.3-q7",
+    "topic": "negation",
+    "difficulty": 3,
+    "stem": "'Reset password' and 'cannot reset password' embed close together. What is the right design response?",
+    "options": [
+      "Raise the similarity threshold",
+      "Lowercase the text first",
+      "Combine vector search with filters or keyword matching for exact constraints (hybrid search)",
+      "Use a longer embedding vector"
+    ],
+    "answer": 2,
+    "explanation": "Embeddings capture the gist; negation and specifics wash out. Hybrid search (Lesson 6.4) exists for exactly this."
+  },
+  {
+    "id": "2.3-q8",
+    "topic": "uses",
+    "difficulty": 1,
+    "stem": "Which of these is NOT typically built on embeddings?",
+    "options": [
+      "Near-duplicate detection",
+      "Clustering support tickets by theme",
+      "Semantic search",
+      "Generating a paragraph of marketing copy"
+    ],
+    "answer": 3,
+    "explanation": "Generation needs a language model. The other three are nearest-neighbour or clustering over vectors — often with no LLM call at all."
+  },
+  {
+    "id": "2.3-q9",
+    "topic": "chunking",
+    "difficulty": 2,
+    "stem": "Why embed passages rather than a whole 30-page document as one vector?",
+    "options": [
+      "Long documents exceed the embedding model's dimensions",
+      "Whole documents cannot be normalised",
+      "One vector averages everything in the document; specific passages stop standing out",
+      "Only passages fit in the vector database"
+    ],
+    "answer": 2,
+    "explanation": "A big chunk embeds the average of many ideas. Chunking (Lesson 6.3) keeps specifics retrievable."
+  },
+  {
+    "id": "2.3-q10",
+    "topic": "security",
+    "difficulty": 2,
+    "stem": "Why should a vector store get the same access controls as the source documents?",
+    "options": [
+      "Vectors contain the raw text",
+      "Vectors can be inverted to approximate the original text — they leak content",
+      "Because they are usually larger than the documents",
+      "Vector databases have no authentication"
+    ],
+    "answer": 1,
+    "explanation": "Embeddings are not anonymised representations. Treat them as the data they came from."
+  }
+]

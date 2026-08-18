@@ -20,12 +20,12 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | Area | State |
 |---|---|
 | **Deployed site** | 🟡 workflow written; Azure SWA resource + secret still to create |
-| **Lesson notes** | 🟡 **1 / 66** (2.2 Tokens) |
-| **Example code (Python + TS)** | 🟡 1 / 66 — 2.2 in both languages, byte-identical output |
+| **Lesson notes** | 🟡 **8 / 66** — Module 2 complete (2.1–2.8) |
+| **Example code (Python + TS)** | 🟡 5 / 48 — 2.1, 2.2, 2.3, 2.5, 2.7 in both languages, byte-identical output enforced by the build |
 | **Verified output pipeline** | ✅ harnesses capture regions + outputs → build validates every fence and that Python/TS agree → site (cassettes for LLM-dependent examples still to design) |
-| **Diagrams** | 🟡 1 / ~120 (token-pipeline) |
-| **Interactive explorers** | 🟡 1 / ~20 — tokeniser (real cl100k BPE, in-browser) |
-| **Quizzes** | 🟡 10 / 660 |
+| **Diagrams** | 🟡 8 / ~120 — token-pipeline, next-token-loop, vector-space, transformer-block, context-budget-bar, training-pipeline, temperature-reshape, knows-vs-guesses |
+| **Interactive explorers** | 🟡 5 / ~20 — tokeniser, sampling, embeddings, attention, context-budget |
+| **Quizzes** | 🟡 80 / 660 — all of Module 2, options shuffled |
 | **Site features** | 🟡 home, syllabus accordion, lesson page, code tabs (Py/TS), output blocks, explorers index, quiz, localStorage progress, six themes; no search/dashboard yet |
 | **Pathways** | ⬜ Orientation · Builder · Architect |
 
@@ -428,7 +428,7 @@ snippet can never drift from the code that ran.
 - [ ] `RECORD=1` refreshes cassettes with a real key; cassette diff reviewed in PR
 - [ ] Output block shows model + recorded date when it came from a cassette
 
-### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 1 / 66 — *2.2 Tokens*
+### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 8 / 66 — *Module 2 complete*
 - [ ] Notes for all lessons in §8, each with objectives, body, diagrams, exercises
 - [ ] Every code lesson has a Python and a TS example
 - [ ] Every lesson read for tone by pathway (Orientation ↔ Architect framing both work)
@@ -460,7 +460,7 @@ snippet can never drift from the code that ran.
 ### US-403 · Question type components *(Must, L)* · ⬜ — all nine LearnCSharp types ported + `design-choice`
 ### US-404 · Results screen *(Must, M)* · ⬜ — score, misses with links, per-topic breakdown, 80% rule
 ### US-405 · End-of-module tests *(Must, M)* · ⬜ — 20–40 questions per module, mixed types
-### US-406 · Question bank *(Must, XL)* · 🟡 10 / 660 — 660 questions (10 per lesson), each with explanation and review link
+### US-406 · Question bank *(Must, XL)* · 🟡 80 / 660 — 660 questions (10 per lesson), each with explanation and review link
 ### US-407 · Topic exams with marks *(Should, L)* · ⬜ — Foundation / Standard / Challenge sets from `difficulty`; graded, per-topic review
 
 ---
@@ -537,7 +537,7 @@ about it.
 
 ### US-1001 · Diagram component and registry *(Must, M)* · ✅ done — ported; typed registry + ```diagram fences, validated against frontmatter
 ### US-1002 · Mermaid at build time *(Should, S)* · ⬜ — sequence diagrams are the workhorse here (client → gateway → model → tool)
-### US-1003 · Core diagram set *(Must, XL)* · 🟡 1 / ~120 — token-pipeline; tranche 1 = the 25 marked ★
+### US-1003 · Core diagram set *(Must, XL)* · 🟡 8 / ~120 — all Module 2 diagrams; tranche 1 = the 25 marked ★
 ### US-1004 · Printable diagrams *(Could, S)* · ⬜
 
 ---
@@ -557,12 +557,12 @@ about it.
 
 ### US-1201 · Explorer framework *(Must, M)* · 🟡 partial — *registry, ```explorer fence, lazy islands, `/explore` index + standalone pages, themed; no presets, shared controls or URL state yet*
 ### US-1202 · Tokeniser explorer *(Must, M)* · ✅ done — gpt-tokenizer cl100k lazy-loaded (~450 KB gz — see open question 3); coloured tokens, ids toggle, counts, chars/token, user-entered price → cost; language/JSON/code/strawberry samples
-### US-1203 · Sampling explorer *(Must, M)* · ⬜ — distribution bars; temperature/top-p/top-k; sample button; greedy path
-### US-1204 · Embeddings & similarity *(Must, M)* · ⬜ — 2-D projected points; type a phrase from a fixed set; nearest neighbours; cosine shown
-### US-1205 · Context-budget & chunking *(Must, M)* · ⬜ — two explorers sharing the "buffer bar" component
+### US-1203 · Sampling explorer *(Must, M)* · ✅ done — distribution bars (raw vs after truncation); temperature/top-p/top-k; presets; sample ×20
+### US-1204 · Embeddings & similarity *(Must, M)* · ✅ done — 24 phrases with 6 toy dimensions, real cosine, 2-D projection, click-to-query, nearest/furthest lists
+### US-1205 · Context-budget & chunking *(Must, M)* · 🟡 partial — *context-budget done (sliders, policy applied, dropped counts); chunking explorer with Module 6*
 ### US-1206 · RAG stepper and agent-loop stepper *(Must, L)* · ⬜ — step-through with state panel; "what would break here" hints
 ### US-1207 · BYO-key playground *(Could, M)* · ⬜ — key in sessionStorage; direct browser → provider call; shows tokens/cost/latency; clearly labelled optional; CSP allows only the provider host
-### US-1208 · Remaining explorers *(Should, L)* · ⬜ — attention, cost, eval-runner, gradient-descent, nn-playground, confusion-matrix, injection-lab, hybrid-search, finetune-vs-rag
+### US-1208 · Remaining explorers *(Should, L)* · 🟡 — *attention done (illustrative one-head heat map, four sentences)*; cost, eval-runner, gradient-descent, nn-playground, confusion-matrix, injection-lab, hybrid-search, finetune-vs-rag
 
 ---
 
@@ -787,10 +787,14 @@ a 10-question quiz and localStorage progress — deploying on every merge.
 Everything renders and builds locally (verified in a headless browser); the only outstanding
 item is creating the Azure Static Web App and adding its token.
 
-### M1 — Module 2 vertical slice *(3 weeks)* · ⬜
+### M1 — Module 2 vertical slice *(3 weeks)* · 🟡 **content complete; site features outstanding**
 US-104, 205 (Module 2 only), 206, 207, 301–303, 305, 403, 404, 602, 901–903, 1002, 1101, 1102,
 1203–1205 · **Done when:** all eight Module 2 lessons, with explorers and quizzes, can be
 completed on any pathway and progress shows it. Put it in front of two real engineers.
+**All eight lessons, five explorers, eight diagrams and 80 questions are written and build.**
+Outstanding: check-yourself cards (207), pathway chooser/ordering (1101–1102), progress
+dashboard (602), callouts (104), question types beyond multiple choice (403). **Ready to put in
+front of two engineers now.**
 
 ### M2 — Builder route complete *(6 weeks)* · ⬜
 US-205 (Modules 4–8), 405, 406 (Modules 2, 4–8), 501, 502, 702, 703, 1003 (tranche 1 + 2),
@@ -867,6 +871,8 @@ themed · ≤15 KB gz lazy chunk · has a "what am I looking at" caption and a "
    end~~ — **done, builds and renders locally**.
 2. Create the Azure Static Web App (Free), add `AZURE_STATIC_WEB_APPS_API_TOKEN`, set the £0
    budget alert (US-103). **M0 done.**
-3. Module 2 in full — 2.1, 2.3–2.8 with the sampling, embeddings, attention and context-budget
-   explorers (US-205, 1203–1205) — then put it in front of two engineers before writing more.
-4. Design the `llm` adapter + cassette record/replay before the first LLM-dependent lesson (4.1).
+3. ~~Module 2 in full with the four new explorers~~ — **done.** Put it in front of two
+   engineers before writing more.
+4. M1 site features: check-yourself cards (US-207), pathway chooser + pathway-aware ordering
+   (US-1101/1102), progress dashboard (US-602), search (US-304).
+5. Design the `llm` adapter + cassette record/replay before the first LLM-dependent lesson (4.1).

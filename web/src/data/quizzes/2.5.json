@@ -1,0 +1,142 @@
+[
+  {
+    "id": "2.5-q1",
+    "topic": "claimants",
+    "difficulty": 1,
+    "stem": "Which four things share the context window?",
+    "options": [
+      "Model weights, tokeniser, sampler and cache",
+      "System prompt, conversation history, retrieved/attached content, and the answer",
+      "Only the user's message and the answer",
+      "Input, output, images and tools"
+    ],
+    "answer": 1,
+    "explanation": "One fixed budget, four claimants. Grow the first three and the answer is squeezed — unless you decide what to drop."
+  },
+  {
+    "id": "2.5-q2",
+    "topic": "answer reserve",
+    "difficulty": 2,
+    "stem": "You leave 120 tokens of room and the model needs 800 to answer. What happens?",
+    "options": [
+      "A truncated answer or an error — reserve output room explicitly",
+      "The provider ignores the limit",
+      "The model compresses the answer to fit",
+      "The window expands automatically"
+    ],
+    "answer": 0,
+    "explanation": "The answer reserve is the part people forget. Set max_tokens deliberately and budget for it."
+  },
+  {
+    "id": "2.5-q3",
+    "topic": "policy",
+    "difficulty": 2,
+    "stem": "The example drops oldest history first, then least-relevant documents. Why never the system prompt?",
+    "options": [
+      "It is always the shortest part",
+      "It carries the rules and tool definitions the whole request depends on",
+      "The API forbids trimming it",
+      "Because it is cached"
+    ],
+    "answer": 1,
+    "explanation": "A policy is a choice for your product; keeping instructions and answer reserve intact is almost always right. Log what you dropped."
+  },
+  {
+    "id": "2.5-q4",
+    "topic": "silent failure",
+    "difficulty": 2,
+    "stem": "What is wrong with letting the API or your framework truncate an oversized prompt for you?",
+    "options": [
+      "You do not know what was dropped, so wrong answers cannot be traced to missing context",
+      "It is slower",
+      "It costs more than truncating yourself",
+      "It always drops the system prompt"
+    ],
+    "answer": 0,
+    "explanation": "Truncation you did not choose is a silent bug. Measure, reserve, apply a policy, log."
+  },
+  {
+    "id": "2.5-q5",
+    "topic": "long context",
+    "difficulty": 2,
+    "stem": "A 200k-token window fits all 40 documents. What is the strongest reason not to send them all every request?",
+    "options": [
+      "The provider will throttle you",
+      "Long prompts are tokenised differently",
+      "Cost and latency scale with tokens sent, and quality does not scale with volume — the middle gets lost",
+      "Documents over 10 count as spam"
+    ],
+    "answer": 2,
+    "explanation": "Long context is a capacity, not a strategy. Retrieval exists so you can send less (Module 6)."
+  },
+  {
+    "id": "2.5-q6",
+    "topic": "estimation",
+    "difficulty": 2,
+    "stem": "Why does the example use ~4 characters per token, and what should production do instead?",
+    "options": [
+      "It is exact for all languages",
+      "It is a portable rule of thumb; production should count with the model's real tokeniser",
+      "Production should count words instead",
+      "Because APIs charge per character"
+    ],
+    "answer": 1,
+    "explanation": "Code, JSON and non-English text can differ by 2–3×. Count with the tokeniser you will be billed by (Lesson 2.2)."
+  },
+  {
+    "id": "2.5-q7",
+    "topic": "position",
+    "difficulty": 2,
+    "stem": "Where should the key question go in a long prompt, given attention behaviour?",
+    "options": [
+      "In the exact middle",
+      "It does not matter",
+      "Repeated every 500 tokens",
+      "At the end (with instructions at the start); bulk material in between"
+    ],
+    "answer": 3,
+    "explanation": "Start and end are attended to more reliably than the middle. Instructions first, question last."
+  },
+  {
+    "id": "2.5-q8",
+    "topic": "hidden tokens",
+    "difficulty": 2,
+    "stem": "Which of these silently consumes context that engineers often forget to count?",
+    "options": [
+      "The tokeniser vocabulary",
+      "The HTTP headers",
+      "Tool schemas and few-shot examples in the system prompt",
+      "The model's weights"
+    ],
+    "answer": 2,
+    "explanation": "A dozen verbosely described tools can eat thousands of tokens before the user says a word."
+  },
+  {
+    "id": "2.5-q9",
+    "topic": "summarising history",
+    "difficulty": 3,
+    "stem": "Summarising the entire conversation every turn to save tokens costs…",
+    "options": [
+      "Nothing — summaries are free",
+      "Less than sending the history",
+      "Only output tokens",
+      "An extra generation call per turn (input = whole history) and a full round-trip of latency; summarise only past a threshold instead"
+    ],
+    "answer": 3,
+    "explanation": "The recap is itself an LLM call. Keep the last N turns verbatim and summarise older ones when history exceeds a threshold."
+  },
+  {
+    "id": "2.5-q10",
+    "topic": "observability",
+    "difficulty": 2,
+    "stem": "Which log line best supports diagnosing a truncated answer?",
+    "options": [
+      "user_id=42 request_id=abc",
+      "model=x temperature=0.3",
+      "status=200 latency=1.2s",
+      "tokens: system=900 history=3400 retrieved=6200 reserve=1500 window=16000 dropped=[turn1..turn4] finish_reason=length"
+    ],
+    "answer": 3,
+    "explanation": "Tokens per part, what was dropped, and the finish reason tell an on-call engineer exactly why the answer was cut (Lesson 5.7)."
+  }
+]

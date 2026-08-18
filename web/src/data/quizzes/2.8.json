@@ -1,0 +1,142 @@
+[
+  {
+    "id": "2.8-q1",
+    "topic": "provenance",
+    "difficulty": 1,
+    "stem": "What decides how much to trust a model's answer?",
+    "options": [
+      "Where it came from — in the prompt, well-covered in training, thin data, or post-cutoff — not how confident it sounds",
+      "How confident the wording is",
+      "Whether it used bullet points",
+      "How long the answer is"
+    ],
+    "answer": 0,
+    "explanation": "The four columns of the diagram sound identical. Reliability must be designed: supply, verify, constrain."
+  },
+  {
+    "id": "2.8-q2",
+    "topic": "reliable tasks",
+    "difficulty": 1,
+    "stem": "Which task is an LLM most reliably good at?",
+    "options": [
+      "Multiplying two 8-digit numbers",
+      "Summarising or reformatting text that is fully in the prompt",
+      "Counting characters in a string",
+      "Recalling a specific citation from memory"
+    ],
+    "answer": 1,
+    "explanation": "Transforming provided text: the answer is determined by the input and can be checked."
+  },
+  {
+    "id": "2.8-q3",
+    "topic": "division of work",
+    "difficulty": 2,
+    "stem": "The rule from this lesson for splitting work between model and code is…",
+    "options": [
+      "Everything → code, model just formats",
+      "Model for facts, code for opinions",
+      "Judgement over meaning → model; exactness, facts and side effects → code",
+      "Everything → model, code just displays it"
+    ],
+    "answer": 2,
+    "explanation": "The model decides what a customer is asking; code looks up the order. Every reliable feature has that shape."
+  },
+  {
+    "id": "2.8-q4",
+    "topic": "calibration",
+    "difficulty": 2,
+    "stem": "How reliable is a model's tone as a signal of correctness?",
+    "options": [
+      "Reliable for facts, not for code",
+      "Very reliable — confident answers are usually right",
+      "Not reliable — hedged answers can be right and crisp ones invented; treat outputs as unverified until something else checks them",
+      "Reliable only at low temperature"
+    ],
+    "answer": 2,
+    "explanation": "Calibration is weak. Verification comes from sources, tests, schemas, judges or humans (Module 8)."
+  },
+  {
+    "id": "2.8-q5",
+    "topic": "reasoning",
+    "difficulty": 3,
+    "stem": "'Reasoning' or thinking budgets help most with…",
+    "options": [
+      "Making outputs deterministic",
+      "Recalling private company data",
+      "Counting letters",
+      "Genuinely multi-step problems — maths, planning, multiple constraints — at a cost in tokens and latency, and still needing verification"
+    ],
+    "answer": 3,
+    "explanation": "Reasoning is text that conditions later text. It fails on exact search over many possibilities and can rationalise wrong answers fluently."
+  },
+  {
+    "id": "2.8-q6",
+    "topic": "arithmetic",
+    "difficulty": 2,
+    "stem": "Your feature needs exact arithmetic over invoice lines. Best design?",
+    "options": [
+      "Use a bigger context window",
+      "The model extracts the numbers; code (or a calculator tool) does the arithmetic",
+      "Ask the model to compute carefully",
+      "Use a higher temperature"
+    ],
+    "answer": 1,
+    "explanation": "Next-token prediction is not a calculator. Exactness goes to code or tools."
+  },
+  {
+    "id": "2.8-q7",
+    "topic": "injection",
+    "difficulty": 2,
+    "stem": "A model follows an instruction hidden inside a pasted email. Why?",
+    "options": [
+      "Temperature was too high",
+      "The email was too long",
+      "The email was in the system prompt",
+      "It cannot distinguish your instructions from data in the prompt — everything is tokens"
+    ],
+    "answer": 3,
+    "explanation": "Prompt injection is structural. Trust boundaries and least-privilege tools are the defence (Lessons 4.6, 9.5)."
+  },
+  {
+    "id": "2.8-q8",
+    "topic": "model choice",
+    "difficulty": 2,
+    "stem": "Which is the best first question when choosing a model?",
+    "options": [
+      "Where is it on the public leaderboard",
+      "Which vendor has the biggest context window",
+      "Which one is newest",
+      "Does it do the task well on my data — run a small eval"
+    ],
+    "answer": 3,
+    "explanation": "Leaderboards last. Feature fit, cost/latency at volume, hosting/data handling and version policy follow."
+  },
+  {
+    "id": "2.8-q9",
+    "topic": "cheap models",
+    "difficulty": 2,
+    "stem": "Which tasks are usually fine on smaller, cheaper models?",
+    "options": [
+      "Long multi-step planning",
+      "Everything — size does not matter",
+      "Classification, extraction and routing",
+      "Novel research synthesis"
+    ],
+    "answer": 2,
+    "explanation": "Save large models for judgement-heavy work and route between them (Lesson 5.6)."
+  },
+  {
+    "id": "2.8-q10",
+    "topic": "not_found",
+    "difficulty": 2,
+    "stem": "A good 'I don't know' contract for a Q&A feature includes…",
+    "options": [
+      "Setting temperature to 0",
+      "A friendly apology",
+      "A longer system prompt",
+      "A structured status (found/not_found), an escalation path in code, and a measured false-positive/negative rate"
+    ],
+    "answer": 3,
+    "explanation": "Give the model a first-class way to decline and measure how often it fires correctly."
+  }
+]
