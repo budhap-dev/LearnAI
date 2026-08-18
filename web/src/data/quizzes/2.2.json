@@ -1,0 +1,137 @@
+[
+  {
+    "id": "2.2-q1",
+    "topic": "what a token is",
+    "difficulty": 1,
+    "stem": "What does a language model actually receive as input?",
+    "options": [
+      "A sequence of integer token ids produced by a tokeniser",
+      "The raw Unicode characters of your prompt",
+      "A list of dictionary words",
+      "An image of the rendered text"
+    ],
+    "answer": 0,
+    "explanation": "The tokeniser maps text to integers before the model sees anything, and maps integers back to text afterwards. Everything the model does happens on those ids."
+  },
+  {
+    "id": "2.2-q2",
+    "topic": "byte-pair encoding",
+    "difficulty": 2,
+    "stem": "In byte-pair encoding, what does one training step do?",
+    "options": [
+      "Merge the most frequent adjacent pair of symbols everywhere in the corpus",
+      "Split every word into its dictionary syllables",
+      "Remove the least common word from the vocabulary",
+      "Assign a random id to each new word seen"
+    ],
+    "answer": 0,
+    "explanation": "BPE is one loop: count adjacent pairs, merge the commonest, repeat. The ordered list of merges is the entire trained tokeniser."
+  },
+  {
+    "id": "2.2-q3",
+    "topic": "cost estimation",
+    "difficulty": 2,
+    "stem": "A request contains 3,400 words of English prose. Using the rule of thumb, roughly how many input tokens is that?",
+    "options": ["About 4,500", "About 3,400", "About 850", "About 13,600"],
+    "answer": 0,
+    "explanation": "English prose runs at roughly 0.75 words per token, so multiply words by ~1.33: 3,400 × 1.33 ≈ 4,500 tokens. Always measure for anything that is not plain English."
+  },
+  {
+    "id": "2.2-q4",
+    "topic": "letters vs tokens",
+    "difficulty": 2,
+    "stem": "Why might a model miscount the r's in \"strawberry\"?",
+    "options": [
+      "It sees a few multi-letter tokens, not individual characters, so counting is a memory task rather than a perception task",
+      "The word is too long for the context window",
+      "The letter r is not in the vocabulary",
+      "Sampling temperature randomises arithmetic"
+    ],
+    "answer": 0,
+    "explanation": "The word arrives as tokens such as st|raw|berry. No token 'contains' the answer, and there is no character-level view — the model must recall each token's spelling and add."
+  },
+  {
+    "id": "2.2-q5",
+    "topic": "design consequence",
+    "difficulty": 2,
+    "stem": "A feature needs to reverse strings, validate exact string lengths and match IDs character by character. Where should that logic live?",
+    "options": [
+      "In your code — give the model the results, not the task",
+      "In the system prompt, with a firm instruction to be careful",
+      "In a few-shot prompt with examples of reversed strings",
+      "In the model, but with temperature set to 0"
+    ],
+    "answer": 0,
+    "explanation": "Character-level work is a structural weak spot of token-based models. Deterministic string handling belongs in code; the model is for judgement over meaning."
+  },
+  {
+    "id": "2.2-q6",
+    "topic": "multilingual cost",
+    "difficulty": 2,
+    "stem": "Your English demo costs X tokens per request. The product will also serve Hindi and Japanese users. What should you expect?",
+    "options": [
+      "Roughly 1.5–4× the tokens for the same meaning, so budget and measure per language",
+      "The same token count — tokens are per word",
+      "Fewer tokens, because those scripts are more compact",
+      "Exactly 2× — tokenisers double non-Latin text"
+    ],
+    "answer": 0,
+    "explanation": "Vocabularies are trained on English-heavy data, so other languages fragment into more, shorter tokens. The exact ratio depends on the tokeniser and language — measure it."
+  },
+  {
+    "id": "2.2-q7",
+    "topic": "leading spaces",
+    "difficulty": 3,
+    "stem": "In most BPE tokenisers, \" the\" (with a leading space) and \"the\" are…",
+    "options": [
+      "Two different tokens — the space is attached to the word that follows it",
+      "The same token — whitespace is stripped first",
+      "Three tokens: space, t, he",
+      "Only different if the model is multilingual"
+    ],
+    "answer": 0,
+    "explanation": "The space belongs to the start of the next word. That is why formatting and where a line breaks can change token counts and, occasionally, model behaviour."
+  },
+  {
+    "id": "2.2-q8",
+    "topic": "structured input cost",
+    "difficulty": 2,
+    "stem": "Which of these is likely to be the MOST tokens per character?",
+    "options": [
+      "A base64-encoded attachment or a minified JSON blob",
+      "A paragraph of plain English",
+      "A bulleted list of common English words",
+      "A short conversational question"
+    ],
+    "answer": 0,
+    "explanation": "Random-looking strings have no learned merges, so they tokenise at close to one token per 2–3 characters. Stuffing raw JSON, logs or encoded data into a prompt burns budget fast."
+  },
+  {
+    "id": "2.2-q9",
+    "topic": "cross-vendor comparison",
+    "difficulty": 3,
+    "stem": "You measured a prompt at 1,200 tokens with one vendor's tokeniser. Can you use that number to compare cost with a different vendor's model?",
+    "options": [
+      "Not reliably — different models use different tokenisers, so measure with each",
+      "Yes — tokens are a standard unit",
+      "Yes, after dividing by 4",
+      "Only if both models have the same context window"
+    ],
+    "answer": 0,
+    "explanation": "Token counts, and therefore both cost and context usage, are specific to each tokeniser. Compare vendors by measuring your own workload on each."
+  },
+  {
+    "id": "2.2-q10",
+    "topic": "context budget",
+    "difficulty": 1,
+    "stem": "The context window is best understood as…",
+    "options": [
+      "One fixed token budget shared by the system prompt, history, retrieved documents and the answer",
+      "The number of words the model can remember forever",
+      "A limit on output length only",
+      "The size of the tokeniser's vocabulary"
+    ],
+    "answer": 0,
+    "explanation": "Everything you send plus everything the model writes must fit in the window. Retrieved context and long histories eat into the space left for the answer — Lesson 2.5 is about spending it well."
+  }
+]
