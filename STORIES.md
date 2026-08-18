@@ -26,8 +26,8 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | **Diagrams** | 🟡 8 / ~120 — token-pipeline, next-token-loop, vector-space, transformer-block, context-budget-bar, training-pipeline, temperature-reshape, knows-vs-guesses |
 | **Interactive explorers** | 🟡 5 / ~20 — tokeniser, sampling, embeddings, attention, context-budget |
 | **Quizzes** | 🟡 80 / 660 — all of Module 2, options shuffled |
-| **Site features** | 🟡 home, syllabus accordion, lesson page, code tabs (Py/TS), output blocks, explorers index, quiz, localStorage progress, six themes; no search/dashboard yet |
-| **Pathways** | ⬜ Orientation · Builder · Architect |
+| **Site features** | 🟡 home with pathway chooser, syllabus (pathway-aware, route list), lesson page with Py/TS code tabs, output blocks, diagrams, explorers, check-yourself cards, quiz; **full-text search** (header + page); **progress dashboard** with export/import/reset; header progress ring; six themes |
+| **Pathways** | 🟡 Orientation · Builder · Architect — chooser, syllabus route order, pathway-aware prev/next; no depth toggles or audience-tagged questions yet |
 
 **M0 walking skeleton is built and verified locally** — lesson 2.2 *Tokens* renders end to end with
 the tokeniser explorer, a diagram, traced Python + TypeScript code with captured output, a
@@ -385,7 +385,7 @@ into a static site.
       diagram registry, quiz player) **ported from LearnCSharp** — copied per component, not a shared package (open question 7)
 - [x] README documents setup for `web/` and `examples/`
 
-### US-102 · Site shell and layout *(Must, M)* · 🟡 partial — *header/nav/footer/theme picker; no sidebar, level filter, search box or progress ring*
+### US-102 · Site shell and layout *(Must, M)* · 🟡 partial — *header/nav/footer/theme picker/search box/progress ring; no sidebar or level filter*
 - [ ] Header: logo, search, level filter (Basic/Intermediate/Advanced), progress ring, theme
 - [ ] Sidebar: current module's lessons; collapses to a drawer < 768px
 - [ ] Footer: prev/next, "edit this page", "run this example" link to GitHub
@@ -437,9 +437,9 @@ snippet can never drift from the code that ran.
 - [ ] Shiki at build time (Python, TS, JSON, YAML, bash, Mermaid)
 - [x] Copy button
 
-### US-207 · Inline check-yourself cards *(Should, M)* · ⬜
-- [ ] `<Check>` component: one question, instant explanation, not scored
-- [ ] Every lesson has ≥2, placed at the misconception point
+### US-207 · Inline check-yourself cards *(Should, M)* · ✅ done
+- [x] ```` ```check ```` fence → `<Check>` component: one question, instant explanation, not scored; shape validated at build
+- [x] Every Module 2 lesson has 2, placed at the misconception point
 
 ---
 
@@ -447,8 +447,8 @@ snippet can never drift from the code that ran.
 
 ### US-301 · Syllabus page *(Must, M)* · ✅ done — accordion per module, level badges, progress bars, "has explorer / has lab" icons
 ### US-302 · Continue where you left off *(Must, S)* · ✅ done
-### US-303 · Previous / next with pathway awareness *(Must, S)* · 🟡 partial — *prev/next in syllabus order; not pathway-aware* — next = next *on your pathway*, with the "off-route" lesson still one click away
-### US-304 · Full-text search *(Should, M)* · ⬜ — build-time index over titles, objectives, body, glossary terms; explorers and reference pages indexed too
+### US-303 · Previous / next with pathway awareness *(Must, S)* · ✅ done — *follows the chosen route when the lesson is on it; syllabus order otherwise* — next = next *on your pathway*, with the "off-route" lesson still one click away
+### US-304 · Full-text search *(Should, M)* · 🟡 mostly done — *build-time index over titles, tags, summary, objectives, body; weighted AND scorer; header autocomplete + /search page*; explorers/reference pages not indexed yet
 ### US-305 · Module overview pages *(Must, S)* · ⬜ — lessons, lab, test, "what you can build after this module"
 
 ---
@@ -482,8 +482,8 @@ about it.
 ## E6 — Progress & motivation
 
 ### US-601 · Progress store *(Must, M)* · ✅ done — versioned localStorage, ported; also remembers last lesson and preferred language
-### US-602 · Progress dashboard *(Must, M)* · ⬜ — completion per module and per level, scores, streak, weak topics, pathway position
-### US-603 · Export / import *(Must, S)* · ⬜
+### US-602 · Progress dashboard *(Must, M)* · ✅ done — completion per module and per level, quiz scores table, lessons worth another look, pathway position; no streak (US-604)
+### US-603 · Export / import *(Must, S)* · ✅ done — JSON download, file import with validation, reset with confirm
 ### US-604 · Streaks and milestones *(Could, S)* · ⬜ — "Basic complete", "Builder route complete" badges
 ### US-605 · Weak-topic revision *(Should, M)* · ⬜ — mixed quiz from topics scoring < 70%
 
@@ -544,8 +544,8 @@ about it.
 
 ## E11 — Audience pathways
 
-### US-1101 · Pathway chooser *(Must, M)* · ⬜ — three cards on home + a 4-question "not sure?" quiz
-### US-1102 · Pathway-aware ordering *(Must, M)* · ⬜ — syllabus, prev/next, progress and "continue" follow the chosen route
+### US-1101 · Pathway chooser *(Must, M)* · 🟡 mostly done — three cards on home (route, pace, lessons written), stored in progress; no "not sure?" quiz yet
+### US-1102 · Pathway-aware ordering *(Must, M)* · ✅ done — syllabus shows the route in order and dims off-route lessons; prev/next and progress follow the route; switchable from the syllabus
 ### US-1103 · Depth toggles *(Should, M)* · ⬜ — "Under the hood" (maths, internals) and "For the ADR" (trade-off boxes) fold by pathway default
 ### US-1104 · Level filter *(Should, S)* · ⬜ — Basic / Intermediate / Advanced filter everywhere lessons are listed
 ### US-1105 · Audience-tagged questions *(Should, M)* · ⬜ — `design-choice` weighted to Architect; vocabulary to Orientation
@@ -791,10 +791,10 @@ item is creating the Azure Static Web App and adding its token.
 US-104, 205 (Module 2 only), 206, 207, 301–303, 305, 403, 404, 602, 901–903, 1002, 1101, 1102,
 1203–1205 · **Done when:** all eight Module 2 lessons, with explorers and quizzes, can be
 completed on any pathway and progress shows it. Put it in front of two real engineers.
-**All eight lessons, five explorers, eight diagrams and 80 questions are written and build.**
-Outstanding: check-yourself cards (207), pathway chooser/ordering (1101–1102), progress
-dashboard (602), callouts (104), question types beyond multiple choice (403). **Ready to put in
-front of two engineers now.**
+**All eight lessons, five explorers, eight diagrams, 80 questions and 16 check cards are written
+and build; search, pathways and the progress dashboard are live.** Outstanding for M1: callout
+components (104), question types beyond multiple choice (403). **Ready to put in front of two
+engineers now.**
 
 ### M2 — Builder route complete *(6 weeks)* · ⬜
 US-205 (Modules 4–8), 405, 406 (Modules 2, 4–8), 501, 502, 702, 703, 1003 (tranche 1 + 2),
@@ -873,6 +873,7 @@ themed · ≤15 KB gz lazy chunk · has a "what am I looking at" caption and a "
    budget alert (US-103). **M0 done.**
 3. ~~Module 2 in full with the four new explorers~~ — **done.** Put it in front of two
    engineers before writing more.
-4. M1 site features: check-yourself cards (US-207), pathway chooser + pathway-aware ordering
-   (US-1101/1102), progress dashboard (US-602), search (US-304).
-5. Design the `llm` adapter + cassette record/replay before the first LLM-dependent lesson (4.1).
+4. ~~M1 site features: check cards, pathways, progress dashboard, search~~ — **done.**
+5. Next content: Module 1 (Foundations, 6 lessons — the Orientation entry point) or Module 4
+   (Prompting — the first LLM-dependent lessons, which need the `llm` adapter + cassette
+   record/replay first). Recommend Module 1 first, adapter design in parallel.

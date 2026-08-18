@@ -20,6 +20,8 @@ export interface Progress {
   lastLesson?: string;
   /** Preferred example language on lesson pages. */
   language?: 'python' | 'ts';
+  /** The chosen pathway, if any - orders the syllabus and prev/next. */
+  pathway?: 'orientation' | 'builder' | 'architect';
 }
 
 const empty: Progress = { version: 1, lessons: {}, quizzes: {} };
@@ -81,6 +83,28 @@ export function setPreferredLanguage(language: 'python' | 'ts'): void {
   const progress = read();
   progress.language = language;
   write(progress);
+}
+
+export function currentPathway(): Progress['pathway'] | null {
+  return read().pathway ?? null;
+}
+
+export function setPathway(pathway: Progress['pathway'] | null): void {
+  const progress = read();
+  if (pathway) progress.pathway = pathway;
+  else delete progress.pathway;
+  write(progress);
+}
+
+export function importJson(json: string): boolean {
+  try {
+    const parsed = JSON.parse(json) as Progress;
+    if (parsed.version !== 1 || typeof parsed.lessons !== 'object') return false;
+    write(parsed);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export function reset(): void {

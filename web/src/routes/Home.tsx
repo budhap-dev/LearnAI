@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { useSyllabus } from '../lib/useSyllabus';
 import { useProgress } from '../lib/useProgress';
 import { LEVEL_LABEL, lessonsIn } from '../lib/lessons';
+import { PathwayChooser } from '../components/PathwayChooser';
+import { pathwayById } from '../lib/pathways';
 
 export function Home() {
   const syllabus = useSyllabus();
@@ -27,8 +29,8 @@ export function Home() {
               Continue → {last.id} {last.title}
             </Link>
           ) : (
-            <Link className="button" to="/lesson/2.2">
-              Start with 2.2 Tokens →
+            <Link className="button" to={`/lesson/${syllabus?.lessons[0]?.id ?? '2.1'}`}>
+              Start with {syllabus?.lessons[0]?.id ?? '2.1'} {syllabus?.lessons[0]?.title.split(' — ')[0] ?? ''} →
             </Link>
           )}
           <Link className="button ghost" to="/syllabus">Full syllabus</Link>
@@ -36,10 +38,19 @@ export function Home() {
         </div>
         {written > 0 && (
           <p className="muted">
-            {done} of {written} written lesson{written === 1 ? '' : 's'} done · {syllabus?.modules.length} modules planned
+            {done} of {written} written lesson{written === 1 ? '' : 's'} done
+            {progress.pathway && ` · on the ${pathwayById[progress.pathway].name} route`} ·{' '}
+            <Link to="/progress">your progress</Link>
           </p>
         )}
       </section>
+
+      <h2>Choose your route</h2>
+      <p className="muted">
+        One body of content, three ways in. The route changes the order and the emphasis, never
+        the ceiling — every lesson stays reachable. Change it any time.
+      </p>
+      <PathwayChooser syllabus={syllabus} />
 
       <h2>Three levels, eleven modules</h2>
       <p className="muted">
