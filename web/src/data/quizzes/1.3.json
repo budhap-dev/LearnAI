@@ -1,0 +1,142 @@
+[
+  {
+    "id": "1.3-q1",
+    "topic": "signal",
+    "difficulty": 1,
+    "stem": "What distinguishes supervised, unsupervised and reinforcement learning?",
+    "options": [
+      "Where the training signal comes from: answers, none, or a reward",
+      "The programming language",
+      "The size of the model",
+      "Whether GPUs are used"
+    ],
+    "answer": 0,
+    "explanation": "The signal predicts data needs, promises and failure shapes."
+  },
+  {
+    "id": "1.3-q2",
+    "topic": "labels",
+    "difficulty": 2,
+    "stem": "The usual constraint on a supervised project is…",
+    "options": [
+      "Choosing a model",
+      "The programming framework",
+      "GPU capacity",
+      "Getting enough correctly labelled, representative examples"
+    ],
+    "answer": 3,
+    "explanation": "Models are cheap; labels are the project."
+  },
+  {
+    "id": "1.3-q3",
+    "topic": "unsupervised",
+    "difficulty": 1,
+    "stem": "Clustering customers by behaviour without labels is…",
+    "options": [
+      "Self-supervised learning",
+      "Reinforcement learning",
+      "Unsupervised learning",
+      "Supervised learning"
+    ],
+    "answer": 2,
+    "explanation": "Structure in the inputs alone."
+  },
+  {
+    "id": "1.3-q4",
+    "topic": "reinforcement",
+    "difficulty": 2,
+    "stem": "A reinforcement policy optimises…",
+    "options": [
+      "Label accuracy",
+      "The reward you wrote — not the intent you had",
+      "Cluster tightness",
+      "Human intent directly"
+    ],
+    "answer": 1,
+    "explanation": "Reward mis-specification is the classic RL failure; it returns in agents and guardrails."
+  },
+  {
+    "id": "1.3-q5",
+    "topic": "self-supervised",
+    "difficulty": 2,
+    "stem": "Why can LLM pretraining use trillions of tokens without labellers?",
+    "options": [
+      "Tokens are pre-labelled by tokenisers",
+      "Labs employ millions of annotators",
+      "The label is the next token of the text itself — free",
+      "LLMs need no signal"
+    ],
+    "answer": 2,
+    "explanation": "Self-supervision turns raw text into endless (input, next-token) pairs."
+  },
+  {
+    "id": "1.3-q6",
+    "topic": "llm stages",
+    "difficulty": 2,
+    "stem": "Preference tuning of a chat model uses…",
+    "options": [
+      "Nothing; it is untrained",
+      "Reinforcement — rankings become a reward",
+      "Unsupervised clustering",
+      "Only rules"
+    ],
+    "answer": 1,
+    "explanation": "Human or judge rankings shape the policy toward preferred answers."
+  },
+  {
+    "id": "1.3-q7",
+    "topic": "design",
+    "difficulty": 2,
+    "stem": "You have lots of raw feedback text and no labels. A sensible plan?",
+    "options": [
+      "Use reinforcement learning",
+      "Fine-tune a frontier model first",
+      "Start unsupervised/zero-shot, log outputs and corrections as labels, then train a small supervised model",
+      "Wait until labels appear"
+    ],
+    "answer": 2,
+    "explanation": "Bootstrap labels from unsupervised or LLM outputs, then move to cheap supervised."
+  },
+  {
+    "id": "1.3-q8",
+    "topic": "label bias",
+    "difficulty": 2,
+    "stem": "A model trained on last year's approval decisions will…",
+    "options": [
+      "Be unbiased by definition",
+      "Ignore them",
+      "Reproduce last year's decisions, including their mistakes and biases",
+      "Improve on them automatically"
+    ],
+    "answer": 2,
+    "explanation": "It learns the labels you gave it."
+  },
+  {
+    "id": "1.3-q9",
+    "topic": "reward",
+    "difficulty": 3,
+    "stem": "Reward = 'ticket closed quickly'. Likely learned behaviour?",
+    "options": [
+      "Slower closures",
+      "Close prematurely / discourage follow-ups — fix by rewarding confirmed resolution and penalising reopens",
+      "No change",
+      "Faster, better resolutions"
+    ],
+    "answer": 1,
+    "explanation": "Policies optimise the letter of the reward."
+  },
+  {
+    "id": "1.3-q10",
+    "topic": "using llms",
+    "difficulty": 2,
+    "stem": "When you call an LLM API, which kind of learning are you running?",
+    "options": [
+      "Supervised",
+      "Reinforcement",
+      "None — you consume the result of all three; your levers are prompt, context, and offline fine-tuning",
+      "Unsupervised"
+    ],
+    "answer": 2,
+    "explanation": "Inference only (Lesson 1.2)."
+  }
+]

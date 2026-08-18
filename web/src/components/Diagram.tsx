@@ -3,6 +3,9 @@ import {
   ContextBudgetBar, KnowsVsGuesses, NextTokenLoop, TemperatureReshape, TokenPipeline,
   TrainingPipeline, TransformerBlock, VectorSpace,
 } from './diagrams/llm';
+import {
+  AiAsComponent, AiNestedSets, AiStack, FailureTaxonomy, ThreeKindsOfLearning, TrainVsInfer,
+} from './diagrams/foundations';
 
 /**
  * Every diagram the notes can reference, by name. A note embeds one with a fence:
@@ -24,6 +27,12 @@ const REGISTRY: Record<string, ComponentType> = {
   'training-pipeline': TrainingPipeline,
   'temperature-reshape': TemperatureReshape,
   'knows-vs-guesses': KnowsVsGuesses,
+  'ai-nested-sets': AiNestedSets,
+  'train-vs-infer': TrainVsInfer,
+  'three-kinds-of-learning': ThreeKindsOfLearning,
+  'ai-as-component': AiAsComponent,
+  'ai-stack': AiStack,
+  'failure-taxonomy': FailureTaxonomy,
 };
 
 export function Diagram({ name }: { name: string }) {

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "1.4-q1",
+    "topic": "component",
+    "difficulty": 1,
+    "stem": "In an AI feature, what proportion is 'the model'?",
+    "options": [
+      "Only the UI",
+      "Half of it",
+      "All of it",
+      "One probabilistic step; the rest is ordinary, testable software"
+    ],
+    "answer": 3,
+    "explanation": "Keep the box small; the system is yours."
+  },
+  {
+    "id": "1.4-q2",
+    "topic": "testing",
+    "difficulty": 2,
+    "stem": "An integration test compares a model's summary to a saved string. Expect…",
+    "options": [
+      "Reliable passes at T=0",
+      "Flakiness — test schema/properties and pass rates over a set instead",
+      "Faster tests",
+      "Failures only when the prompt changes"
+    ],
+    "answer": 1,
+    "explanation": "Model output is a sample from a distribution."
+  },
+  {
+    "id": "1.4-q3",
+    "topic": "the rule",
+    "difficulty": 1,
+    "stem": "The division-of-work rule is…",
+    "options": [
+      "Everything to code",
+      "Everything to the model",
+      "Facts to the model, judgement to code",
+      "Judgement over meaning → model; exactness, facts and side effects → code"
+    ],
+    "answer": 3,
+    "explanation": "Every reliable feature has this shape."
+  },
+  {
+    "id": "1.4-q4",
+    "topic": "side effects",
+    "difficulty": 2,
+    "stem": "Code issues a refund straight from the model's JSON. The flaw?",
+    "options": [
+      "Using JSON",
+      "Refunds cannot be automated",
+      "The prompt was too short",
+      "A side effect runs on the model's word alone — code should apply policy and gate high-value cases"
+    ],
+    "answer": 3,
+    "explanation": "The model proposes; code decides and acts under policy."
+  },
+  {
+    "id": "1.4-q5",
+    "topic": "auth",
+    "difficulty": 2,
+    "stem": "Who decides whether a user may perform an action?",
+    "options": [
+      "The vendor",
+      "The model, given the user's role in the prompt",
+      "Your code — auth and authorisation never depend on the model",
+      "The system prompt"
+    ],
+    "answer": 2,
+    "explanation": "A model can be talked into anything; access control is deterministic code."
+  },
+  {
+    "id": "1.4-q6",
+    "topic": "shapes",
+    "difficulty": 2,
+    "stem": "Which shape carries the highest risk?",
+    "options": [
+      "Classify",
+      "Act — the model proposes an action with side effects",
+      "Transform",
+      "Extract"
+    ],
+    "answer": 1,
+    "explanation": "Actions run from code under policy, with approval gates where blast radius warrants."
+  },
+  {
+    "id": "1.4-q7",
+    "topic": "reliability",
+    "difficulty": 2,
+    "stem": "Reliability in an LLM feature comes mostly from…",
+    "options": [
+      "Lower temperature",
+      "Better input, better checks, and measurement — the code around the model",
+      "A bigger model",
+      "A firmer system prompt"
+    ],
+    "answer": 1,
+    "explanation": "Most 'model is dumb' is 'model was not told'; most incidents are 'nothing checked'."
+  },
+  {
+    "id": "1.4-q8",
+    "topic": "runbook",
+    "difficulty": 2,
+    "stem": "'If the assistant gives wrong answers, restart the service.' Better entry?",
+    "options": [
+      "Restart twice",
+      "Check prompt/model version, run the eval set, inspect traces for missing context, roll back the version if confirmed",
+      "Clear the cache",
+      "Increase replicas"
+    ],
+    "answer": 1,
+    "explanation": "Restarting changes nothing about a distribution."
+  },
+  {
+    "id": "1.4-q9",
+    "topic": "change mgmt",
+    "difficulty": 2,
+    "stem": "A prompt change is deployed. What should accompany it?",
+    "options": [
+      "A restart",
+      "Nothing; prompts are config",
+      "A version and eval results — like any code change plus a measurement",
+      "A bigger context window"
+    ],
+    "answer": 2,
+    "explanation": "Prompt/model versions plus eval results are the change record."
+  },
+  {
+    "id": "1.4-q10",
+    "topic": "debugging",
+    "difficulty": 2,
+    "stem": "Debugging a bad model output usually means…",
+    "options": [
+      "Reading the vendor's code",
+      "Inspecting the prompt and context it received and comparing runs",
+      "Stepping through the model's weights",
+      "Increasing max_tokens"
+    ],
+    "answer": 1,
+    "explanation": "The input decides most of the quality."
+  }
+]

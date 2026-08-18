@@ -1,0 +1,142 @@
+[
+  {
+    "id": "1.2-q1",
+    "topic": "definition",
+    "difficulty": 1,
+    "stem": "What is a model, in the terms of this lesson?",
+    "options": [
+      "A function with numbers (parameters) in it that training chooses",
+      "A database of examples",
+      "A lookup table of answers",
+      "A set of if-statements"
+    ],
+    "answer": 0,
+    "explanation": "Training picks the numbers so outputs match known examples."
+  },
+  {
+    "id": "1.2-q2",
+    "topic": "loss",
+    "difficulty": 1,
+    "stem": "What is the loss?",
+    "options": [
+      "The learning rate",
+      "The number of parameters",
+      "The size of the training set",
+      "One number saying how wrong the current parameters are on the known examples"
+    ],
+    "answer": 3,
+    "explanation": "Training exists to make it small; the formula depends on the task."
+  },
+  {
+    "id": "1.2-q3",
+    "topic": "gradient",
+    "difficulty": 2,
+    "stem": "What does the gradient tell the training loop?",
+    "options": [
+      "How many steps remain",
+      "Which examples are wrong",
+      "How the loss changes if each parameter nudges up — so moving against it reduces the loss",
+      "The final answer"
+    ],
+    "answer": 2,
+    "explanation": "Frameworks compute it automatically for billions of parameters (back-propagation)."
+  },
+  {
+    "id": "1.2-q4",
+    "topic": "learning rate",
+    "difficulty": 2,
+    "stem": "Learning rate too large →",
+    "options": [
+      "Has no effect",
+      "Trains slower but safely",
+      "Reduces the number of parameters",
+      "Overshoots and diverges"
+    ],
+    "answer": 3,
+    "explanation": "Too small crawls; too large blows up. It is a hyperparameter chosen by measuring."
+  },
+  {
+    "id": "1.2-q5",
+    "topic": "inference",
+    "difficulty": 1,
+    "stem": "An API call to a deployed model performs…",
+    "options": [
+      "Retraining if the answer is wrong",
+      "Both",
+      "Inference — parameters are frozen; no learning happens",
+      "Training — it learns from your request"
+    ],
+    "answer": 2,
+    "explanation": "Nothing learns from your requests. 'Memory' is context your code re-sends."
+  },
+  {
+    "id": "1.2-q6",
+    "topic": "curve shape",
+    "difficulty": 2,
+    "stem": "Training loss falls fast then flattens. What does 'flat' mean?",
+    "options": [
+      "Training failed",
+      "The learning rate is too high",
+      "The optimiser is near the bottom of the loss surface — not that the model is right",
+      "The model has memorised everything"
+    ],
+    "answer": 2,
+    "explanation": "Whether the fit generalises is measured on held-out data (Lesson 3.3)."
+  },
+  {
+    "id": "1.2-q7",
+    "topic": "extrapolation",
+    "difficulty": 2,
+    "stem": "predict(12) returned a value though 12 was never in the data. What happened?",
+    "options": [
+      "The model retrieved the closest example",
+      "The function evaluated anywhere — generalisation or a groundless guess; the model cannot tell which",
+      "An error should have been raised",
+      "The model learned 12 at inference"
+    ],
+    "answer": 1,
+    "explanation": "Only data tells you whether extrapolation is trustworthy."
+  },
+  {
+    "id": "1.2-q8",
+    "topic": "economics",
+    "difficulty": 2,
+    "stem": "Why is 'can we teach it our data at runtime?' the wrong question for a hosted LLM?",
+    "options": [
+      "Runtime training is possible but expensive",
+      "The API forbids it",
+      "Because data must be labelled first",
+      "Runtime is inference; the way to use your data is to supply it as context (retrieval) or fine-tune offline"
+    ],
+    "answer": 3,
+    "explanation": "Training is rare and enormous; inference is constant and metered."
+  },
+  {
+    "id": "1.2-q9",
+    "topic": "hyperparameters",
+    "difficulty": 1,
+    "stem": "Which is a hyperparameter?",
+    "options": [
+      "The loss value at step 999",
+      "The learning rate",
+      "The slope w after training",
+      "The predicted output for x=4"
+    ],
+    "answer": 1,
+    "explanation": "Hyperparameters are set by trying and measuring, not learned."
+  },
+  {
+    "id": "1.2-q10",
+    "topic": "corrections",
+    "difficulty": 3,
+    "stem": "Users correct the assistant's answers. Does a RAG system 'learn' from that?",
+    "options": [
+      "Yes, the model updates its weights",
+      "Not the model — but the corrected document can be indexed immediately, so the system improves",
+      "Only if temperature is 0",
+      "No, nothing can change"
+    ],
+    "answer": 1,
+    "explanation": "Model parameters are frozen; the retrieval index is yours to update."
+  }
+]
