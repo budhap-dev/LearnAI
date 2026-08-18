@@ -1,0 +1,142 @@
+[
+  {
+    "id": "4.1-q1",
+    "topic": "parts",
+    "difficulty": 1,
+    "stem": "The four parts of a prompt in this lesson are…",
+    "options": [
+      "Header, body, footer, signature",
+      "Question, answer, examples, temperature",
+      "System, task, data, shape",
+      "Model, tokens, context, output"
+    ],
+    "answer": 2,
+    "explanation": "Each does a different job and is a different lever."
+  },
+  {
+    "id": "4.1-q2",
+    "topic": "system",
+    "difficulty": 2,
+    "stem": "Which line belongs in the system prompt?",
+    "options": [
+      "The specific question for this request",
+      "Never promise a refund; say the billing team will confirm within one business day",
+      "Today's date and the request id",
+      "The customer's message"
+    ],
+    "answer": 1,
+    "explanation": "System = stable rules; volatile values break caching; data and task go in the user turn."
+  },
+  {
+    "id": "4.1-q3",
+    "topic": "checkable",
+    "difficulty": 2,
+    "stem": "Which instruction most reliably changes behaviour?",
+    "options": [
+      "A concrete, checkable constraint such as a word limit or a forbidden promise",
+      "'Be extremely accurate'",
+      "'Try your hardest'",
+      "'You are the world's best agent'"
+    ],
+    "answer": 0,
+    "explanation": "Concrete constraints move the distribution and can be tested."
+  },
+  {
+    "id": "4.1-q4",
+    "topic": "data",
+    "difficulty": 2,
+    "stem": "Why fence pasted content in tags?",
+    "options": [
+      "It saves tokens",
+      "The model requires XML",
+      "It improves grammar",
+      "It labels the content as data, the first defence against instructions hidden in it"
+    ],
+    "answer": 3,
+    "explanation": "Lesson 4.6 builds on this."
+  },
+  {
+    "id": "4.1-q5",
+    "topic": "shape",
+    "difficulty": 1,
+    "stem": "The cheapest lever for consistent output is…",
+    "options": [
+      "Repeating the instruction",
+      "Higher temperature",
+      "Specifying the answer shape — format, length, structure",
+      "A bigger model"
+    ],
+    "answer": 2,
+    "explanation": "A schema is shape the API enforces (Lesson 4.3)."
+  },
+  {
+    "id": "4.1-q6",
+    "topic": "caching",
+    "difficulty": 2,
+    "stem": "Putting the user's name in the system prompt costs…",
+    "options": [
+      "Prompt-cache misses on every request — the stable prefix now changes",
+      "A refusal",
+      "Nothing",
+      "Higher accuracy"
+    ],
+    "answer": 0,
+    "explanation": "Keep the system prompt stable; volatile values after it."
+  },
+  {
+    "id": "4.1-q7",
+    "topic": "cannot",
+    "difficulty": 2,
+    "stem": "A prompt cannot…",
+    "options": [
+      "Make the model know facts it lacks, or enforce anything",
+      "Set the model's role",
+      "Set the answer's format",
+      "Limit answer length"
+    ],
+    "answer": 0,
+    "explanation": "Knowledge is context; enforcement is code."
+  },
+  {
+    "id": "4.1-q8",
+    "topic": "placement",
+    "difficulty": 2,
+    "stem": "Where should the key question go in a long prompt?",
+    "options": [
+      "Anywhere",
+      "In the middle",
+      "Repeated three times",
+      "At the end, with instructions at the start and bulk data fenced in the middle"
+    ],
+    "answer": 3,
+    "explanation": "Attention favours the start and end (Lesson 2.5)."
+  },
+  {
+    "id": "4.1-q9",
+    "topic": "bare",
+    "difficulty": 1,
+    "stem": "With no system prompt the model must…",
+    "options": [
+      "Guess who it is, who it is talking to, and what a good answer looks like",
+      "Ask a clarifying question",
+      "Return JSON",
+      "Refuse"
+    ],
+    "answer": 0,
+    "explanation": "A reasonable guess, and a different guess next time."
+  },
+  {
+    "id": "4.1-q10",
+    "topic": "recorded",
+    "difficulty": 1,
+    "stem": "Why does the output block say 'recorded with <model> on <date>'?",
+    "options": [
+      "The response was captured once through the adapter and replayed on every build — the site never invents model output",
+      "The date is when the lesson was written",
+      "It is a placeholder",
+      "The model runs in the browser"
+    ],
+    "answer": 0,
+    "explanation": "See examples/shared/cassettes/README.md."
+  }
+]

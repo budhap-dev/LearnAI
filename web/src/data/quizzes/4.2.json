@@ -1,0 +1,142 @@
+[
+  {
+    "id": "4.2-q1",
+    "topic": "three patterns",
+    "difficulty": 1,
+    "stem": "The three patterns that survive production are…",
+    "options": [
+      "Few-shot, decomposition, constrained choice",
+      "Temperature, top-p, seed",
+      "Role, threat, tip",
+      "Repeat, capitalise, beg"
+    ],
+    "answer": 0,
+    "explanation": "Each makes the output easier to check."
+  },
+  {
+    "id": "4.2-q2",
+    "topic": "few-shot",
+    "difficulty": 2,
+    "stem": "Few-shot examples mainly communicate…",
+    "options": [
+      "Politeness",
+      "Facts the model lacks",
+      "The model's role",
+      "Format, vocabulary and granularity — the distribution of good outputs"
+    ],
+    "answer": 3,
+    "explanation": "Examples beat adjectives; the model copies format faithfully."
+  },
+  {
+    "id": "4.2-q3",
+    "topic": "labels",
+    "difficulty": 2,
+    "stem": "Outputs vary between 'billing', 'Billing', 'billing-issue'. Fix?",
+    "options": [
+      "List allowed labels and show examples in the exact format (then enum it in a schema)",
+      "Use a bigger model",
+      "Lower max_tokens",
+      "Add 'be consistent'"
+    ],
+    "answer": 0,
+    "explanation": "Constrained vocabulary + few-shot; enforced by a schema in Lesson 4.3."
+  },
+  {
+    "id": "4.2-q4",
+    "topic": "decomposition",
+    "difficulty": 2,
+    "stem": "Two small asks beat one big ask because…",
+    "options": [
+      "Each step is small and checkable, can use a different model/effort, and errors trace to a step",
+      "The model prefers it",
+      "It uses fewer tokens",
+      "Prose is shorter"
+    ],
+    "answer": 0,
+    "explanation": "Extract → decide → act."
+  },
+  {
+    "id": "4.2-q5",
+    "topic": "dates wrong",
+    "difficulty": 2,
+    "stem": "A single prompt extracts dates and drafts an email; dates are often wrong. First move?",
+    "options": [
+      "Bigger model",
+      "Ask for more care",
+      "Higher temperature",
+      "Split: schema-validated extraction first, later steps consume validated facts"
+    ],
+    "answer": 3,
+    "explanation": "Validated extraction stops errors reaching the email."
+  },
+  {
+    "id": "4.2-q6",
+    "topic": "cot",
+    "difficulty": 2,
+    "stem": "'Think step by step' is…",
+    "options": [
+      "Noise",
+      "A replacement for validation",
+      "Required in every prompt",
+      "Real for multi-step problems; reasoning settings do it better; keep reasoning out of parsed output"
+    ],
+    "answer": 3,
+    "explanation": "Lesson 4.5."
+  },
+  {
+    "id": "4.2-q7",
+    "topic": "folklore",
+    "difficulty": 2,
+    "stem": "Emotional pressure, threats and tips in prompts are…",
+    "options": [
+      "Noise — tiny, unstable measured effects",
+      "Better than examples",
+      "A security feature",
+      "Essential"
+    ],
+    "answer": 0,
+    "explanation": "Sorted in the folklore table."
+  },
+  {
+    "id": "4.2-q8",
+    "topic": "negatives",
+    "difficulty": 2,
+    "stem": "Long lists of 'do not…' are…",
+    "options": [
+      "Required by vendors",
+      "Weak — state the positive shape and validate instead",
+      "Free",
+      "The most reliable technique"
+    ],
+    "answer": 1,
+    "explanation": "Each negative is a distraction."
+  },
+  {
+    "id": "4.2-q9",
+    "topic": "balance",
+    "difficulty": 2,
+    "stem": "Few-shot examples should be…",
+    "options": [
+      "Three to five, exact format, balanced across classes, in the stable prefix",
+      "In the user turn only, never cached",
+      "As many as fit",
+      "All from one class"
+    ],
+    "answer": 0,
+    "explanation": "Examples are tokens; keep them stable and counted."
+  },
+  {
+    "id": "4.2-q10",
+    "topic": "goal",
+    "difficulty": 1,
+    "stem": "The design goal of every prompt that feeds code is…",
+    "options": [
+      "Checkability of the output",
+      "Politeness",
+      "Creativity",
+      "Brevity"
+    ],
+    "answer": 0,
+    "explanation": "If you cannot validate it, restructure the prompt."
+  }
+]

@@ -68,6 +68,13 @@ export const EXPLORERS: ExplorerInfo[] = [
     lesson: '3.3',
     load: () => import('./explorers/ConfusionMatrix'),
   },
+  {
+    id: 'injection-lab',
+    name: 'Injection lab',
+    teaches: 'Prompt injection: see the payload ride in with the data, toggle each defence, and watch which outcomes become impossible rather than merely unlikely.',
+    lesson: '4.6',
+    load: () => import('./explorers/InjectionLab'),
+  },
 ];
 
 const byId = Object.fromEntries(EXPLORERS.map((e) => [e.id, e]));

@@ -14,6 +14,7 @@ import { Quiz, type Question } from '../components/Quiz';
 import { Check, parseCheck } from '../components/Check';
 import { bestScore, currentPathway, setLessonState } from '../lib/progress';
 import { navigationOrder, pathwayById, stepOn } from '../lib/pathways';
+import { termsForLesson } from '../lib/reference';
 
 const quizzes = import.meta.glob('../data/quizzes/*.json', { import: 'default' });
 
@@ -54,6 +55,26 @@ function makePreBlock(data: LessonData | null) {
       </CodeBlock>
     );
   };
+}
+
+/** The glossary entries this lesson teaches - a recap before the quiz. */
+function KeyTerms({ lessonId }: { lessonId: string }) {
+  const terms = termsForLesson(lessonId);
+  if (terms.length === 0) return null;
+  return (
+    <section className="key-terms">
+      <h2>Key terms</h2>
+      <dl>
+        {terms.map((t) => (
+          <div key={t.slug}>
+            <dt><Link to={`/reference/glossary?term=${t.slug}`}>{t.term}</Link></dt>
+            <dd>{t.definition}</dd>
+          </div>
+        ))}
+      </dl>
+      <p className="muted small"><Link to="/reference/glossary">Browse the full glossary →</Link></p>
+    </section>
+  );
 }
 
 export function Lesson() {
@@ -164,6 +185,8 @@ export function Lesson() {
       ) : (
         <p className="muted">Loading notes…</p>
       )}
+
+      <KeyTerms lessonId={lesson.id} />
 
       <section className="quiz-panel">
         <h2>Check yourself</h2>

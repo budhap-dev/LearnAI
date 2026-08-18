@@ -1,0 +1,142 @@
+[
+  {
+    "id": "4.3-q1",
+    "topic": "two layers",
+    "difficulty": 1,
+    "stem": "Structured output has two layers…",
+    "options": [
+      "Schema for shape (API-enforced) and code for values",
+      "Prompt and temperature",
+      "Model and tokeniser",
+      "JSON and YAML"
+    ],
+    "answer": 0,
+    "explanation": "A schema-valid answer can still be wrong."
+  },
+  {
+    "id": "4.3-q2",
+    "topic": "guarantee",
+    "difficulty": 2,
+    "stem": "With schema-constrained output, which can still go wrong?",
+    "options": [
+      "A missing required key",
+      "Invalid JSON",
+      "A syntactically valid date that is in the past, or an unusable summary",
+      "An enum value outside your list"
+    ],
+    "answer": 2,
+    "explanation": "Shape is guaranteed; meaning is not."
+  },
+  {
+    "id": "4.3-q3",
+    "topic": "strict",
+    "difficulty": 2,
+    "stem": "additionalProperties:false plus required gives you…",
+    "options": [
+      "Lower cost",
+      "Faster responses",
+      "No surprise keys and no missing ones",
+      "Deterministic output"
+    ],
+    "answer": 2,
+    "explanation": "Strictness is where the value is."
+  },
+  {
+    "id": "4.3-q4",
+    "topic": "not_found",
+    "difficulty": 2,
+    "stem": "Why include a status enum with not_found?",
+    "options": [
+      "A first-class way to say no, so the model does not fill every field to be helpful",
+      "The API requires it",
+      "It improves recall",
+      "It shortens the JSON"
+    ],
+    "answer": 0,
+    "explanation": "Lesson 2.6: the model wants to answer."
+  },
+  {
+    "id": "4.3-q5",
+    "topic": "policy",
+    "difficulty": 2,
+    "stem": "A value check fails on a recoverable field. Policy?",
+    "options": [
+      "Drop the request",
+      "Retry until it passes",
+      "Default the field silently",
+      "Retry once with the failure fed back; cap retries; log it"
+    ],
+    "answer": 3,
+    "explanation": "Failure is a normal event with a policy."
+  },
+  {
+    "id": "4.3-q6",
+    "topic": "wrong not_found",
+    "difficulty": 2,
+    "stem": "not_found returned for an email that clearly has a request. Code should…",
+    "options": [
+      "Override to found",
+      "Route to a human or retry once with a hint; count the miss in the eval; never fabricate",
+      "Ignore the email",
+      "Crash"
+    ],
+    "answer": 1,
+    "explanation": "Honour the refusal path; measure recall."
+  },
+  {
+    "id": "4.3-q7",
+    "topic": "design",
+    "difficulty": 2,
+    "stem": "Schemas models fill well are…",
+    "options": [
+      "Undocumented",
+      "Flat, with described fields, enums where the set is known, meaningful nulls",
+      "Free strings everywhere",
+      "Deeply nested"
+    ],
+    "answer": 1,
+    "explanation": "Decompose rather than nest."
+  },
+  {
+    "id": "4.3-q8",
+    "topic": "reasoning",
+    "difficulty": 2,
+    "stem": "Where should the model's reasoning go if you want it?",
+    "options": [
+      "Inside the summary field",
+      "In every field",
+      "In the enum",
+      "A reasoning setting or a separate field code ignores — not in the JSON you parse"
+    ],
+    "answer": 3,
+    "explanation": "Paying twice and parsing prose otherwise."
+  },
+  {
+    "id": "4.3-q9",
+    "topic": "fallback",
+    "difficulty": 3,
+    "stem": "Structured output unavailable for a model. Fallback?",
+    "options": [
+      "Use regex on prose",
+      "Give up on JSON",
+      "Trust the output",
+      "Ask for JSON only, parse defensively, validate everything yourself, retry with the parse error"
+    ],
+    "answer": 3,
+    "explanation": "Same loop, weaker guarantees, more failures to handle."
+  },
+  {
+    "id": "4.3-q10",
+    "topic": "signal",
+    "difficulty": 2,
+    "stem": "Rising validation-failure rates per field are…",
+    "options": [
+      "An early signal that the prompt, model version or input distribution changed",
+      "A reason to remove validation",
+      "Noise",
+      "Expected and ignorable"
+    ],
+    "answer": 0,
+    "explanation": "Log every outcome (Lesson 8.4)."
+  }
+]

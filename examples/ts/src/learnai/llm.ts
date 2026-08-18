@@ -41,6 +41,10 @@ export interface CompleteOptions {
   model?: string;
   maxTokens?: number;
   temperature?: number;
+  /** Constrain the output to valid JSON matching this schema (structured output). */
+  jsonSchema?: Record<string, unknown>;
+  /** How hard the model thinks: low | medium | high | xhigh | max (Lesson 4.5). */
+  effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max';
 }
 
 /** What an example gets back. Deliberately small: text, and the accounting. */
@@ -83,6 +87,23 @@ function mode(): 'replay' | 'record' | 'live' {
   return m;
 }
 
+/**
+ * Record/live only: read examples/.env (gitignored) so a key never has to be exported.
+ * Real environment variables win.
+ */
+function loadDotenv(): void {
+  const envFile = join(CASSETTES, '..', '..', '.env');
+  if (!existsSync(envFile)) return;
+  for (const raw of readFileSync(envFile, 'utf8').split('\n')) {
+    const line = raw.trim();
+    if (!line || line.startsWith('#') || !line.includes('=')) continue;
+    const i = line.indexOf('=');
+    const key = line.slice(0, i).trim();
+    const value = line.slice(i + 1).trim().replace(/^["']|["']$/g, '');
+    if (process.env[key] === undefined) process.env[key] = value;
+  }
+}
+
 /** Tell the harness which recording was used, so the site can show model + date. */
 function logUse(cassette: Cassette): void {
   const log = process.env.LEARNAI_CASSETTE_LOG;
@@ -99,6 +120,8 @@ export async function complete(messages: Message[] | string, options: CompleteOp
   const request: Record<string, unknown> = { model, messages: msgs, max_tokens: maxTokens };
   if (options.system !== undefined) request.system = options.system;
   if (options.temperature !== undefined) request.temperature = options.temperature;
+  if (options.jsonSchema !== undefined) request.json_schema = options.jsonSchema;
+  if (options.effort !== undefined) request.effort = options.effort;
 
   const key = requestHash(request);
   const path = join(CASSETTES, `${key}.json`);
@@ -123,15 +146,22 @@ export async function complete(messages: Message[] | string, options: CompleteOp
   }
 
   // record / live: the official SDK, imported only here so replay needs nothing installed.
+  loadDotenv();
   const { default: Anthropic } = await import('@anthropic-ai/sdk'); // npm install @anthropic-ai/sdk
+  type SdkMessage = import('@anthropic-ai/sdk').default.Message;
+  type MessageCreateParams = import('@anthropic-ai/sdk').default.MessageCreateParamsNonStreaming;
   const client = new Anthropic();
+  const outputConfig: Record<string, unknown> = {};
+  if (options.jsonSchema !== undefined) outputConfig.format = { type: 'json_schema', schema: options.jsonSchema };
+  if (options.effort !== undefined) outputConfig.effort = options.effort;
   const response = await client.messages.create({
     model,
     max_tokens: maxTokens,
     messages: msgs,
     ...(options.system !== undefined ? { system: options.system } : {}),
     ...(options.temperature !== undefined ? { temperature: options.temperature } : {}),
-  });
+    ...(Object.keys(outputConfig).length ? { output_config: outputConfig } : {}),
+  } as MessageCreateParams) as SdkMessage;
 
   const text = response.content.filter((b) => b.type === 'text').map((b) => (b as { text: string }).text).join('');
   const recordedAt = new Date().toISOString().slice(0, 10);

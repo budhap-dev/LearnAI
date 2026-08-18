@@ -945,3 +945,42 @@ ol.emb-list li button { flex: 1; }
 .cm-stats { grid-template-columns: repeat(2, 1fr); }
 .cm-chart { width: 100%; max-width: 30rem; height: auto; margin-top: 0.4rem; }
 @media (max-width: 640px) { .cm-layout { grid-template-columns: 1fr; } }
+
+/* ---- reference & glossary ---- */
+.glossary { margin: 1rem 0; }
+.glossary-item { padding: 0.75rem 0.9rem; border: 1px solid transparent; border-radius: var(--radius); scroll-margin-top: 5rem; }
+.glossary-item.highlighted { background: var(--accent-soft); border-color: var(--accent); }
+.glossary-item dt { font-weight: 700; font-size: 1.02rem; }
+.glossary-item dt a { text-decoration: none; color: var(--text); }
+.glossary-item dt a:hover { color: var(--accent); }
+.glossary-item dd { margin: 0.25rem 0 0; }
+.glossary-item dd p { margin: 0.2rem 0; }
+.glossary-meta a { text-decoration: none; }
+.key-terms { margin: 2.5rem 0; }
+.key-terms dl { display: grid; gap: 0.6rem; }
+.key-terms dt { font-weight: 600; }
+.key-terms dt a { text-decoration: none; color: var(--text); }
+.key-terms dt a:hover { color: var(--accent); }
+.key-terms dd { margin: 0.1rem 0 0; color: var(--muted); font-size: 0.92rem; }
+.reference-prose table { display: table; }
+.reference-prose h2 { margin-top: 2.2rem; }
+.reference-prose input[type="checkbox"] { margin-right: 0.4rem; }
+.reference-prose li.task-list-item { list-style: none; margin-left: -1.4rem; }
+.reference-prose table { max-width: none; width: 100%; }
+
+/* injection lab */
+.inj-layout { display: grid; grid-template-columns: minmax(0, 3fr) minmax(16rem, 2fr); gap: 1.2rem; align-items: start; }
+.inj-prompt { font-size: 0.8rem; line-height: 1.5; white-space: pre-wrap; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.7rem 0.85rem; margin: 0.3rem 0 0.6rem; }
+.inj-sys { color: var(--accent); }
+.inj-attack { color: var(--wrong); font-weight: 600; }
+.inj-defences { list-style: none; padding: 0; margin: 0.3rem 0; display: grid; gap: 0.5rem; }
+.inj-defences label { display: flex; gap: 0.5rem; align-items: baseline; font-size: 0.9rem; cursor: pointer; }
+.inj-defences label .badge { margin-left: auto; }
+.inj-defences p { margin: 0.2rem 0 0 1.6rem; }
+.inj-outcomes { border-collapse: collapse; width: 100%; font-size: 0.88rem; margin-top: 0.9rem; }
+.inj-outcomes th, .inj-outcomes td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+.inj-outcomes th { width: 40%; font-weight: 600; }
+.inj-outcomes td.ok { color: var(--correct); }
+.inj-outcomes td.warn { color: var(--text); }
+.inj-outcomes td.bad { color: var(--wrong); }
+@media (max-width: 640px) { .inj-layout { grid-template-columns: 1fr; } }

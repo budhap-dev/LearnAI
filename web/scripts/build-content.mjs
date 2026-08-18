@@ -28,6 +28,8 @@ const OUT_NOTES = here('../src/content/lessons/');
 const OUT_LESSONS = here('../public/data/lessons/');
 const OUT_SYLLABUS = here('../public/data/syllabus.json');
 const OUT_SEARCH = here('../public/data/search-index.json');
+const REFERENCE = here('../../docs/reference/');
+const OUT_REFERENCE = here('../src/content/reference/');
 
 const LEVELS = ['basic', 'intermediate', 'advanced'];
 const AUDIENCES = ['orientation', 'builder', 'architect'];
@@ -197,6 +199,50 @@ for (const dir of await readdir(DOCS, { withFileTypes: true })) {
   }
 }
 
+// ---- reference: glossary + markdown pages --------------------------------------------
+
+await rm(OUT_REFERENCE, { recursive: true, force: true });
+await mkdir(OUT_REFERENCE, { recursive: true });
+
+const GlossaryEntry = z.object({
+  term: z.string().min(1),
+  aliases: z.array(z.string()).default([]),
+  definition: z.string().min(20),
+  lessons: z.array(z.string()).default([]),
+  related: z.array(z.string()).default([]),
+});
+const glossaryRaw = JSON.parse(await readFile(join(REFERENCE, 'glossary.json'), 'utf8'));
+const glossary = [];
+const termNames = new Set(glossaryRaw.map((g) => g.term));
+const knownIds = new Set(lessons.map((l) => l.id));
+for (const raw of glossaryRaw) {
+  const parsed = GlossaryEntry.safeParse(raw);
+  if (!parsed.success) {
+    for (const issue of parsed.error.issues) fail('docs/reference/glossary.json', `${raw.term ?? '?'}: ${issue.path.join('.')}: ${issue.message}`);
+    continue;
+  }
+  const g = parsed.data;
+  for (const r of g.related) if (!termNames.has(r)) fail('docs/reference/glossary.json', `${g.term}: related term "${r}" does not exist`);
+  // Lessons may reference not-yet-written ids; keep them, the site only links the ones that exist.
+  glossary.push({ ...g, lessons: g.lessons.filter((id) => knownIds.has(id)), plannedLessons: g.lessons.filter((id) => !knownIds.has(id)) });
+}
+glossary.sort((a, b) => a.term.localeCompare(b.term, undefined, { sensitivity: 'base' }));
+await writeFile(join(OUT_REFERENCE, 'glossary.json'), JSON.stringify(glossary));
+
+const RefFrontmatter = z.object({ id: z.string().regex(/^[a-z-]+$/), title: z.string().min(1), summary: z.string().min(1) });
+const referencePages = [];
+for (const file of (await readdir(REFERENCE)).filter((f) => f.endsWith('.md')).sort()) {
+  const rel = `docs/reference/${file}`;
+  const split = splitFrontmatter(await readFile(join(REFERENCE, file), 'utf8'));
+  if (!split) { fail(rel, 'missing frontmatter block'); continue; }
+  const parsed = RefFrontmatter.safeParse(split.frontmatter);
+  if (!parsed.success) { for (const issue of parsed.error.issues) fail(rel, `${issue.path.join('.')}: ${issue.message}`); continue; }
+  if (parsed.data.id !== basename(file, '.md')) fail(rel, `id "${parsed.data.id}" does not match the file name`);
+  referencePages.push(parsed.data);
+  await writeFile(join(OUT_REFERENCE, `${parsed.data.id}.md`), split.body);
+}
+await writeFile(join(OUT_REFERENCE, 'pages.json'), JSON.stringify(referencePages));
+
 // Cross-lesson checks.
 const ids = new Set(lessons.map((l) => l.id));
 for (const l of lessons) {
@@ -219,3 +265,4 @@ await writeFile(OUT_SEARCH, JSON.stringify(searchIndex));
 console.log(`Content: ${lessons.length} lesson(s) validated -> src/content/lessons/, public/data/lessons/`);
 console.log(`Syllabus: ${modules.length} modules -> public/data/syllabus.json`);
 console.log(`Search: ${searchIndex.length} lessons -> public/data/search-index.json`);
+console.log(`Reference: ${glossary.length} glossary terms, ${referencePages.length} pages -> src/content/reference/`);

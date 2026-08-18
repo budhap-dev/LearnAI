@@ -76,6 +76,20 @@ def _log_use(cassette: dict[str, Any]) -> None:
         f.write(json.dumps({"model": cassette["response"]["model"], "recorded_at": cassette["recorded_at"]}) + "\n")
 
 
+def _load_dotenv() -> None:
+    """Record/live only: read examples/.env (gitignored) so a key never has to be exported.
+    Real environment variables win."""
+    env_file = Path(__file__).resolve().parents[2] / ".env"
+    if not env_file.exists():
+        return
+    for line in env_file.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+
+
 def complete(
     messages: list[dict[str, Any]] | str,
     *,
@@ -83,8 +97,14 @@ def complete(
     model: str = DEFAULT_MODEL,
     max_tokens: int = 1024,
     temperature: float | None = None,
+    json_schema: dict[str, Any] | None = None,
+    effort: str | None = None,
 ) -> Completion:
-    """One model call. `messages` may be a plain string for the common single-turn case."""
+    """One model call. `messages` may be a plain string for the common single-turn case.
+
+    json_schema: constrain the output to valid JSON matching the schema (structured output).
+    effort: "low" | "medium" | "high" | "xhigh" | "max" - how hard the model thinks (Lesson 4.5).
+    """
     if isinstance(messages, str):
         messages = [{"role": "user", "content": messages}]
 
@@ -93,6 +113,10 @@ def complete(
         request["system"] = system
     if temperature is not None:
         request["temperature"] = temperature
+    if json_schema is not None:
+        request["json_schema"] = json_schema
+    if effort is not None:
+        request["effort"] = effort
 
     key = request_hash(request)
     path = CASSETTES / f"{key}.json"
@@ -115,6 +139,7 @@ def complete(
         )
 
     # record / live: the official SDK, imported only here so replay needs nothing installed.
+    _load_dotenv()
     import anthropic  # noqa: PLC0415  (pip install anthropic)
 
     client = anthropic.Anthropic()
@@ -123,6 +148,13 @@ def complete(
         kwargs["system"] = system
     if temperature is not None:
         kwargs["temperature"] = temperature
+    output_config: dict[str, Any] = {}
+    if json_schema is not None:
+        output_config["format"] = {"type": "json_schema", "schema": json_schema}
+    if effort is not None:
+        output_config["effort"] = effort
+    if output_config:
+        kwargs["output_config"] = output_config
     response = client.messages.create(**kwargs)
 
     text = "".join(block.text for block in response.content if block.type == "text")
