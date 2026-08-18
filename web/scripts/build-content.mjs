@@ -62,8 +62,8 @@ function splitFrontmatter(raw) {
 
 /** Every ```lang fence body, by fence language. */
 function fences(body) {
-  const found = { code: [], output: [], diagram: [], explorer: [] };
-  for (const m of body.matchAll(/```(code|output|diagram|explorer)\n([\s\S]*?)```/g)) {
+  const found = { code: [], output: [], diagram: [], explorer: [], check: [] };
+  for (const m of body.matchAll(/```(code|output|diagram|explorer|check)\n([\s\S]*?)```/g)) {
     found[m[1]].push(m[2].trim());
   }
   return found;
@@ -157,6 +157,13 @@ for (const dir of await readdir(DOCS, { withFileTypes: true })) {
     for (const name of used.diagram) {
       if (!fm.diagrams.includes(name)) fail(rel, `\`\`\`diagram ${name} is used but not declared in frontmatter diagrams`);
     }
+    for (const check of used.check) {
+      const lines = check.split('\n').filter((l) => l.trim());
+      const options = lines.filter((l) => l.trim().startsWith('- '));
+      if (lines.length < 3 || options.length < 2 || !options.some((l) => l.trim().startsWith('- * ')) || !lines.some((l) => l.trim().startsWith('why:'))) {
+        fail(rel, '```check card needs a question line, 2+ "- " options with one "- * " answer, and a "why:" line');
+      }
+    }
     for (const name of used.explorer) {
       if (!fm.explorers.includes(name)) fail(rel, `\`\`\`explorer ${name} is used but not declared in frontmatter explorers`);
     }
@@ -178,7 +185,7 @@ for (const dir of await readdir(DOCS, { withFileTypes: true })) {
       summary: fm.summary,
       objectives: fm.objectives,
       tags: fm.tags,
-      text: toPlainText(split.body).slice(0, 4000),
+      text: toPlainText(split.body).slice(0, 8000),
     });
   }
 }

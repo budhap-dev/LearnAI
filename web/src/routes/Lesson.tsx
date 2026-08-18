@@ -11,7 +11,9 @@ import { OutputBlock } from '../components/OutputBlock';
 import { Explorer } from '../components/Explorer';
 import { CodeBlock } from '../components/CodeBlock';
 import { Quiz, type Question } from '../components/Quiz';
-import { bestScore, setLessonState } from '../lib/progress';
+import { Check, parseCheck } from '../components/Check';
+import { bestScore, currentPathway, setLessonState } from '../lib/progress';
+import { navigationOrder, pathwayById, stepOn } from '../lib/pathways';
 
 const quizzes = import.meta.glob('../data/quizzes/*.json', { import: 'default' });
 
@@ -21,6 +23,7 @@ const quizzes = import.meta.glob('../data/quizzes/*.json', { import: 'default' }
  *   ```output <marker>     output captured from running them
  *   ```diagram <name>      themed inline SVG from the registry
  *   ```explorer <id>       a lazy-loaded interactive island
+ *   ```check               an inline check-yourself card (see components/Check.tsx)
  * Anything else is an ordinary code block.
  */
 function makePreBlock(data: LessonData | null) {
@@ -32,6 +35,10 @@ function makePreBlock(data: LessonData | null) {
     const body = String(child?.props?.children ?? '').trim();
 
     if (/language-diagram/.test(className)) return <Diagram name={body} />;
+    if (/language-check/.test(className)) {
+      const spec = parseCheck(body);
+      return spec ? <Check spec={spec} /> : <p className="missing">Malformed check card.</p>;
+    }
     if (/language-explorer/.test(className)) return <Explorer id={body} />;
     if (/language-code/.test(className)) {
       if (!data) return <p className="muted">Loading code…</p>;
@@ -88,9 +95,12 @@ export function Lesson() {
   }
 
   const module = syllabus.modules.find((m) => m.id === lesson.module);
-  const position = syllabus.lessons.indexOf(lesson);
-  const previous = syllabus.lessons[position - 1];
-  const next = syllabus.lessons[position + 1];
+  const pathway = currentPathway() ?? null;
+  const order = navigationOrder(syllabus, lesson, pathway);
+  const position = order.indexOf(lesson);
+  const previous = order[position - 1];
+  const next = order[position + 1];
+  const step = pathway ? stepOn(lesson, pathway) : null;
   const best = bestScore(lesson.id);
   const PreBlock = makePreBlock(data);
 
@@ -110,6 +120,11 @@ export function Lesson() {
 
       <p className="lesson-meta-line">
         <span className={`level level-${lesson.level}`}>{LEVEL_LABEL[lesson.level]}</span>
+        {pathway && (
+          <span className={`badge ${step !== null ? 'route' : ''}`}>
+            {step !== null ? `${pathwayById[pathway].name} route · step ${step}` : `off the ${pathwayById[pathway].name} route`}
+          </span>
+        )}
         <span className="muted">~{lesson.estimatedMinutes} min</span>
         {lesson.languages.length > 0 && (
           <span className="muted">

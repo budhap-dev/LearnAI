@@ -1,5 +1,23 @@
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { ThemePicker } from './ThemePicker';
+import { SearchBox } from './SearchBox';
+import { useProgress } from '../lib/useProgress';
+import { useSyllabus } from '../lib/useSyllabus';
+
+function ProgressPill() {
+  const progress = useProgress();
+  const syllabus = useSyllabus();
+  const total = syllabus?.lessons.length ?? 0;
+  const done = Object.values(progress.lessons).filter((s) => s === 'done').length;
+  if (!total) return null;
+  const pct = Math.round((done / total) * 100);
+  return (
+    <Link to="/progress" className="progress-pill" title="Your progress" aria-label={`Progress: ${done} of ${total} lessons done`}>
+      <span className="ring" style={{ ['--pct' as string]: `${pct}%` }} aria-hidden="true" />
+      {done}/{total}
+    </Link>
+  );
+}
 
 export function Layout() {
   return (
@@ -14,6 +32,8 @@ export function Layout() {
           <NavLink to="/explore">Explore</NavLink>
         </nav>
         <div className="header-right">
+          <SearchBox />
+          <ProgressPill />
           <ThemePicker />
         </div>
       </header>

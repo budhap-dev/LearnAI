@@ -4,6 +4,8 @@ import { Layout } from './components/Layout';
 import { Home } from './routes/Home';
 import { Syllabus } from './routes/Syllabus';
 import { Explore } from './routes/Explore';
+import { Search } from './routes/Search';
+import { Progress } from './routes/Progress';
 
 // The lesson page pulls in the markdown renderer and syntax highlighter, which are by far the
 // heaviest dependencies. Loading it lazily keeps the home and syllabus pages small.
@@ -24,6 +26,8 @@ const router = createHashRouter([
       { index: true, element: <Home /> },
       { path: 'syllabus', element: <Syllabus /> },
       { path: 'explore', element: <Explore /> },
+      { path: 'search', element: <Search /> },
+      { path: 'progress', element: <Progress /> },
       { path: 'explore/:id', element: <Explore /> },
       { path: 'lesson/:id', element: lazyRoute(<Lesson />, 'lesson') },
       { path: '*', element: <Home /> },
