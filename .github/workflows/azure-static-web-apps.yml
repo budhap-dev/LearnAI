@@ -16,7 +16,7 @@ jobs:
     env:
       # Empty until the Azure Static Web App exists and its token is added as a repo secret.
       # Until then the build and verification steps still run - only the deploy is skipped.
-      SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+      SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_GLACIER_086E9A910 }}
     steps:
       - uses: actions/checkout@v4
 
@@ -58,7 +58,7 @@ jobs:
         if: env.SWA_TOKEN != ''
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_GLACIER_086E9A910 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: upload
           app_location: web/dist
@@ -71,17 +71,17 @@ jobs:
         run: |
           echo "::notice::Site built successfully but was not deployed."
           echo "::notice::Create an Azure Static Web App on the Free plan, then add its"
-          echo "::notice::deployment token as the AZURE_STATIC_WEB_APPS_API_TOKEN secret."
+          echo "::notice::deployment token as the AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_GLACIER_086E9A910 secret."
 
   close_pull_request:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close staging environment
     env:
-      SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+      SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_GLACIER_086E9A910 }}
     steps:
       - if: env.SWA_TOKEN != ''
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_GLACIER_086E9A910 }}
           action: close
