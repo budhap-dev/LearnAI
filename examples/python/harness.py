@@ -14,9 +14,11 @@ from __future__ import annotations
 
 import io
 import json
+import os
 import re
 import runpy
 import sys
+import tempfile
 from contextlib import redirect_stdout
 from pathlib import Path
 
@@ -79,11 +81,20 @@ def split_sections(stdout: str) -> dict[str, str]:
     return sections
 
 
-def run(path: Path) -> str:
+def run(path: Path) -> tuple[str, list[dict]]:
+    """Run one example; return its stdout and the list of cassette recordings it used."""
     out = io.StringIO()
-    with redirect_stdout(out):
-        runpy.run_path(str(path), run_name="__main__")
-    return out.getvalue()
+    with tempfile.NamedTemporaryFile("w+", suffix=".jsonl", delete=False) as log:
+        os.environ["LEARNAI_CASSETTE_LOG"] = log.name
+        try:
+            with redirect_stdout(out):
+                runpy.run_path(str(path), run_name="__main__")
+        finally:
+            os.environ.pop("LEARNAI_CASSETTE_LOG", None)
+        log.seek(0)
+        used = [json.loads(line) for line in log if line.strip()]
+    os.unlink(log.name)
+    return out.getvalue(), used
 
 
 def capture(out_dir: Path) -> None:
@@ -91,13 +102,15 @@ def capture(out_dir: Path) -> None:
     lessons = discover()
     for lesson_id, path in lessons.items():
         source = path.read_text(encoding="utf-8")
-        stdout = run(path)
+        stdout, used = run(path)
         payload = {
             "lesson": lesson_id,
             "language": "python",
             "file": path.relative_to(ROOT.parent.parent).as_posix(),
             "regions": extract_regions(source),
             "outputs": split_sections(stdout),
+            # Which model + date the recorded responses came from, if the example called one.
+            "recorded": [{"model": m, "recorded_at": d} for m, d in sorted({(u["model"], u["recorded_at"]) for u in used})],
         }
         (out_dir / f"{lesson_id}.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
         print(f"captured {lesson_id}: {len(payload['regions'])} regions, {len(payload['outputs'])} outputs")
@@ -116,7 +129,7 @@ def main(argv: list[str]) -> int:
         if lesson_id not in lessons:
             print(f"no example for lesson {lesson_id}", file=sys.stderr)
             return 1
-        sys.stdout.write(run(lessons[lesson_id]))
+        sys.stdout.write(run(lessons[lesson_id])[0])
         return 0
     if command == "capture":
         capture(Path(argv[2] if len(argv) > 2 else "captures"))

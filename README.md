@@ -55,3 +55,19 @@ web/                     the React + Vite static site (see web/README.md)
 Every code snippet on the site is a traced `# region:` of an example file, and every output
 block was captured from running it. Python and TypeScript examples are twins - the build fails
 if their output differs.
+
+## Model calls: the `llm` adapter and cassettes
+
+Examples that call a language model go through one adapter (`examples/python/learnai/llm.py`,
+`examples/ts/src/learnai/llm.ts`). By default it **replays** recorded responses from
+`examples/shared/cassettes/` - so the site, CI and a reader who clones the repo need no API key
+and spend nothing, and both languages show the same real response. To **record** a new
+cassette (needs credentials and the official SDK):
+
+```bash
+pip install -r examples/python/requirements-record.txt      # or: cd examples/ts && npm install
+LEARNAI_LLM_MODE=record python3 examples/python/m04_prompting/l01_anatomy.py
+```
+
+The site labels any output that replays a recording with the model and the date it was
+recorded; the build warns when a recording is older than six months.

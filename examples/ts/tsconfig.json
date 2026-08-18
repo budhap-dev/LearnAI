@@ -14,5 +14,5 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["harness.ts", "src", "m*_*/**/*.ts"]
+  "include": ["harness.ts", "smoke_llm.ts", "src", "m*_*/**/*.ts"]
 }
