@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+
+# build output
+web/dist/
+
+# generated on every build - never commit
+web/public/data/
+web/src/content/lessons/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+
+# editors / OS
+.DS_Store
+.vscode/
+.idea/
+*.tsbuildinfo
