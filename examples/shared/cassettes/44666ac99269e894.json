@@ -1,0 +1,78 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Extract the ticket fields from this customer email. If the email contains no actionable request, set status to not_found and fill the other fields with your best neutral guess.\n\n<email>\nSubject: Seats\n\nYou billed us for two seats this month but we only have one user. Please correct the invoice.\n</email>"
+      }
+    ],
+    "max_tokens": 300,
+    "system": "You extract support-ticket fields. Use only what is in the email; never invent details.",
+    "json_schema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_found"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "bug",
+            "how-to",
+            "billing",
+            "feature-request",
+            "other"
+          ]
+        },
+        "urgency": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "product_area": {
+          "type": "string"
+        },
+        "requested_by_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "ISO date if the customer named a deadline, else null"
+        },
+        "summary": {
+          "type": "string",
+          "description": "one sentence, internal"
+        }
+      },
+      "required": [
+        "status",
+        "category",
+        "urgency",
+        "product_area",
+        "requested_by_date",
+        "summary"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "text": "{\n  \"status\": \"found\",\n  \"category\": \"billing\",\n  \"urgency\": \"medium\",\n  \"product_area\": \"subscription\",\n  \"requested_by_date\": \"not_found\",\n  \"summary\": \"Customer claims they were billed for two seats but only have one user. Request to correct the invoice.\"\n}",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 102,
+      "output_tokens": 70
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "ts"
+}

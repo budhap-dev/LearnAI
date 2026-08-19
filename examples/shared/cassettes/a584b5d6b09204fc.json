@@ -1,0 +1,78 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Extract the ticket fields from this customer email. If the email contains no actionable request, set status to not_found and fill the other fields with your best neutral guess.\n\n<email>\nSubject: Reports tab crash\n\nSince yesterday's Android update the reports tab crashes on open every time. We have a board meeting on 2026-09-02 and need the reports before then.\n</email>"
+      }
+    ],
+    "max_tokens": 300,
+    "system": "You extract support-ticket fields. Use only what is in the email; never invent details.",
+    "json_schema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "found",
+            "not_found"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "bug",
+            "how-to",
+            "billing",
+            "feature-request",
+            "other"
+          ]
+        },
+        "urgency": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "product_area": {
+          "type": "string"
+        },
+        "requested_by_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "ISO date if the customer named a deadline, else null"
+        },
+        "summary": {
+          "type": "string",
+          "description": "one sentence, internal"
+        }
+      },
+      "required": [
+        "status",
+        "category",
+        "urgency",
+        "product_area",
+        "requested_by_date",
+        "summary"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "text": "{\n  \"status\": \"not_found\",\n  \"category\": \"bug\",\n  \"urgency\": \"high\",\n  \"product_area\": \"reports tab\",\n  \"requested_by_date\": \"2026-09-02\",\n  \"summary\": \"Reports tab crashes on open after Android update\"\n}",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 122,
+      "output_tokens": 68
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "ts"
+}

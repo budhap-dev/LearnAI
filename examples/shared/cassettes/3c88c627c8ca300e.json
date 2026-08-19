@@ -1,0 +1,25 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "<policy>\nRefunds are available within 14 days of purchase for annual plans, and within 48 hours for monthly plans. Refunds are issued to the original payment method within 5 business days.\n</policy>\n\nQuestion: Do you offer student discounts?"
+      }
+    ],
+    "max_tokens": 120,
+    "system": "You answer questions about Acme's refund policy using ONLY the policy text provided. If the policy does not cover the question, reply exactly: NOT_COVERED. Keep answers under 60 words."
+  },
+  "response": {
+    "text": "NOT_COVERED",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 116,
+      "output_tokens": 5
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "ts"
+}

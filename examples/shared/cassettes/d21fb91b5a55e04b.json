@@ -1,0 +1,25 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Four deploys must run in sequence in one maintenance window: API, DB, Web, Worker.\nConstraints:\n- DB must run before API and before Worker.\n- Web must run immediately after API.\n- Worker cannot be last.\nList the only valid order, comma-separated, and nothing else."
+      }
+    ],
+    "max_tokens": 4000,
+    "effort": "high"
+  },
+  "response": {
+    "text": "DB,Worker,API,Web",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 69,
+      "output_tokens": 2834
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "ts"
+}

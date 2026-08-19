@@ -26,10 +26,18 @@ import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } fr
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-/** The default model. Chosen once, here; lessons pass a different one only to make a point. */
-export const DEFAULT_MODEL = 'claude-opus-5';
+const SHARED = join(fileURLToPath(new URL('.', import.meta.url)), '..', '..', '..', 'shared');
+const CASSETTES = join(SHARED, 'cassettes');
 
-const CASSETTES = join(fileURLToPath(new URL('.', import.meta.url)), '..', '..', '..', 'shared', 'cassettes');
+/**
+ * The provider and model the course records with - committed in examples/shared/llm-config.json
+ * so replay resolves the same cassette keys as recording did. Lessons pass a different model
+ * only to make a point. Override per run with LEARNAI_LLM_PROVIDER / LEARNAI_LLM_MODEL.
+ */
+const CONFIG = JSON.parse(readFileSync(join(SHARED, 'llm-config.json'), 'utf8')) as { provider: string; model: string; ollama_url?: string };
+export const PROVIDER = process.env.LEARNAI_LLM_PROVIDER ?? CONFIG.provider;
+export const DEFAULT_MODEL = process.env.LEARNAI_LLM_MODEL ?? CONFIG.model;
+const OLLAMA_URL = process.env.OLLAMA_URL ?? CONFIG.ollama_url ?? 'http://localhost:11434';
 
 export interface Message {
   role: 'user' | 'assistant';
@@ -117,7 +125,7 @@ export async function complete(messages: Message[] | string, options: CompleteOp
   const model = options.model ?? DEFAULT_MODEL;
   const maxTokens = options.maxTokens ?? 1024;
 
-  const request: Record<string, unknown> = { model, messages: msgs, max_tokens: maxTokens };
+  const request: Record<string, unknown> = { provider: PROVIDER, model, messages: msgs, max_tokens: maxTokens };
   if (options.system !== undefined) request.system = options.system;
   if (options.temperature !== undefined) request.temperature = options.temperature;
   if (options.jsonSchema !== undefined) request.json_schema = options.jsonSchema;
@@ -145,7 +153,28 @@ export async function complete(messages: Message[] | string, options: CompleteOp
     };
   }
 
-  // record / live: the official SDK, imported only here so replay needs nothing installed.
+  // record / live: call the configured provider.
+  let result: Cassette['response'];
+  if (PROVIDER === 'anthropic') result = await callAnthropic(model, msgs, options, maxTokens);
+  else if (PROVIDER === 'ollama') result = await callOllama(model, msgs, options, maxTokens);
+  else throw new Error(`unknown provider '${PROVIDER}' (anthropic | ollama)`);
+
+  const recordedAt = new Date().toISOString().slice(0, 10);
+  const cassette: Cassette = { request, response: result, recorded_at: recordedAt, recorded_by: 'ts' };
+  if (m === 'record') {
+    mkdirSync(CASSETTES, { recursive: true });
+    writeFileSync(path, JSON.stringify(cassette, null, 2) + '\n');
+  }
+  logUse(cassette);
+  return {
+    text: result.text, model: result.model, stopReason: result.stop_reason,
+    inputTokens: result.usage.input_tokens, outputTokens: result.usage.output_tokens,
+    recordedAt, replayed: false,
+  };
+}
+
+/** The official SDK, imported only here so replay needs nothing installed. */
+async function callAnthropic(model: string, msgs: Message[], options: CompleteOptions, maxTokens: number): Promise<Cassette['response']> {
   loadDotenv();
   const { default: Anthropic } = await import('@anthropic-ai/sdk'); // npm install @anthropic-ai/sdk
   type SdkMessage = import('@anthropic-ai/sdk').default.Message;
@@ -162,28 +191,43 @@ export async function complete(messages: Message[] | string, options: CompleteOp
     ...(options.temperature !== undefined ? { temperature: options.temperature } : {}),
     ...(Object.keys(outputConfig).length ? { output_config: outputConfig } : {}),
   } as MessageCreateParams) as SdkMessage;
-
   const text = response.content.filter((b) => b.type === 'text').map((b) => (b as { text: string }).text).join('');
-  const recordedAt = new Date().toISOString().slice(0, 10);
-  const cassette: Cassette = {
-    request,
-    response: {
-      text,
-      model: response.model,
-      stop_reason: response.stop_reason ?? 'end_turn',
-      usage: { input_tokens: response.usage.input_tokens, output_tokens: response.usage.output_tokens },
-    },
-    recorded_at: recordedAt,
-    recorded_by: 'ts',
-  };
-  if (m === 'record') {
-    mkdirSync(CASSETTES, { recursive: true });
-    writeFileSync(path, JSON.stringify(cassette, null, 2) + '\n');
-  }
-  logUse(cassette);
   return {
-    text, model: response.model, stopReason: cassette.response.stop_reason,
-    inputTokens: response.usage.input_tokens, outputTokens: response.usage.output_tokens,
-    recordedAt, replayed: false,
+    text,
+    model: response.model,
+    stop_reason: response.stop_reason ?? 'end_turn',
+    usage: { input_tokens: response.usage.input_tokens, output_tokens: response.usage.output_tokens },
+  };
+}
+
+/**
+ * Ollama's local HTTP API (ollama.com). A free, open-weight model on your own machine: no key,
+ * nothing leaves the laptop. Same request shape as the hosted path, mapped:
+ *   jsonSchema -> format (Ollama enforces the schema);  effort -> think on/off
+ *   (low = off; medium and above = on, for models that support it, e.g. qwen3).
+ */
+async function callOllama(model: string, msgs: Message[], options: CompleteOptions, maxTokens: number): Promise<Cassette['response']> {
+  const chat = [...(options.system !== undefined ? [{ role: 'system', content: options.system }] : []), ...msgs];
+  const body: Record<string, unknown> = {
+    model,
+    messages: chat,
+    stream: false,
+    options: { num_predict: maxTokens, ...(options.temperature !== undefined ? { temperature: options.temperature } : {}) },
+    think: options.effort !== undefined && options.effort !== 'low',
+  };
+  if (options.jsonSchema !== undefined) body.format = options.jsonSchema;
+  let res: Response;
+  try {
+    res = await fetch(`${OLLAMA_URL}/api/chat`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  } catch (e) {
+    throw new Error(`Could not reach Ollama at ${OLLAMA_URL} (${(e as Error).message}). Install it from https://ollama.com, start it, and \`ollama pull ${model}\`.`);
+  }
+  if (!res.ok) throw new Error(`Ollama ${res.status}: ${await res.text()}`);
+  const data = (await res.json()) as { model?: string; message: { content: string }; done_reason?: string; prompt_eval_count?: number; eval_count?: number };
+  return {
+    text: data.message.content,
+    model: data.model ?? model,
+    stop_reason: (data.done_reason ?? 'stop') === 'stop' ? 'end_turn' : 'max_tokens',
+    usage: { input_tokens: data.prompt_eval_count ?? 0, output_tokens: data.eval_count ?? 0 },
   };
 }

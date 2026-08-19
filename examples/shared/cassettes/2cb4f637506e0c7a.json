@@ -1,0 +1,24 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Classify each support ticket by type. Tickets:\n- App crashes every time I open the reports tab on Android since yesterday's update.\n- How do I export my data to CSV? Can't find the button anywhere.\n- You charged me for two seats but I only have one user. Please fix."
+      }
+    ],
+    "max_tokens": 200
+  },
+  "response": {
+    "text": "Here’s the classification of each support ticket by type:\n\n1. **App crashes every time I open the reports tab on Android since yesterday's update.**  \n   - **Type:** **Technical Issue / Crash / Bug**\n\n2. **How do I export my data to CSV? Can't find the button anywhere.**  \n   - **Type:** **Feature Request / User Guidance / Help / Onboarding**\n\n3. **You charged me for two seats but I only have one user. Please fix.**  \n   - **Type:** **Billing / Payment / Subscription Issue**\n\nLet me know if you'd like a more detailed categorization or tagging system.",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 77,
+      "output_tokens": 134
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "ts"
+}

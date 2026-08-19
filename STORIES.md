@@ -20,12 +20,12 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | Area | State |
 |---|---|
 | **Deployed site** | 🟡 workflow written; Azure SWA resource + secret still to create |
-| **Lesson notes** | 🟡 **20 / 66** — Modules 1, 2 and 3 complete (the whole Basic level) |
-| **Example code (Python + TS)** | 🟡 10 / 48 — 1.2, 2.1, 2.2, 2.3, 2.5, 2.7, 3.2, 3.3, 3.4, 3.5 in both languages, byte-identical output enforced by the build |
-| **Verified output pipeline** | ✅ harnesses capture regions + outputs → build validates every fence and that Python/TS agree → site (cassettes for LLM-dependent examples still to design) |
-| **Diagrams** | 🟡 20 / ~120 — all of Modules 1–3 |
-| **Interactive explorers** | 🟡 7 / ~20 — tokeniser, sampling, embeddings, attention, context-budget, gradient-descent, confusion-matrix |
-| **Quizzes** | 🟡 200 / 660 — Modules 1–3, options shuffled; 40 check cards |
+| **Lesson notes** | 🟡 **26 / 66** — Modules 1–4 complete (Basic level + Prompting) |
+| **Example code (Python + TS)** | 🟡 16 / 48 — Modules 1–3 (10) + Module 4 (6, model-calling via the `llm` adapter) in both languages, byte-identical output enforced by the build |
+| **Verified output pipeline** | ✅ harnesses capture regions + outputs → build validates every fence and that Python/TS agree → site; model calls go through the `llm` adapter and **replay recorded cassettes** (24 recorded, default provider Ollama `qwen3:8b`) |
+| **Diagrams** | 🟡 26 / ~120 — all of Modules 1–4 |
+| **Interactive explorers** | 🟡 8 / ~20 — tokeniser, sampling, embeddings, attention, context-budget, gradient-descent, confusion-matrix, injection-lab |
+| **Quizzes** | 🟡 260 / 660 — Modules 1–4, options shuffled; 52 check cards |
 | **Site features** | 🟡 home with pathway chooser, syllabus (pathway-aware, route list), lesson page with Py/TS code tabs, output blocks, diagrams, explorers, check-yourself cards, key terms, quiz; full-text search; progress dashboard with export/import/reset; **reference section** (glossary, decision tables, checklists, model reference); six themes |
 | **Pathways** | 🟡 Orientation · Builder · Architect — chooser, syllabus route order, pathway-aware prev/next; no depth toggles or audience-tagged questions yet |
 
@@ -119,7 +119,7 @@ never the ceiling. Nobody sees a stripped-down version.
 | **Hosting** | **Azure Static Web Apps — Free tier** | £0; free SSL, CDN, GitHub Actions built in. Same rules as LearnCSharp §3.2: no Functions, no Insights, no storage, £0 budget alert |
 | **Stack** | **React 19 + TypeScript (Vite)**, HashRouter, **npm** | Reuse the LearnCSharp shell, components, theme system and progress store — proven, and the owner knows React |
 | **Example languages** | **Python and TypeScript, side by side** | Python is the lingua franca of AI; TypeScript is what most product engineers ship. Every code lesson shows both |
-| **Provider stance** | **Provider-neutral concepts; a thin `llm` adapter in the examples** | Concepts (tokens, tools, RAG, evals) outlive any vendor. Examples run against one default provider through an adapter, and lessons say what differs elsewhere |
+| **Provider stance** | **Provider-neutral concepts; a thin `llm` adapter with two backends** — `ollama` (local open-weight model, the committed default for recordings: `qwen3:8b`) and `anthropic` (hosted API). Provider + model live in `examples/shared/llm-config.json` and are part of every cassette key | Concepts (tokens, tools, RAG, evals) outlive any vendor. Recording with a free local model keeps the course zero-cost and key-free end to end; switching the config to a frontier model and re-recording is a one-line change |
 | **Model execution in-browser** | **None for real models.** Explorers use tiny client-side simulations or pre-computed data | Keeps the site static, fast, key-free. A JS BPE tokeniser is the one "real" component (it is small and deterministic) |
 | **API calls from the browser** | **Optional, BYO-key playground only** (US-1207); key held in `sessionStorage`, never sent anywhere but the provider | Lets a reader experiment without us running a backend or paying for tokens |
 | **Output shown** | **Captured from real runs** — deterministic examples run in CI; LLM-dependent examples run against **recorded responses** (cassettes) that are refreshed deliberately | Output is real, never hand-typed; CI does not need a key or spend money |
@@ -428,7 +428,7 @@ snippet can never drift from the code that ran.
 - [x] `LEARNAI_LLM_MODE=record` refreshes cassettes with a real key; cassette diff reviewed in PR
 - [x] Output block shows model + recorded date when it came from a cassette
 
-### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 20 / 66 — *Modules 1–3 complete; Basic level done*
+### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 26 / 66 — *Modules 1–4 complete*
 - [ ] Notes for all lessons in §8, each with objectives, body, diagrams, exercises
 - [ ] Every code lesson has a Python and a TS example
 - [ ] Every lesson read for tone by pathway (Orientation ↔ Architect framing both work)
@@ -880,9 +880,10 @@ themed · ≤15 KB gz lazy chunk · has a "what am I looking at" caption and a "
    languages; no cassette has been recorded against the real API yet — that needs credentials).
 7. ~~Module 3 (Classic ML)~~ — **done**; the Basic level (Modules 1–3) is complete.
 8. ~~Reference section (glossary, decision tables, checklists, model reference)~~ — **done**.
-9. Module 4 (Prompting) — **written: 6 lessons, 6 twin examples (23 model calls through the
-   adapter, Py/TS parity verified against fake cassettes), 6 diagrams, injection-lab explorer,
-   60 questions, 12 check cards.** Blocked on one recording pass with real credentials:
-   `cd examples/ts && npm install && LEARNAI_LLM_MODE=record node harness.ts capture /tmp/x`
-   (or `examples/.env` with `ANTHROPIC_API_KEY=` and I run it), then review the cassette diff,
-   then build → PR.
+9. ~~Module 4 (Prompting)~~ — **done**: 6 lessons, 6 twin examples whose 23 model calls are
+   recorded as cassettes with the local `qwen3:8b` via Ollama (no key, no cost), 6 diagrams,
+   injection-lab explorer, 60 questions, 12 check cards. The recorded responses include real,
+   instructive model mistakes (a wrong `not_found`, a string in a date field, a successful
+   injection in the undefended case) that the lessons now discuss explicitly.
+10. Module 5 (Building with LLM APIs) — next; needs the adapter to grow `stream()` and tool
+    calling, recorded the same way.

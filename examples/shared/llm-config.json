@@ -1,0 +1,6 @@
+{
+  "provider": "ollama",
+  "model": "qwen3:8b",
+  "ollama_url": "http://localhost:11434",
+  "note": "The provider/model the examples record with. Changing this changes every cassette key; re-record after editing. Override per run with LEARNAI_LLM_PROVIDER / LEARNAI_LLM_MODEL."
+}
