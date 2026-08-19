@@ -1,0 +1,142 @@
+[
+  {
+    "id": "4.5-q1",
+    "topic": "tokens",
+    "difficulty": 1,
+    "stem": "Thinking tokens are…",
+    "options": [
+      "Intermediate tokens the model produces before answering; billed as output; add latency",
+      "Input tokens",
+      "Free",
+      "Cached"
+    ],
+    "answer": 0,
+    "explanation": "Real work, real cost."
+  },
+  {
+    "id": "4.5-q2",
+    "topic": "where",
+    "difficulty": 2,
+    "stem": "Thinking helps most on…",
+    "options": [
+      "Extraction",
+      "Lookups",
+      "Translations",
+      "Multi-step problems: planning, maths, tricky code"
+    ],
+    "answer": 3,
+    "explanation": "Steep where the task needs steps, flat where it does not."
+  },
+  {
+    "id": "4.5-q3",
+    "topic": "extraction",
+    "difficulty": 2,
+    "stem": "Extraction pipeline at high effort uses 4× tokens. Move?",
+    "options": [
+      "Bigger model",
+      "Keep it to be safe",
+      "Greedy decoding",
+      "Measure accuracy at low vs high on the golden set; if equal, drop to low"
+    ],
+    "answer": 3,
+    "explanation": "Effort is a per-task dial."
+  },
+  {
+    "id": "4.5-q4",
+    "topic": "per prompt",
+    "difficulty": 2,
+    "stem": "Effort should be set…",
+    "options": [
+      "Per prompt/step — extraction low, planning high",
+      "Always max",
+      "Once per application",
+      "Never"
+    ],
+    "answer": 0,
+    "explanation": "Decomposed pipelines want different settings."
+  },
+  {
+    "id": "4.5-q5",
+    "topic": "budget",
+    "difficulty": 2,
+    "stem": "Thinking tokens count against…",
+    "options": [
+      "Nothing",
+      "Input only",
+      "max_tokens and your context budget — leave room or the answer truncates",
+      "The vendor's budget"
+    ],
+    "answer": 2,
+    "explanation": "Lesson 2.5."
+  },
+  {
+    "id": "4.5-q6",
+    "topic": "limits",
+    "difficulty": 2,
+    "stem": "Coherent reasoning, wrong answer. Meaning?",
+    "options": [
+      "Reasoning is text that conditions the answer; it can rationalise — verify outside the model",
+      "Reasoning is broken",
+      "Raise effort",
+      "Lower temperature"
+    ],
+    "answer": 0,
+    "explanation": "Not a correctness guarantee."
+  },
+  {
+    "id": "4.5-q7",
+    "topic": "output",
+    "difficulty": 2,
+    "stem": "If you want to see the reasoning…",
+    "options": [
+      "Ask twice",
+      "Put it in the schema",
+      "Parse the prose",
+      "Use the API's summary option; do not ask for it inside the JSON you parse"
+    ],
+    "answer": 3,
+    "explanation": "Paying twice and parsing prose otherwise."
+  },
+  {
+    "id": "4.5-q8",
+    "topic": "latency",
+    "difficulty": 2,
+    "stem": "High effort can turn one second into many. Mitigation?",
+    "options": [
+      "Retry",
+      "Nothing",
+      "Stream when a person waits; timeouts with fallbacks; low effort where it buys nothing",
+      "Bigger max_tokens"
+    ],
+    "answer": 2,
+    "explanation": "Lessons 5.2, 9.3."
+  },
+  {
+    "id": "4.5-q9",
+    "topic": "not fixed",
+    "difficulty": 2,
+    "stem": "Reasoning does not fix…",
+    "options": [
+      "Exact search over many possibilities, arithmetic at scale, missing facts — tools, code and retrieval do",
+      "Debugging",
+      "Analysis",
+      "Planning"
+    ],
+    "answer": 0,
+    "explanation": "Lesson 2.8."
+  },
+  {
+    "id": "4.5-q10",
+    "topic": "measure",
+    "difficulty": 1,
+    "stem": "How do you fill the 'does thinking help' table for your tasks?",
+    "options": [
+      "Run the golden set at two settings; compare accuracy, tokens, latency",
+      "Guess",
+      "Ask the vendor",
+      "Always use high"
+    ],
+    "answer": 0,
+    "explanation": "Same discipline as everywhere in the course."
+  }
+]

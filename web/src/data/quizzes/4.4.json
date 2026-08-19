@@ -1,0 +1,142 @@
+[
+  {
+    "id": "4.4-q1",
+    "topic": "artefact",
+    "difficulty": 1,
+    "stem": "A prompt should be treated as…",
+    "options": [
+      "A versioned artefact with an owner, tests and a deploy path — like a model artefact",
+      "A string constant",
+      "A comment",
+      "Configuration nobody reviews"
+    ],
+    "answer": 0,
+    "explanation": "Lesson 3.5's lifecycle applies."
+  },
+  {
+    "id": "4.4-q2",
+    "topic": "hash",
+    "difficulty": 2,
+    "stem": "Logging the prompt hash with every request lets you…",
+    "options": [
+      "Cache responses",
+      "Skip evals",
+      "Reduce tokens",
+      "Group traces by exact prompt and spot edits outside the release process"
+    ],
+    "answer": 3,
+    "explanation": "Incidents become diffs."
+  },
+  {
+    "id": "4.4-q3",
+    "topic": "golden",
+    "difficulty": 2,
+    "stem": "A golden test for a prompt asserts…",
+    "options": [
+      "The exact answer string",
+      "Nothing; prompts cannot be tested",
+      "Properties code can check — contains X, says NOT_COVERED, matches a schema — not the exact answer",
+      "Only token counts"
+    ],
+    "answer": 2,
+    "explanation": "Outputs are samples (Lesson 2.7)."
+  },
+  {
+    "id": "4.4-q4",
+    "topic": "fix",
+    "difficulty": 2,
+    "stem": "v2 fixed v1's defect by…",
+    "options": [
+      "Adding a concrete, checkable behaviour (NOT_COVERED) and fencing the data",
+      "Saying 'be more careful'",
+      "Raising max_tokens",
+      "Changing the model"
+    ],
+    "answer": 0,
+    "explanation": "Concrete beats adjectives."
+  },
+  {
+    "id": "4.4-q5",
+    "topic": "caveat",
+    "difficulty": 3,
+    "stem": "v2 passes 3/3, v1 2/3. Honest caveat?",
+    "options": [
+      "None",
+      "v1 is better",
+      "Small set + sampled outputs: run several times, look at rates, grow the set from real traffic",
+      "Version numbers are meaningless"
+    ],
+    "answer": 2,
+    "explanation": "Confidence scales with evidence."
+  },
+  {
+    "id": "4.4-q6",
+    "topic": "deploy",
+    "difficulty": 2,
+    "stem": "Deploying a new prompt version means…",
+    "options": [
+      "Editing the string in production",
+      "Restarting the service",
+      "Pointing config at the new immutable id; rollback points it back",
+      "Redeploying the model"
+    ],
+    "answer": 2,
+    "explanation": "Deploy by config, roll back by config."
+  },
+  {
+    "id": "4.4-q7",
+    "topic": "render",
+    "difficulty": 2,
+    "stem": "render() should fail loudly on a missing placeholder because…",
+    "options": [
+      "Hashes would collide",
+      "The API rejects it",
+      "It saves tokens",
+      "Otherwise the literal {policy} ships and the model answers anyway"
+    ],
+    "answer": 3,
+    "explanation": "Fail at render, not in production."
+  },
+  {
+    "id": "4.4-q8",
+    "topic": "owner",
+    "difficulty": 2,
+    "stem": "Why does a prompt need an owner?",
+    "options": [
+      "Someone reviews changes, maintains the golden set, and is paged on regression — otherwise it drifts",
+      "Compliance",
+      "Billing",
+      "The registry requires a name"
+    ],
+    "answer": 0,
+    "explanation": "Lesson 1.6: no owner is an organisational failure."
+  },
+  {
+    "id": "4.4-q9",
+    "topic": "registry",
+    "difficulty": 1,
+    "stem": "Where can a prompt registry live to start?",
+    "options": [
+      "Only a commercial service",
+      "A JSON file in the repo — versioned, reviewed, the only source of prompts",
+      "Environment variables",
+      "The model's memory"
+    ],
+    "answer": 1,
+    "explanation": "That it exists and is the only source is what matters."
+  },
+  {
+    "id": "4.4-q10",
+    "topic": "trace",
+    "difficulty": 2,
+    "stem": "To answer 'which prompt produced this and was it the tested one', a trace needs…",
+    "options": [
+      "Only latency",
+      "prompt_id, prompt_hash, model version (and index version if RAG)",
+      "The user id",
+      "The temperature"
+    ],
+    "answer": 1,
+    "explanation": "Compare the hash with the registry."
+  }
+]

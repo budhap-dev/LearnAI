@@ -9,6 +9,9 @@ import {
 import {
   ClassicVsLlm, ConfusionMatrixDiagram, DecisionBoundary, KMeansSteps, MlLifecycle, NeuralNet,
 } from './diagrams/classicml';
+import {
+  AccuracyVsThinking, PatternCards, PromptAnatomy, PromptLifecycle, SchemaValidateRetry, TrustBoundary,
+} from './diagrams/prompting';
 
 /**
  * Every diagram the notes can reference, by name. A note embeds one with a fence:
@@ -42,6 +45,12 @@ const REGISTRY: Record<string, ComponentType> = {
   'kmeans-steps': KMeansSteps,
   'ml-lifecycle': MlLifecycle,
   'neural-net': NeuralNet,
+  'prompt-anatomy': PromptAnatomy,
+  'pattern-cards': PatternCards,
+  'schema-validate-retry': SchemaValidateRetry,
+  'prompt-lifecycle': PromptLifecycle,
+  'accuracy-vs-thinking': AccuracyVsThinking,
+  'trust-boundary': TrustBoundary,
 };
 
 export function Diagram({ name }: { name: string }) {

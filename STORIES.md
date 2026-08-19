@@ -26,7 +26,7 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | **Diagrams** | 🟡 20 / ~120 — all of Modules 1–3 |
 | **Interactive explorers** | 🟡 7 / ~20 — tokeniser, sampling, embeddings, attention, context-budget, gradient-descent, confusion-matrix |
 | **Quizzes** | 🟡 200 / 660 — Modules 1–3, options shuffled; 40 check cards |
-| **Site features** | 🟡 home with pathway chooser, syllabus (pathway-aware, route list), lesson page with Py/TS code tabs, output blocks, diagrams, explorers, check-yourself cards, quiz; **full-text search** (header + page); **progress dashboard** with export/import/reset; header progress ring; six themes |
+| **Site features** | 🟡 home with pathway chooser, syllabus (pathway-aware, route list), lesson page with Py/TS code tabs, output blocks, diagrams, explorers, check-yourself cards, key terms, quiz; full-text search; progress dashboard with export/import/reset; **reference section** (glossary, decision tables, checklists, model reference); six themes |
 | **Pathways** | 🟡 Orientation · Builder · Architect — chooser, syllabus route order, pathway-aware prev/next; no depth toggles or audience-tagged questions yet |
 
 **M0 walking skeleton is built and verified locally** — lesson 2.2 *Tokens* renders end to end with
@@ -491,8 +491,8 @@ about it.
 
 ## E7 — Reference & decision aids
 
-### US-701 · Glossary *(Must, M)* · ⬜ — every term defined in one line, linked to its lesson; hover chips in lessons
-### US-702 · Decision tables *(Must, M)* · ⬜
+### US-701 · Glossary *(Must, M)* · 🟡 mostly done — *78 terms in docs/reference/glossary.json, validated at build (related terms must exist), linked to lessons; /reference/glossary with filter and ?term= highlight; "Key terms" recap on every lesson*; hover chips in prose not yet
+### US-702 · Decision tables *(Must, M)* · 🟡 mostly done — */reference/decisions: rules vs classic ML vs embeddings vs LLM, RAG vs fine-tune vs long context, workflow vs agent, hosted vs cloud-platform vs self-hosted, sync vs streaming vs batch, vector DB vs pgvector vs search engine, build vs buy, model-choice questions — each with "choose this when" and lesson links*; ADR download not yet
 **As an** architect **I want** the trade-offs on one page **so that** I can decide and write it down.
 - [ ] RAG vs fine-tune vs long context · agent vs workflow vs single call · hosted vs
       self-hosted vs local · sync vs streaming vs async/batch · vector DB vs pgvector vs search
@@ -500,9 +500,9 @@ about it.
 - [ ] Each: criteria rows, a "choose this when" line, and a link to the lesson that argues it
 - [ ] Downloadable ADR template per decision
 
-### US-703 · Checklists *(Must, M)* · ⬜ — production readiness · security (OWASP LLM Top 10 mapped to lessons) · eval before launch · incident review for an AI feature · data/privacy
+### US-703 · Checklists *(Must, M)* · ✅ done — /reference/checklists: production readiness · security (OWASP LLM Top 10 mapped to lessons) · eval before launch · incident review · data/privacy
 ### US-704 · Prompt & architecture pattern library *(Should, M)* · ⬜ — pattern name, when, template, anti-pattern, lesson link
-### US-705 · Model chooser *(Should, M)* · ⬜ — capability tiers, context, modality, cost band, latency band, licence, "date checked"; **no hard-coded prices in lessons — the reference page is the one place, dated**
+### US-705 · Model chooser *(Should, M)* · 🟡 mostly done — */reference/models: the five questions, capability tiers, a dated snapshot table (checked 2026-06-24) for the family the adapter uses, what per-token price hides*; the lessons link here and carry no prices
 ### US-706 · Cost calculator *(Should, S)* · ⬜ — the `cost` explorer, standalone, with shareable URL state
 ### US-707 · Reading list *(Could, S)* · ⬜ — curated papers/posts per lesson with a one-line "why read this"
 
@@ -879,5 +879,10 @@ themed · ≤15 KB gz lazy chunk · has a "what am I looking at" caption and a "
 6. ~~Design the `llm` adapter + cassette record/replay~~ — **done** (replay verified in both
    languages; no cassette has been recorded against the real API yet — that needs credentials).
 7. ~~Module 3 (Classic ML)~~ — **done**; the Basic level (Modules 1–3) is complete.
-8. Module 4 (Prompting): write the examples, then **record the cassettes with a real key**
-   (one-off, reviewed diff — needs the owner's credentials), then notes/quizzes.
+8. ~~Reference section (glossary, decision tables, checklists, model reference)~~ — **done**.
+9. Module 4 (Prompting) — **written: 6 lessons, 6 twin examples (23 model calls through the
+   adapter, Py/TS parity verified against fake cassettes), 6 diagrams, injection-lab explorer,
+   60 questions, 12 check cards.** Blocked on one recording pass with real credentials:
+   `cd examples/ts && npm install && LEARNAI_LLM_MODE=record node harness.ts capture /tmp/x`
+   (or `examples/.env` with `ANTHROPIC_API_KEY=` and I run it), then review the cassette diff,
+   then build → PR.

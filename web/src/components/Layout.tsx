@@ -30,6 +30,7 @@ export function Layout() {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/syllabus">Syllabus</NavLink>
           <NavLink to="/explore">Explore</NavLink>
+          <NavLink to="/reference">Reference</NavLink>
         </nav>
         <div className="header-right">
           <SearchBox />
