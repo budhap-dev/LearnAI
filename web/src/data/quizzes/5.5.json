@@ -1,0 +1,142 @@
+[
+  {
+    "id": "5.5-q1",
+    "topic": "prefix",
+    "difficulty": 2,
+    "stem": "Prompt caching applies to…",
+    "options": [
+      "Any repeated text anywhere in the prompt",
+      "The user's last message",
+      "The output",
+      "A byte-identical prefix of the prompt seen recently"
+    ],
+    "answer": 3,
+    "explanation": "Only a prefix can be reused; the first variable part ends it."
+  },
+  {
+    "id": "5.5-q2",
+    "topic": "order",
+    "difficulty": 2,
+    "stem": "The cache-friendly prompt order is…",
+    "options": [
+      "User first, then system",
+      "System prompt, tool schemas, examples first; retrieved context next; the user's turn last",
+      "Retrieved context first",
+      "Random"
+    ],
+    "answer": 1,
+    "explanation": "Stable first, variable last maximises the identical prefix."
+  },
+  {
+    "id": "5.5-q3",
+    "topic": "timestamp",
+    "difficulty": 2,
+    "stem": "A date at the start of the system prompt…",
+    "options": [
+      "Has no effect",
+      "Improves caching",
+      "Is required for caching",
+      "Breaks the cacheable prefix every day (or every request)"
+    ],
+    "answer": 3,
+    "explanation": "Anything variable before the stable parts ends the cacheable prefix there."
+  },
+  {
+    "id": "5.5-q4",
+    "topic": "saving",
+    "difficulty": 2,
+    "stem": "Cached input is typically billed at…",
+    "options": [
+      "More than output",
+      "The same as input",
+      "A fraction (often ~10%) of the normal input price",
+      "Nothing"
+    ],
+    "answer": 2,
+    "explanation": "That is why a large stable prefix with a high hit rate changes the bill materially."
+  },
+  {
+    "id": "5.5-q5",
+    "topic": "metric",
+    "difficulty": 2,
+    "stem": "How do you know caching is working?",
+    "options": [
+      "Assume it is",
+      "Watch latency only",
+      "Read the cached vs uncached input token counts the API returns and track the hit rate",
+      "Ask the vendor"
+    ],
+    "answer": 2,
+    "explanation": "Put the hit rate on a dashboard; a drop means someone edited the prefix."
+  },
+  {
+    "id": "5.5-q6",
+    "topic": "batch",
+    "difficulty": 2,
+    "stem": "Batch endpoints are for…",
+    "options": [
+      "Work nobody is waiting for — nightly jobs, backfills, evals, re-indexing — at a discount",
+      "Tool calling",
+      "Streaming",
+      "Real-time chat"
+    ],
+    "answer": 0,
+    "explanation": "Same work, lower price, minutes-to-hours latency."
+  },
+  {
+    "id": "5.5-q7",
+    "topic": "refactor",
+    "difficulty": 2,
+    "stem": "Reordering a prompt for caching changes…",
+    "options": [
+      "The bill — not the answers or the model",
+      "The model's knowledge",
+      "The output format",
+      "Nothing measurable"
+    ],
+    "answer": 0,
+    "explanation": "It is a refactor with a measurable saving and often better latency (prompt processing skipped)."
+  },
+  {
+    "id": "5.5-q8",
+    "topic": "min-length",
+    "difficulty": 2,
+    "stem": "Why might a short stable prefix not be cached?",
+    "options": [
+      "It is cached but not billed",
+      "Providers have a minimum cacheable length",
+      "Caching is only for system prompts",
+      "Short prompts are free"
+    ],
+    "answer": 1,
+    "explanation": "Check the provider's rules; they differ and change."
+  },
+  {
+    "id": "5.5-q9",
+    "topic": "tools",
+    "difficulty": 2,
+    "stem": "Per-request tool lists in the system section…",
+    "options": [
+      "Improve caching",
+      "Are free",
+      "Make the 'stable' prefix variable and defeat caching — keep tool lists constant per route",
+      "Are required"
+    ],
+    "answer": 2,
+    "explanation": "Anything that changes per request must come after the stable prefix."
+  },
+  {
+    "id": "5.5-q10",
+    "topic": "share",
+    "difficulty": 2,
+    "stem": "What fraction of a typical product's model calls can go to batch?",
+    "options": [
+      "None",
+      "Only evals",
+      "All",
+      "Often a third or more — reports, nightly classification, evals, re-embedding"
+    ],
+    "answer": 3,
+    "explanation": "The trick is noticing which calls nobody is waiting for."
+  }
+]

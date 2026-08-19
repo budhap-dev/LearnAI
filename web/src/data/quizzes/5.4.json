@@ -1,0 +1,142 @@
+[
+  {
+    "id": "5.4-q1",
+    "topic": "mechanism",
+    "difficulty": 2,
+    "stem": "How does a vision model read an image?",
+    "options": [
+      "It cannot read images",
+      "By querying a database of images",
+      "It turns the image into tokens and runs the same next-token machinery as for text",
+      "With a separate OCR engine"
+    ],
+    "answer": 2,
+    "explanation": "Same loop, different input; which is why images cost tokens and why image-derived facts are recognised, not known."
+  },
+  {
+    "id": "5.4-q2",
+    "topic": "verify",
+    "difficulty": 2,
+    "stem": "A value the model read from an invoice image should be…",
+    "options": [
+      "Trusted — the schema guaranteed a number",
+      "Trusted if the model is confident",
+      "Rounded and posted",
+      "Verified like OCR output: arithmetic, format, range, cross-references; human on failure"
+    ],
+    "answer": 3,
+    "explanation": "Schema pins the shape; the value came from pixel recognition and may be misread or inferred."
+  },
+  {
+    "id": "5.4-q3",
+    "topic": "ocr-first",
+    "difficulty": 2,
+    "stem": "When should you OCR (or use the PDF text layer) instead of sending the image?",
+    "options": [
+      "When the image is text — invoices, forms, contracts — and layout does not carry the meaning",
+      "Never; images are always better",
+      "Only when the model has no vision",
+      "Only for handwriting"
+    ],
+    "answer": 0,
+    "explanation": "Text is far cheaper in tokens and usually more accurate for dense text; send images for layout, charts, photos."
+  },
+  {
+    "id": "5.4-q4",
+    "topic": "cost",
+    "difficulty": 2,
+    "stem": "An image costs…",
+    "options": [
+      "About the same as its text",
+      "Output tokens",
+      "Nothing extra",
+      "Hundreds to thousands of input tokens, far more than the text it contains"
+    ],
+    "answer": 3,
+    "explanation": "Budget images: downscale, crop, send pages that matter."
+  },
+  {
+    "id": "5.4-q5",
+    "topic": "arith",
+    "difficulty": 2,
+    "stem": "Subtotal 915.00, VAT 173.85, total_due read as 1,088.58. What catches it?",
+    "options": [
+      "An arithmetic check: subtotal + VAT != total",
+      "The JSON schema",
+      "Nothing — it is within tolerance",
+      "The model"
+    ],
+    "answer": 0,
+    "explanation": "Transposed digits are classic OCR misreads; the consistency check is cheap and decisive."
+  },
+  {
+    "id": "5.4-q6",
+    "topic": "resolution",
+    "difficulty": 2,
+    "stem": "Downscaling an image too far causes…",
+    "options": [
+      "No change",
+      "Small print and decimals to be misread first — pick a floor from where your documents start failing",
+      "Higher token cost",
+      "Faster but equally accurate reads"
+    ],
+    "answer": 1,
+    "explanation": "Find the resolution floor empirically on your own documents."
+  },
+  {
+    "id": "5.4-q7",
+    "topic": "pdf",
+    "difficulty": 2,
+    "stem": "Your team wants to send whole 40-page PDFs as images 'for context'. The right advice is…",
+    "options": [
+      "Use the text layer, chunk, retrieve the relevant parts; send images only where layout matters",
+      "Convert to video",
+      "Do it — more context is better",
+      "Send only page 1"
+    ],
+    "answer": 0,
+    "explanation": "Pages as images are huge in tokens and the middle gets lost (2.5); retrieval sends less and better."
+  },
+  {
+    "id": "5.4-q8",
+    "topic": "inference",
+    "difficulty": 2,
+    "stem": "A risk specific to image extraction versus OCR is…",
+    "options": [
+      "The model may infer a plausible value that is not actually on the page",
+      "Colour loss",
+      "Slower processing",
+      "Larger files"
+    ],
+    "answer": 0,
+    "explanation": "Generative models fill gaps; verification and cross-references catch inventions."
+  },
+  {
+    "id": "5.4-q9",
+    "topic": "pipeline",
+    "difficulty": 2,
+    "stem": "For 10,000 invoices a day, the model's place is…",
+    "options": [
+      "Reading every pixel of every page",
+      "The judgement step after OCR/layout extraction, with code verification and a human queue for failures",
+      "Replacing the accounting system",
+      "Nowhere"
+    ],
+    "answer": 1,
+    "explanation": "Dedicated OCR for recognition, the LLM for structure and judgement, code for checks, humans for exceptions."
+  },
+  {
+    "id": "5.4-q10",
+    "topic": "measure",
+    "difficulty": 2,
+    "stem": "Which model reads your documents best is decided by…",
+    "options": [
+      "An eval on your own documents",
+      "The cheapest model",
+      "The vendor's demo",
+      "The largest model"
+    ],
+    "answer": 0,
+    "explanation": "Vision accuracy varies by document type; measure before choosing."
+  }
+]

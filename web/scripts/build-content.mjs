@@ -52,6 +52,12 @@ const Frontmatter = z.object({
   tags: z.array(z.string()).default([]),
 });
 
+// The explorer and diagram registries are TypeScript; read the ids out of them so a lesson
+// cannot reference an explorer or diagram that the site does not have.
+const idsIn = async (file, pattern) => new Set([...(await readFile(here(file), 'utf8')).matchAll(pattern)].map((m) => m[1]));
+const KNOWN_EXPLORERS = await idsIn('../src/components/Explorer.tsx', /^\s*id: '([a-z0-9-]+)'/gm);
+const KNOWN_DIAGRAMS = await idsIn('../src/components/Diagram.tsx', /^\s*'?([a-z0-9-]+)'?: [A-Z][A-Za-z0-9]+,/gm);
+
 const errors = [];
 const fail = (file, message) => errors.push(`${file}: ${message}`);
 
@@ -160,6 +166,12 @@ for (const dir of await readdir(DOCS, { withFileTypes: true })) {
     }
     for (const name of used.diagram) {
       if (!fm.diagrams.includes(name)) fail(rel, `\`\`\`diagram ${name} is used but not declared in frontmatter diagrams`);
+    }
+    for (const name of fm.diagrams) {
+      if (!KNOWN_DIAGRAMS.has(name)) fail(rel, `diagram "${name}" is not in the Diagram registry (web/src/components/Diagram.tsx)`);
+    }
+    for (const name of fm.explorers) {
+      if (!KNOWN_EXPLORERS.has(name)) fail(rel, `explorer "${name}" is not in the Explorer registry (web/src/components/Explorer.tsx)`);
     }
     for (const check of used.check) {
       const lines = check.split('\n').filter((l) => l.trim());

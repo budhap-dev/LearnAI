@@ -1,0 +1,99 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What is the total for order ORD-1042 including shipping?"
+      },
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_5sm7ethh",
+            "name": "get_order",
+            "arguments": {
+              "order_id": "ORD-1042"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_5sm7ethh",
+        "name": "get_order",
+        "content": "{\"status\":\"shipped\",\"items\":[{\"sku\":\"bracket\",\"qty\":40,\"unit\":12.5},{\"sku\":\"jig\",\"qty\":2,\"unit\":185}],\"shipping\":45}"
+      },
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_uesrs6e5",
+            "name": "calculate",
+            "arguments": {
+              "expression": "(12.5 * 40) + (185 * 2) + 45"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_uesrs6e5",
+        "name": "calculate",
+        "content": "{\"result\":915}"
+      }
+    ],
+    "max_tokens": 400,
+    "system": "You are an order-support assistant. Use the tools for facts and arithmetic; never guess a total.",
+    "tools": [
+      {
+        "name": "get_order",
+        "description": "Look up a customer order by its id. Returns status, items and total.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "order_id": {
+              "type": "string",
+              "description": "e.g. ORD-1042"
+            }
+          },
+          "required": [
+            "order_id"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "calculate",
+        "description": "Evaluate an arithmetic expression exactly. Use this for any maths instead of doing it yourself.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "expression": {
+              "type": "string",
+              "description": "e.g. (12.5 * 3) + 4.99"
+            }
+          },
+          "required": [
+            "expression"
+          ],
+          "additionalProperties": false
+        }
+      }
+    ]
+  },
+  "response": {
+    "text": "The total for order ORD-1042, including shipping, is $915.",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 406,
+      "output_tokens": 21
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

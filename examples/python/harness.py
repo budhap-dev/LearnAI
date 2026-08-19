@@ -8,6 +8,8 @@ Usage:
   python3 -m harness list
   python3 -m harness run 2.2                       # run one lesson, print its output
   python3 -m harness capture ../../web/public/data/captures/python
+  python3 -m harness cassettes                     # which lesson uses each recording; orphans
+  python3 -m harness prune                         # delete recordings nothing uses
 """
 
 from __future__ import annotations
@@ -117,6 +119,35 @@ def capture(out_dir: Path) -> None:
     print(f"{len(lessons)} lesson(s) -> {out_dir}")
 
 
+def cassettes(prune: bool = False) -> int:
+    """Audit examples/shared/cassettes: which lesson uses each recording, and which recordings
+    nothing uses any more (safe to delete). `prune` deletes the orphans."""
+    from learnai.llm import CASSETTES  # noqa: PLC0415
+
+    used_by: dict[str, set[str]] = {}
+    targets = {**discover(), "smoke": ROOT / "smoke_llm.py"}  # the adapter smoke test has a fixture too
+    for lesson_id, path in targets.items():
+        try:
+            _, used = run(path)
+        except Exception as e:  # noqa: BLE001 - an unrecorded lesson is reported, not fatal
+            print(f"{lesson_id:6} could not run: {str(e).splitlines()[0][:80]}")
+            continue
+        for u in used:
+            used_by.setdefault(u["key"], set()).add(lesson_id)
+    on_disk = sorted(p.stem for p in CASSETTES.glob("*.json"))
+    orphans = [k for k in on_disk if k not in used_by]
+    for key in on_disk:
+        meta = json.loads((CASSETTES / f"{key}.json").read_text(encoding="utf-8"))
+        who = ", ".join(sorted(used_by.get(key, ()))) or "UNUSED"
+        print(f"{key}  {meta['response']['model']:12} {meta['recorded_at']}  {who}")
+    print(f"{len(on_disk)} cassettes, {len(used_by)} in use, {len(orphans)} unused")
+    if prune:
+        for key in orphans:
+            (CASSETTES / f"{key}.json").unlink()
+        print(f"deleted {len(orphans)} unused cassette(s)")
+    return 0
+
+
 def main(argv: list[str]) -> int:
     command = argv[1] if len(argv) > 1 else "list"
     lessons = discover()
@@ -134,6 +165,8 @@ def main(argv: list[str]) -> int:
     if command == "capture":
         capture(Path(argv[2] if len(argv) > 2 else "captures"))
         return 0
+    if command in ("cassettes", "prune"):
+        return cassettes(prune=command == "prune")
     print(__doc__)
     return 1
 

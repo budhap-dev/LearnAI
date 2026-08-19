@@ -984,3 +984,13 @@ ol.emb-list li button { flex: 1; }
 .inj-outcomes td.warn { color: var(--text); }
 .inj-outcomes td.bad { color: var(--wrong); }
 @media (max-width: 640px) { .inj-layout { grid-template-columns: 1fr; } }
+
+/* agent loop */
+.loop-steps { list-style: none; margin: 0.5rem 0; padding: 0; display: grid; gap: 0.3rem; }
+.loop-step { display: flex; gap: 0.6rem; align-items: center; padding: 0.35rem 0.6rem; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; font-size: 0.88rem; }
+.loop-step.done { opacity: 0.7; }
+.loop-step.current { border-color: var(--accent); background: var(--accent-soft); }
+.loop-who { font-size: 0.72rem; font-weight: 600; padding: 0.1rem 0.5rem; border-radius: 99px; color: #fff; background: hsl(var(--h) 60% 48%); min-width: 5.2rem; text-align: center; }
+.loop-detail { margin: 0.6rem 0; padding: 0.7rem 0.9rem; border-left: 3px solid var(--accent); background: var(--bg); border-radius: 0 8px 8px 0; font-size: 0.9rem; }
+.loop-detail p { margin: 0.2rem 0; }
+.loop-messages { background: var(--term-bg); color: var(--term-text); padding: 0.7rem 0.9rem; border-radius: 8px; font-size: 0.8rem; overflow-x: auto; max-height: 14rem; }

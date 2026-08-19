@@ -1,0 +1,142 @@
+[
+  {
+    "id": "5.1-q1",
+    "topic": "retry policy",
+    "difficulty": 2,
+    "stem": "Which errors should a model-call wrapper retry?",
+    "options": [
+      "None; retries are the caller's job",
+      "Only transient ones: rate limits, overload, timeouts, transient 5xx — with backoff and a cap",
+      "Every error, since the model is probabilistic",
+      "Only 400 bad-request errors"
+    ],
+    "answer": 1,
+    "explanation": "Retrying a malformed or unauthorised request reproduces the failure; retrying transient conditions with exponential backoff and jitter is what recovers from load."
+  },
+  {
+    "id": "5.1-q2",
+    "topic": "timeouts",
+    "difficulty": 2,
+    "stem": "Where does the per-attempt timeout belong?",
+    "options": [
+      "In the HTTP client call; the wrapper only decides what to do after one",
+      "In the retry loop's sleep",
+      "Nowhere — model calls should not time out",
+      "In the model's system prompt"
+    ],
+    "answer": 0,
+    "explanation": "A retry loop cannot impose a timeout on a hung request; the client can. Set it per attempt and size it to the task."
+  },
+  {
+    "id": "5.1-q3",
+    "topic": "backoff",
+    "difficulty": 2,
+    "stem": "Why add jitter to exponential backoff?",
+    "options": [
+      "To make retries faster",
+      "To make the logs easier to read",
+      "Jitter is required by HTTP",
+      "So many clients retrying after the same outage do not retry in lockstep and stampede the service"
+    ],
+    "answer": 3,
+    "explanation": "Synchronized retries turn a recovery into a second outage; randomising the delay spreads them."
+  },
+  {
+    "id": "5.1-q4",
+    "topic": "idempotency",
+    "difficulty": 2,
+    "stem": "A retried model call triggers `create_ticket` twice. What prevents two tickets?",
+    "options": [
+      "Lower temperature",
+      "An idempotency key derived from user + request, stored by the ticket system; a repeat with the same key is a no-op",
+      "Retrying less often",
+      "Asking the model to check first"
+    ],
+    "answer": 1,
+    "explanation": "The model call is cheap to repeat; its side effects are not. The key lives with the side effect, not with the prompt."
+  },
+  {
+    "id": "5.1-q5",
+    "topic": "layers",
+    "difficulty": 2,
+    "stem": "Which layer owns API keys, quotas and routing between models?",
+    "options": [
+      "Your application code",
+      "The model",
+      "The gateway",
+      "The wrapper"
+    ],
+    "answer": 2,
+    "explanation": "Three layers, three owners: code (what to ask, validate), wrapper (timeout/retry/idempotency/accounting), gateway (keys, quotas, routing, fallbacks)."
+  },
+  {
+    "id": "5.1-q6",
+    "topic": "caps",
+    "difficulty": 2,
+    "stem": "Why cap the number of retry attempts?",
+    "options": [
+      "Because retries always fail after the third",
+      "To save on logging",
+      "Without a cap an outage turns every client into an endless retry storm; the cap turns it into a visible failure",
+      "Providers forbid more than four attempts"
+    ],
+    "answer": 2,
+    "explanation": "Bounded retries fail fast and loudly; unbounded ones amplify incidents."
+  },
+  {
+    "id": "5.1-q7",
+    "topic": "errors",
+    "difficulty": 2,
+    "stem": "HTTP 429 means…",
+    "options": [
+      "Too many requests — the client exceeded a rate limit and should back off and retry",
+      "The model refused the content",
+      "Authentication failed",
+      "The prompt was too long"
+    ],
+    "answer": 0,
+    "explanation": "429 is the canonical retryable error: slow down, wait, retry — ideally with the server's Retry-After."
+  },
+  {
+    "id": "5.1-q8",
+    "topic": "accounting",
+    "difficulty": 2,
+    "stem": "What should every call log at minimum?",
+    "options": [
+      "The user's full conversation",
+      "Nothing — the provider keeps the logs",
+      "Attempt number, outcome/status, model, tokens in and out",
+      "Only the prompt text"
+    ],
+    "answer": 2,
+    "explanation": "Attempts and status feed reliability dashboards; tokens feed cost; model version explains behaviour changes."
+  },
+  {
+    "id": "5.1-q9",
+    "topic": "design",
+    "difficulty": 2,
+    "stem": "Your wrapper is vendor-specific and 600 lines. What is the likely problem?",
+    "options": [
+      "Vendor logic leaked in; the wrapper should be small and neutral, with vendor mapping in the adapter/gateway",
+      "It should be in the prompt instead",
+      "Nothing — more code is more robust",
+      "It needs more retries"
+    ],
+    "answer": 0,
+    "explanation": "The wrapper's job is timeout, retry, idempotency and accounting; anything vendor-shaped belongs in the adapter behind it."
+  },
+  {
+    "id": "5.1-q10",
+    "topic": "streaming-timeouts",
+    "difficulty": 2,
+    "stem": "For a streamed response, which timeout matters most?",
+    "options": [
+      "The read timeout between chunks, not just the connect timeout",
+      "Only the connect timeout",
+      "No timeout — streams are open-ended",
+      "The DNS timeout"
+    ],
+    "answer": 0,
+    "explanation": "A stream can stall between tokens; a read (idle) timeout catches that while allowing a long total duration."
+  }
+]

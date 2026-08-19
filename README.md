@@ -66,9 +66,10 @@ and spend nothing, and both languages show the same real response.
 The provider and model the course records with live in `examples/shared/llm-config.json`.
 Two providers are supported:
 
-- **`ollama`** (the committed default) - a free, open-weight model running locally via
+- **`ollama`** (the committed default) - free, open-weight models running locally via
   [Ollama](https://ollama.com). No key, nothing leaves your machine. Install Ollama, then
-  `ollama pull qwen3:8b` (the configured model; ~5 GB, fine on a 16 GB laptop).
+  `ollama pull qwen3:8b` (text, ~5 GB) and `ollama pull gemma3:4b` (vision, for Lesson 5.4,
+  ~3 GB) - both fine on a 16 GB laptop.
 - **`anthropic`** - the hosted API through the official SDK; needs a key in the gitignored
   `examples/.env` (`ANTHROPIC_API_KEY=...`) and `pip install anthropic` / `npm install`.
 
@@ -80,6 +81,8 @@ cd examples/ts && LEARNAI_LLM_MODE=record node harness.ts capture /tmp/x
 ```
 
 Override for one run with `LEARNAI_LLM_PROVIDER=anthropic LEARNAI_LLM_MODEL=claude-opus-5`.
+`python3 -m harness cassettes` (in `examples/python`) lists every recording with the lesson
+that uses it; `python3 -m harness prune` deletes recordings nothing uses.
 Changing the committed provider or model changes every cassette key - re-record afterwards.
 The site labels any output that replays a recording with the model and the date it was
 recorded; the build warns when a recording is older than six months.

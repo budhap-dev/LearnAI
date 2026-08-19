@@ -75,6 +75,20 @@ export const EXPLORERS: ExplorerInfo[] = [
     lesson: '4.6',
     load: () => import('./explorers/InjectionLab'),
   },
+  {
+    id: 'cost',
+    name: 'Cost calculator',
+    teaches: 'tokens × price × traffic = the bill — and what caching the stable prefix and batching buy you.',
+    lesson: '5.5',
+    load: () => import('./explorers/Cost'),
+  },
+  {
+    id: 'agent-loop',
+    name: 'Agent loop',
+    teaches: 'The tool loop step by step — observe, decide, act, result — with the message list growing and a "what would break here" hint at every step.',
+    lesson: '5.3',
+    load: () => import('./explorers/AgentLoop'),
+  },
 ];
 
 const byId = Object.fromEntries(EXPLORERS.map((e) => [e.id, e]));
