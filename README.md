@@ -68,8 +68,8 @@ Two providers are supported:
 
 - **`ollama`** (the committed default) - free, open-weight models running locally via
   [Ollama](https://ollama.com). No key, nothing leaves your machine. Install Ollama, then
-  `ollama pull qwen3:8b` (text, ~5 GB) and `ollama pull gemma3:4b` (vision, for Lesson 5.4,
-  ~3 GB) - both fine on a 16 GB laptop.
+  `ollama pull qwen3:8b` (text, ~5 GB), `ollama pull gemma3:4b` (vision, Lesson 5.4, ~3 GB)
+  and `ollama pull nomic-embed-text` (embeddings, Module 6, ~270 MB) - all fine on a 16 GB laptop.
 - **`anthropic`** - the hosted API through the official SDK; needs a key in the gitignored
   `examples/.env` (`ANTHROPIC_API_KEY=...`) and `pip install anthropic` / `npm install`.
 

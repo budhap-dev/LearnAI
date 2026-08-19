@@ -1,0 +1,26 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Articles:\n\n[security-incident] Reporting a security issue\nIf you believe you have found a vulnerability or that your account has been compromised, email security@ (or use the in-app 'Report a security issue' link) rather than opening a normal ticket. Include what you observed, the time, and any request IDs. We acknowledge reports within 24 hours and do not take action against good-faith researchers. For a suspected account compromise, also rotate your API keys immediately from Settings > API keys and enable SSO enforcement if available.\n\n[api-limits] API rate limits\nEach API key is limited to 60 requests per minute on Starter, 600 on Pro and a negotiated limit on Enterprise. Exceeding the limit returns HTTP 429 with a Retry-After header; clients should back off exponentially and honour the header. Monthly call quotas are separate from per-minute limits and are shown on the usage page; when a quota is exhausted, requests return 402 until the next cycle or until the plan is upgraded. Webhook deliveries do not count toward the quota.\n\n[password-reset] Password resets and locked accounts\nUse 'Forgot password' on the sign-in page; the reset link is valid for 30 minutes and can only be used once. Accounts lock for 15 minutes after ten failed attempts. If your organisation enforces SSO, password reset is disabled and you must reset through your identity provider. Admins can also send a reset link from the user's page. We never ask for passwords by email or chat.\n\nQuestion: I think someone has my API key - what should I do?"
+      }
+    ],
+    "max_tokens": 200,
+    "system": "You answer customer questions using ONLY the provided articles. Cite the article id in square brackets after each claim. If the articles do not contain the answer, reply exactly NOT_COVERED. Be brief.",
+    "temperature": 0
+  },
+  "response": {
+    "text": "Rotate your API keys immediately from Settings > API keys and enable SSO enforcement if available [security-incident].",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 397,
+      "output_tokens": 23
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

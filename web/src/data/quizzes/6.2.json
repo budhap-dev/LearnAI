@@ -1,0 +1,142 @@
+[
+  {
+    "id": "6.2-q1",
+    "topic": "paths",
+    "difficulty": 2,
+    "stem": "The RAG architecture is…",
+    "options": [
+      "A search engine without a model",
+      "An ingest path (chunk, embed, store — on change) and a query path (embed, retrieve, assemble, answer — per request) meeting at an index",
+      "One model call",
+      "A fine-tuned model plus a cache"
+    ],
+    "answer": 1,
+    "explanation": "Two paths, one index; every later lesson improves one box."
+  },
+  {
+    "id": "6.2-q2",
+    "topic": "same model",
+    "difficulty": 2,
+    "stem": "Why must the question be embedded with the same model as the documents?",
+    "options": [
+      "Vectors from different models live in different spaces and compare to nothing",
+      "It is cheaper",
+      "It improves citations",
+      "The API requires it"
+    ],
+    "answer": 0,
+    "explanation": "Same model both sides; a model change is a full re-index."
+  },
+  {
+    "id": "6.2-q3",
+    "topic": "stored",
+    "difficulty": 2,
+    "stem": "What must the vector store hold for each chunk?",
+    "options": [
+      "Only the text",
+      "id, title/text, vector — and the embedding model version",
+      "The whole original document",
+      "Only the vector"
+    ],
+    "answer": 1,
+    "explanation": "The text comes back with the hit; the id is what answers cite; the model version guards the geometry."
+  },
+  {
+    "id": "6.2-q4",
+    "topic": "ids",
+    "difficulty": 2,
+    "stem": "Passage ids in square brackets in the prompt exist so that…",
+    "options": [
+      "The model reads faster",
+      "The model can cite them and code can verify the citations",
+      "The index stays sorted",
+      "Tokens are cheaper"
+    ],
+    "answer": 1,
+    "explanation": "Ids make answers checkable (6.6)."
+  },
+  {
+    "id": "6.2-q5",
+    "topic": "refusal token",
+    "difficulty": 2,
+    "stem": "Including 'reply exactly NOT_COVERED' in the prompt…",
+    "options": [
+      "Gives the model a first-class way to say no, turning refusal into a normal, checkable outcome",
+      "Lowers accuracy",
+      "Only works with fine-tuning",
+      "Is ignored by models"
+    ],
+    "answer": 0,
+    "explanation": "Without it the model answers anything (2.6)."
+  },
+  {
+    "id": "6.2-q6",
+    "topic": "top-k flat",
+    "difficulty": 2,
+    "stem": "Top-3 returns three unrelated articles with low, flat scores. This means…",
+    "options": [
+      "Retrieval is broken",
+      "k must be increased",
+      "Nothing fits — nearest-neighbour always returns k things; the refusal rule (or a threshold) turns 'least bad' into 'not covered'",
+      "The corpus is too large"
+    ],
+    "answer": 2,
+    "explanation": "Retrieval never returns nothing; the answer step must be allowed to say no."
+  },
+  {
+    "id": "6.2-q7",
+    "topic": "ceiling",
+    "difficulty": 2,
+    "stem": "Retrieval quality is…",
+    "options": [
+      "Only about speed",
+      "Fixed by the prompt",
+      "The ceiling on answer quality — the model only sees what retrieval put in front of it",
+      "Irrelevant if the model is large"
+    ],
+    "answer": 2,
+    "explanation": "Ask 'which stage' before 'the model is bad'."
+  },
+  {
+    "id": "6.2-q8",
+    "topic": "title",
+    "difficulty": 2,
+    "stem": "Embedding title + text rather than bare text…",
+    "options": [
+      "Is forbidden by most stores",
+      "Doubles the cost",
+      "Breaks cosine similarity",
+      "Carries context the passage alone may lack, improving retrieval"
+    ],
+    "answer": 3,
+    "explanation": "Lesson 6.3 makes 'prepend the title' a rule."
+  },
+  {
+    "id": "6.2-q9",
+    "topic": "per-request cost",
+    "difficulty": 2,
+    "stem": "The per-request embedding cost in RAG is…",
+    "options": [
+      "Zero",
+      "Every chunk retrieved",
+      "One short string — the question",
+      "The whole corpus"
+    ],
+    "answer": 2,
+    "explanation": "Documents are embedded once at ingest; only the query is embedded per request."
+  },
+  {
+    "id": "6.2-q10",
+    "topic": "diagnose",
+    "difficulty": 2,
+    "stem": "Retrieved passages are correct but the answer contradicts them. Which stage?",
+    "options": [
+      "Ingest",
+      "Chunking",
+      "The embedding model",
+      "Generation/grounding — check the prompt the model received and run the faithfulness judge"
+    ],
+    "answer": 3,
+    "explanation": "Right passage, wrong use → the answer step, not retrieval."
+  }
+]

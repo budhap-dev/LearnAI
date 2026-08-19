@@ -1,0 +1,26 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Articles:\n\n[support] Support hours and response targets\nCommunity support (Starter) is best-effort via the forum. Email support (Pro) is staffed Monday to Friday, 08:00 to 18:00 UTC, with a one-business-day first-response target. Enterprise support is 24/7 for severity-1 incidents with a four-hour response target, and business hours for everything else. Severity-1 means the product is unavailable or data is at risk for all users of a workspace. Status and incident history are published on the status page.\n\n[security-incident] Reporting a security issue\nIf you believe you have found a vulnerability or that your account has been compromised, email security@ (or use the in-app 'Report a security issue' link) rather than opening a normal ticket. Include what you observed, the time, and any request IDs. We acknowledge reports within 24 hours and do not take action against good-faith researchers. For a suspected account compromise, also rotate your API keys immediately from Settings > API keys and enable SSO enforcement if available.\n\n[plans] Plan tiers\nStarter includes up to 5 seats, 10,000 API calls per month and community support. Pro includes unlimited seats at a per-seat price, 250,000 API calls per month, SSO, audit logs and email support with a one-business-day response target. Enterprise adds a custom API quota, dedicated support with a four-hour response target, data residency options and a signed DPA. Upgrades apply immediately and are prorated; downgrades apply at the next renewal.\n\nQuestion: What is the response time for a severity-1 incident on the Enterprise plan?"
+      }
+    ],
+    "max_tokens": 220,
+    "system": "You answer customer questions using ONLY the provided articles.\nRules:\n1. Every sentence that states a fact ends with the id of the article it came from, in square brackets, e.g. [refunds].\n2. If the articles do not contain the answer, reply with exactly: NOT_COVERED\n3. Do not add facts, policies or numbers that are not in the articles.\n4. Be brief: two or three sentences.",
+    "temperature": 0
+  },
+  "response": {
+    "text": "The response time for a severity-1 incident on the Enterprise plan is four hours [support].",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 467,
+      "output_tokens": 20
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

@@ -1,0 +1,26 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Articles:\n\n[refunds] Refund policy\nAnnual plans can be refunded in full within 14 days of purchase. After 14 days, annual plans are not refundable, but you can cancel auto-renewal at any time and keep access until the end of the term. Monthly plans are not refundable; cancelling stops the next charge. Refunds are issued to the original payment method and typically arrive within 5 business days, though some banks take up to 10. To request a refund, open a ticket from the billing page with the invoice number; a billing specialist replies within one business day.\n\n[security-incident] Reporting a security issue\nIf you believe you have found a vulnerability or that your account has been compromised, email security@ (or use the in-app 'Report a security issue' link) rather than opening a normal ticket. Include what you observed, the time, and any request IDs. We acknowledge reports within 24 hours and do not take action against good-faith researchers. For a suspected account compromise, also rotate your API keys immediately from Settings > API keys and enable SSO enforcement if available.\n\n[billing-cycle] Billing cycles and invoices\nSubscriptions renew automatically at the end of each cycle: monthly plans on the same calendar day each month, annual plans on the anniversary of purchase. The billing date cannot currently be moved; if you need invoices aligned to a fiscal month, switch to annual billing and choose the start date when you upgrade. Invoices are emailed to the billing contact and are available under Settings > Billing > Invoices for seven years. VAT is applied based on the billing address; add a VAT number to receive reverse-charge invoices in the EU.\n\nQuestion: How long does a refund take to show up?"
+      }
+    ],
+    "max_tokens": 200,
+    "system": "You answer customer questions using ONLY the provided articles. Cite the article id in square brackets after each claim. If the articles do not contain the answer, reply exactly NOT_COVERED. Be brief.",
+    "temperature": 0
+  },
+  "response": {
+    "text": "Refunds typically arrive within 5 business days, though some banks take up to 10 [refunds].",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 422,
+      "output_tokens": 24
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

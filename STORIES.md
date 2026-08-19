@@ -20,12 +20,12 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | Area | State |
 |---|---|
 | **Deployed site** | 🟡 workflow written; Azure SWA resource + secret still to create |
-| **Lesson notes** | 🟡 **33 / 66** — Modules 1–5 complete (Basic level + Prompting + APIs) |
-| **Example code (Python + TS)** | 🟡 23 / 48 — Modules 1–3 (10), 4 (6) and 5 (7) in both languages, byte-identical output enforced by the build; Module 5 exercises streaming, tool calling and image input through the adapter |
-| **Verified output pipeline** | ✅ harnesses capture regions + outputs → build validates every fence, every explorer/diagram id against the registries, and that Python/TS agree → site; model calls go through the `llm` adapter and **replay recorded cassettes** (36 recorded with local Ollama models: `qwen3:8b` text, `gemma3:4b` vision); `harness cassettes` / `prune` audit them |
-| **Diagrams** | 🟡 33 / ~120 — all of Modules 1–5 |
-| **Interactive explorers** | 🟡 10 / ~20 — tokeniser, sampling, embeddings, attention, context-budget, gradient-descent, confusion-matrix, injection-lab, cost, agent-loop |
-| **Quizzes** | 🟡 330 / 660 — Modules 1–5, options shuffled; 66 check cards |
+| **Lesson notes** | 🟡 **40 / 66** — Modules 1–6 complete (Basic level + Prompting, APIs, RAG) |
+| **Example code (Python + TS)** | 🟡 29 / 48 — Modules 1–3 (10), 4 (6), 5 (7), 6 (6) in both languages, byte-identical output enforced by the build; Module 6 runs a real RAG pipeline over a fixture handbook with recorded embeddings (`nomic-embed-text`) and answers |
+| **Verified output pipeline** | ✅ harnesses capture regions + outputs → build validates every fence, every explorer/diagram id against the registries, and that Python/TS agree → site; model calls go through the `llm` adapter and **replay recorded cassettes** (76 recorded with local Ollama models: `qwen3:8b` text, `gemma3:4b` vision, `nomic-embed-text` embeddings); `harness cassettes` / `prune` audit them |
+| **Diagrams** | 🟡 40 / ~120 — all of Modules 1–6 |
+| **Interactive explorers** | 🟡 14 / ~20 — tokeniser, sampling, embeddings, attention, context-budget, gradient-descent, confusion-matrix, injection-lab, cost, agent-loop, chunking, hybrid-search, rag-stepper, finetune-vs-rag |
+| **Quizzes** | 🟡 400 / 660 — Modules 1–6, options shuffled; 80 check cards |
 | **Site features** | 🟡 home with pathway chooser, syllabus (pathway-aware, route list), lesson page with Py/TS code tabs, output blocks, diagrams, explorers, check-yourself cards, key terms, quiz; full-text search; progress dashboard with export/import/reset; **reference section** (glossary, decision tables, checklists, model reference); six themes |
 | **Pathways** | 🟡 Orientation · Builder · Architect — chooser, syllabus route order, pathway-aware prev/next; no depth toggles or audience-tagged questions yet |
 
@@ -428,7 +428,7 @@ snippet can never drift from the code that ran.
 - [x] `LEARNAI_LLM_MODE=record` refreshes cassettes with a real key; cassette diff reviewed in PR
 - [x] Output block shows model + recorded date when it came from a cassette
 
-### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 33 / 66 — *Modules 1–5 complete; half the course*
+### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 40 / 66 — *Modules 1–6 complete*
 - [ ] Notes for all lessons in §8, each with objectives, body, diagrams, exercises
 - [ ] Every code lesson has a Python and a TS example
 - [ ] Every lesson read for tone by pathway (Orientation ↔ Architect framing both work)
@@ -891,5 +891,12 @@ themed · ≤15 KB gz lazy chunk · has a "what am I looking at" caption and a "
     extraction from an image with `gemma3:4b`, caching/batch and budgeting arithmetic, a
     trace wrapper); 7 diagrams; cost + agent-loop explorers; 70 questions; `harness cassettes`
     audit. **Half the course is written (33/66).**
-11. Module 6 (RAG) — next; needs `embed()` in the adapter (Ollama `nomic-embed-text` or
-    similar) recorded the same way, plus the chunking / RAG-stepper / hybrid-search explorers.
+11. ~~Module 6 (RAG)~~ — **done**: 7 lessons; adapter grew `embed()` (recorded like any
+    call); a 12-article fixture handbook with 10 golden questions; 6 twin examples (pipeline,
+    chunking measured by hit@k + words sent over merged guides, BM25 + vectors + RRF, rewrite
+    + LLM rerank, grounding with code-verified citations, the RAG scorecard with an LLM judge);
+    7 diagrams; chunking / hybrid-search / RAG-stepper / finetune-vs-rag explorers; 70 questions.
+    The recordings again taught honestly: the g9 substring checker flagged a correct
+    hyphenated answer — the brittle-checker lesson from 4.4, now in 6.7.
+12. Module 7 (Agents) — next; the tool loop from 5.3 grows into orchestration patterns, MCP,
+    memory, multi-agent and approval gates; needs recordings of longer tool trajectories.

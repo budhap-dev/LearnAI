@@ -2,6 +2,7 @@
   "provider": "ollama",
   "model": "qwen3:8b",
   "ollama_url": "http://localhost:11434",
-  "note": "The provider/model the examples record with. `model` is the text model, `vision_model` the one used for image input (Lesson 5.4). Changing these changes every cassette key they appear in; re-record after editing. Override per run with LEARNAI_LLM_PROVIDER / LEARNAI_LLM_MODEL / LEARNAI_LLM_VISION_MODEL.",
-  "vision_model": "gemma3:4b"
+  "note": "The provider/models the examples record with. `model` is the text model, `vision_model` the one used for image input (Lesson 5.4), `embed_model` the embedding model (Module 6). Changing these changes every cassette key they appear in; re-record after editing. Override per run with LEARNAI_LLM_PROVIDER / LEARNAI_LLM_MODEL / LEARNAI_LLM_VISION_MODEL / LEARNAI_LLM_EMBED_MODEL.",
+  "vision_model": "gemma3:4b",
+  "embed_model": "nomic-embed-text"
 }
