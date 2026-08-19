@@ -1,0 +1,24 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hi, I was charged twice for my Pro plan this month (invoices #4471 and #4472). Can you sort this out? Also is there any way to move my billing date to the 1st?"
+      }
+    ],
+    "max_tokens": 300
+  },
+  "response": {
+    "text": "Hi there,\n\nThanks for reaching out. I'll help you with both of your concerns:\n\n### 1. **Double Charge for Pro Plan (Invoices #4471 and #4472)**\n\nIt sounds like you were charged twice for your Pro plan this month. I'll need to look into these invoices to determine why both charges occurred. Here's what I recommend:\n\n- **Check the dates** of both invoices to see if they are for the same billing cycle.\n- If they are for the same period, it’s likely a duplicate charge, and we can investigate and resolve it.\n- If they are for different periods, it might be a simple case of two separate charges for the same plan.\n\nTo proceed, I'll need you to provide the following details:\n- The dates of the two invoices.\n- The amount charged for each.\n- The billing cycle (e.g., monthly, quarterly, etc.).\n\nOnce I have that information, I can check the status of the charges and work with our billing team to refund any duplicate charges.\n\n---\n\n### 2. **Change Billing Date to the 1st**\n\nUnfortunately, **we currently do not support changing the billing date** to the 1st of the month. The billing date is typically set when the subscription is created and cannot be changed after that. However, you can:\n\n- **Check your current billing date** in your account settings.\n- If you're on a recurring payment plan (like monthly),",
+    "model": "qwen3:8b",
+    "stop_reason": "max_tokens",
+    "usage": {
+      "input_tokens": 64,
+      "output_tokens": 300
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "ts"
+}

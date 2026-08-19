@@ -1,0 +1,25 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What is the capital of Portugal? Answer with the city name only."
+      }
+    ],
+    "max_tokens": 4000,
+    "effort": "high"
+  },
+  "response": {
+    "text": "Lisbon",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 24,
+      "output_tokens": 108
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "ts"
+}

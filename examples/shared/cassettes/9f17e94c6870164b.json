@@ -1,0 +1,24 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "From this ticket, answer in exactly three lines: category, urgency (low/medium/high), and the single concrete thing the customer wants.\n\nYou charged me for two seats but I only have one user. Please fix."
+      }
+    ],
+    "max_tokens": 80
+  },
+  "response": {
+    "text": "Category: Billing  \nUrgency: High  \nThe customer wants to be charged for only one seat instead of two.",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 60,
+      "output_tokens": 25
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "ts"
+}

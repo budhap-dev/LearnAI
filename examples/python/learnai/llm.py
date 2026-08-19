@@ -13,12 +13,16 @@ Why an adapter at all? Three reasons, and they are the same three the lessons te
 
 Modes (LEARNAI_LLM_MODE):
   replay  (default) read examples/shared/cassettes/<hash>.json; fail loudly if missing
-  record  call the real API through the official SDK and write the cassette
-  live    call the real API, do not write cassettes (for poking around)
+  record  call the real model and write the cassette
+  live    call the real model, do not write cassettes (for poking around)
 
-The cassette key is a hash of the canonical request (model, system, messages, max_tokens,
-temperature) - identical in Python and TypeScript, so either language can record and both
-replay. Recording needs `pip install anthropic` and credentials; replay needs nothing.
+Providers (examples/shared/llm-config.json, overridable with LEARNAI_LLM_PROVIDER / _MODEL):
+  anthropic  the official SDK; needs `pip install anthropic` and an API key (examples/.env)
+  ollama     a local open-weight model via Ollama's HTTP API; needs no key and no install
+
+The cassette key is a hash of the canonical request (provider, model, system, messages,
+max_tokens, temperature, json_schema, effort) - identical in Python and TypeScript, so
+either language can record and both replay. Replay needs nothing installed.
 """
 
 from __future__ import annotations
@@ -31,10 +35,15 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-# The default model. Chosen once, here; lessons pass a different one only to make a point.
-DEFAULT_MODEL = "claude-opus-5"
+SHARED = Path(__file__).resolve().parents[2] / "shared"
+CASSETTES = SHARED / "cassettes"
 
-CASSETTES = Path(__file__).resolve().parents[2] / "shared" / "cassettes"
+# The provider and model the course records with - committed, so replay resolves the same
+# cassette keys as recording did. Lessons pass a different model only to make a point.
+_CONFIG = json.loads((SHARED / "llm-config.json").read_text(encoding="utf-8"))
+PROVIDER = os.environ.get("LEARNAI_LLM_PROVIDER", _CONFIG["provider"])
+DEFAULT_MODEL = os.environ.get("LEARNAI_LLM_MODEL", _CONFIG["model"])
+OLLAMA_URL = os.environ.get("OLLAMA_URL", _CONFIG.get("ollama_url", "http://localhost:11434"))
 
 
 @dataclass
@@ -108,7 +117,7 @@ def complete(
     if isinstance(messages, str):
         messages = [{"role": "user", "content": messages}]
 
-    request: dict[str, Any] = {"model": model, "messages": messages, "max_tokens": max_tokens}
+    request: dict[str, Any] = {"provider": PROVIDER, "model": model, "messages": messages, "max_tokens": max_tokens}
     if system is not None:
         request["system"] = system
     if temperature is not None:
@@ -138,7 +147,34 @@ def complete(
             recorded_at=cassette["recorded_at"], replayed=True, raw=cassette,
         )
 
-    # record / live: the official SDK, imported only here so replay needs nothing installed.
+    # record / live: call the configured provider.
+    if PROVIDER == "anthropic":
+        result = _call_anthropic(model, messages, system, max_tokens, temperature, json_schema, effort)
+    elif PROVIDER == "ollama":
+        result = _call_ollama(model, messages, system, max_tokens, temperature, json_schema, effort)
+    else:
+        raise ValueError(f"unknown provider {PROVIDER!r} (anthropic | ollama)")
+
+    recorded_at = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    cassette = {
+        "request": request,
+        "response": result,
+        "recorded_at": recorded_at,
+        "recorded_by": "python",
+    }
+    if mode == "record":
+        CASSETTES.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(cassette, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _log_use(cassette)
+    return Completion(
+        text=result["text"], model=result["model"], stop_reason=result["stop_reason"],
+        input_tokens=result["usage"]["input_tokens"], output_tokens=result["usage"]["output_tokens"],
+        recorded_at=recorded_at, replayed=False, raw=cassette,
+    )
+
+
+def _call_anthropic(model, messages, system, max_tokens, temperature, json_schema, effort) -> dict[str, Any]:
+    """The official SDK, imported only here so replay needs nothing installed."""
     _load_dotenv()
     import anthropic  # noqa: PLC0415  (pip install anthropic)
 
@@ -156,26 +192,48 @@ def complete(
     if output_config:
         kwargs["output_config"] = output_config
     response = client.messages.create(**kwargs)
-
     text = "".join(block.text for block in response.content if block.type == "text")
-    recorded_at = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    cassette = {
-        "request": request,
-        "response": {
-            "text": text,
-            "model": response.model,
-            "stop_reason": response.stop_reason or "end_turn",
-            "usage": {"input_tokens": response.usage.input_tokens, "output_tokens": response.usage.output_tokens},
-        },
-        "recorded_at": recorded_at,
-        "recorded_by": "python",
+    return {
+        "text": text,
+        "model": response.model,
+        "stop_reason": response.stop_reason or "end_turn",
+        "usage": {"input_tokens": response.usage.input_tokens, "output_tokens": response.usage.output_tokens},
     }
-    if mode == "record":
-        CASSETTES.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(cassette, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    _log_use(cassette)
-    return Completion(
-        text=text, model=response.model, stop_reason=cassette["response"]["stop_reason"],
-        input_tokens=response.usage.input_tokens, output_tokens=response.usage.output_tokens,
-        recorded_at=recorded_at, replayed=False, raw=cassette,
+
+
+def _call_ollama(model, messages, system, max_tokens, temperature, json_schema, effort) -> dict[str, Any]:
+    """Ollama's local HTTP API (ollama.com). A free, open-weight model on your own machine:
+    no key, nothing leaves the laptop. Same request shape as the hosted path, mapped:
+      json_schema -> format (Ollama enforces the schema);  effort -> think on/off
+      (low = off; medium and above = on, for models that support it, e.g. qwen3)."""
+    import urllib.error  # noqa: PLC0415
+    import urllib.request  # noqa: PLC0415
+
+    chat = ([{"role": "system", "content": system}] if system else []) + list(messages)
+    body: dict[str, Any] = {
+        "model": model,
+        "messages": chat,
+        "stream": False,
+        "options": {"num_predict": max_tokens, **({"temperature": temperature} if temperature is not None else {})},
+        "think": effort not in (None, "low"),
+    }
+    if json_schema is not None:
+        body["format"] = json_schema
+    req = urllib.request.Request(
+        f"{OLLAMA_URL}/api/chat", data=json.dumps(body).encode("utf-8"),
+        headers={"Content-Type": "application/json"}, method="POST",
     )
+    try:
+        with urllib.request.urlopen(req, timeout=600) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except urllib.error.URLError as e:
+        raise RuntimeError(
+            f"Could not reach Ollama at {OLLAMA_URL} ({e.reason}). Install it from https://ollama.com, "
+            f"start it, and `ollama pull {model}`."
+        ) from e
+    return {
+        "text": data["message"]["content"],
+        "model": data.get("model", model),
+        "stop_reason": "end_turn" if data.get("done_reason", "stop") == "stop" else "max_tokens",
+        "usage": {"input_tokens": data.get("prompt_eval_count", 0), "output_tokens": data.get("eval_count", 0)},
+    }

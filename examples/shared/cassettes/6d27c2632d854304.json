@@ -1,0 +1,24 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Write a two-sentence reply to a customer, using only these facts:\nCategory: Billing  \nUrgency: High  \nThe customer wants to be charged for only one seat instead of two.\n\nDo not promise outcomes; say what happens next."
+      }
+    ],
+    "max_tokens": 120
+  },
+  "response": {
+    "text": "We are reviewing your request to adjust the billing for a single seat. A representative will contact you shortly to discuss the next steps and confirm the changes.",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 65,
+      "output_tokens": 31
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "ts"
+}

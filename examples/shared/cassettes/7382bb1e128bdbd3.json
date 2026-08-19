@@ -1,6 +1,7 @@
 {
   "request": {
-    "model": "claude-opus-5",
+    "provider": "ollama",
+    "model": "qwen3:8b",
     "messages": [
       {
         "role": "user",
@@ -12,13 +13,13 @@
   },
   "response": {
     "text": "adapter smoke test ok",
-    "model": "claude-opus-5",
+    "model": "qwen3:8b",
     "stop_reason": "end_turn",
     "usage": {
-      "input_tokens": 33,
-      "output_tokens": 7
+      "input_tokens": 45,
+      "output_tokens": 5
     }
   },
-  "recorded_at": "2026-08-18",
-  "recorded_by": "fixture"
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
 }

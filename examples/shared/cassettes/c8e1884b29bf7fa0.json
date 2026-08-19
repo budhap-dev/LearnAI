@@ -1,0 +1,24 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "For this ticket, give its category, urgency (low/medium/high), a customer reply, and a one-line internal summary:\n\nYou charged me for two seats but I only have one user. Please fix."
+      }
+    ],
+    "max_tokens": 350
+  },
+  "response": {
+    "text": "**Category:** Billing/Charges  \n**Urgency:** High  \n**Customer Reply:** \"I only have one user, but I was charged for two seats. Please correct this immediately.\"  \n**Internal Summary:** Customer was charged for two seats despite only having one user; urgent action required to resolve billing discrepancy.",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 58,
+      "output_tokens": 65
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "ts"
+}

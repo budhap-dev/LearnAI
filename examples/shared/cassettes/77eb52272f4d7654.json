@@ -1,0 +1,24 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Classify each support ticket with exactly one label from: bug, how-to, billing, feature-request, other.\nAnswer with one line per ticket in the form  <number>. <label>  and nothing else.\n\nExamples:\nTicket: \"Login button does nothing on Safari\" -> 1. bug\nTicket: \"Where do I change my password?\" -> 2. how-to\nTicket: \"It would be great to have dark mode\" -> 3. feature-request\n\nTickets:\n1. App crashes every time I open the reports tab on Android since yesterday's update.\n2. How do I export my data to CSV? Can't find the button anywhere.\n3. You charged me for two seats but I only have one user. Please fix."
+      }
+    ],
+    "max_tokens": 100
+  },
+  "response": {
+    "text": "1. bug  \n2. how-to  \n3. billing",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 170,
+      "output_tokens": 13
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "ts"
+}

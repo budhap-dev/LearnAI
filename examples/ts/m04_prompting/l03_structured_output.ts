@@ -94,9 +94,10 @@ async function main(): Promise<void> {
       console.log(`  ${key.padEnd(18)} ${JSON.stringify(ticket[key])}`);
     }
     const problems = validate(ticket, today);
+    if (problems.length) console.log('  -> schema-valid but FLAGGED by value checks:', problems.join('; '));
     if (ticket.status === 'not_found') console.log('  -> not_found: route to a human, do not create a ticket');
-    else if (problems.length) console.log('  -> schema-valid but REJECTED by value checks:', problems.join('; '));
-    else console.log('  -> accepted: create ticket');
+    else if (!problems.length) console.log('  -> accepted: create ticket');
+    else console.log('  -> rejected: retry once with the problems fed back, then escalate');
   }
 
   section('why');

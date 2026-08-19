@@ -1,0 +1,25 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Policy:\nRefunds are available within 14 days of purchase for annual plans, and within 48 hours for monthly plans. Refunds are issued to the original payment method within 5 business days.\n\nQuestion: How long does the refund take to arrive?"
+      }
+    ],
+    "max_tokens": 120,
+    "system": "You answer questions about Acme's refund policy using the policy text provided."
+  },
+  "response": {
+    "text": "The refund typically takes up to 5 business days to arrive after it has been issued, and the refund is sent to the original payment method.",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 89,
+      "output_tokens": 30
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "ts"
+}

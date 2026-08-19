@@ -88,12 +88,14 @@ def main() -> None:
         for key in TICKET_SCHEMA["required"]:
             print(f"  {key:18} {json.dumps(ticket[key], ensure_ascii=False)}")
         problems = validate(ticket, today)
+        if problems:
+            print("  -> schema-valid but FLAGGED by value checks:", "; ".join(problems))
         if ticket["status"] == "not_found":
             print("  -> not_found: route to a human, do not create a ticket")
-        elif problems:
-            print("  -> schema-valid but REJECTED by value checks:", "; ".join(problems))
-        else:
+        elif not problems:
             print("  -> accepted: create ticket")
+        else:
+            print("  -> rejected: retry once with the problems fed back, then escalate")
 
     section("why")
     title("Why both layers")

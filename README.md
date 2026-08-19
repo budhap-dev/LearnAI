@@ -61,13 +61,25 @@ if their output differs.
 Examples that call a language model go through one adapter (`examples/python/learnai/llm.py`,
 `examples/ts/src/learnai/llm.ts`). By default it **replays** recorded responses from
 `examples/shared/cassettes/` - so the site, CI and a reader who clones the repo need no API key
-and spend nothing, and both languages show the same real response. To **record** a new
-cassette (needs credentials and the official SDK):
+and spend nothing, and both languages show the same real response.
+
+The provider and model the course records with live in `examples/shared/llm-config.json`.
+Two providers are supported:
+
+- **`ollama`** (the committed default) - a free, open-weight model running locally via
+  [Ollama](https://ollama.com). No key, nothing leaves your machine. Install Ollama, then
+  `ollama pull qwen3:8b` (the configured model; ~5 GB, fine on a 16 GB laptop).
+- **`anthropic`** - the hosted API through the official SDK; needs a key in the gitignored
+  `examples/.env` (`ANTHROPIC_API_KEY=...`) and `pip install anthropic` / `npm install`.
+
+To **record** (either language; both replay the result):
 
 ```bash
-pip install -r examples/python/requirements-record.txt      # or: cd examples/ts && npm install
-LEARNAI_LLM_MODE=record python3 examples/python/m04_prompting/l01_anatomy.py
+cd examples/ts && LEARNAI_LLM_MODE=record node harness.ts capture /tmp/x
+# or: LEARNAI_LLM_MODE=record python3 examples/python/m04_prompting/l01_anatomy.py
 ```
 
+Override for one run with `LEARNAI_LLM_PROVIDER=anthropic LEARNAI_LLM_MODEL=claude-opus-5`.
+Changing the committed provider or model changes every cassette key - re-record afterwards.
 The site labels any output that replays a recording with the model and the date it was
 recorded; the build warns when a recording is older than six months.
