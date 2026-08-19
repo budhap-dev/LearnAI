@@ -51,6 +51,7 @@ _CONFIG = json.loads((SHARED / "llm-config.json").read_text(encoding="utf-8"))
 PROVIDER = os.environ.get("LEARNAI_LLM_PROVIDER", _CONFIG["provider"])
 DEFAULT_MODEL = os.environ.get("LEARNAI_LLM_MODEL", _CONFIG["model"])
 VISION_MODEL = os.environ.get("LEARNAI_LLM_VISION_MODEL", _CONFIG.get("vision_model", DEFAULT_MODEL))
+EMBED_MODEL = os.environ.get("LEARNAI_LLM_EMBED_MODEL", _CONFIG.get("embed_model", "nomic-embed-text"))
 OLLAMA_URL = os.environ.get("OLLAMA_URL", _CONFIG.get("ollama_url", "http://localhost:11434"))
 
 
@@ -256,6 +257,54 @@ def stream(
 ) -> Stream:
     """Like complete(), but the response arrives as text chunks (Lesson 5.2)."""
     return Stream(_build_request(messages, system, model, max_tokens, temperature, None, None, None, True))
+
+
+@dataclass
+class Embeddings:
+    vectors: list[list[float]]
+    model: str
+    input_tokens: int
+    recorded_at: str
+    replayed: bool
+
+
+def embed(texts: list[str], *, model: str = EMBED_MODEL) -> Embeddings:
+    """Turn texts into vectors (Lesson 2.3 / Module 6). One request per call, cached like any
+    other - the cassette holds the vectors, so replay needs no embedding model either."""
+    request = {"provider": PROVIDER, "embed_model": model, "texts": list(texts)}
+    path = CASSETTES / f"{request_hash(request)}.json"
+    mode = _mode()
+    if mode == "replay":
+        cassette = _replay(path, request)
+        r = cassette["response"]
+        return Embeddings(r["vectors"], r["model"], r["usage"]["input_tokens"], cassette["recorded_at"], True)
+    if PROVIDER == "ollama":
+        result = _embed_ollama(model, list(texts))
+    elif PROVIDER == "anthropic":
+        raise NotImplementedError("the anthropic provider has no embeddings endpoint; set LEARNAI_LLM_PROVIDER=ollama for embeddings "
+                                  "(or add an embeddings vendor to the adapter)")
+    else:
+        raise ValueError(f"unknown provider {PROVIDER!r}")
+    cassette = _record(path, request, result, mode)
+    return Embeddings(result["vectors"], result["model"], result["usage"]["input_tokens"], cassette["recorded_at"], False)
+
+
+def _embed_ollama(model: str, texts: list[str]) -> dict[str, Any]:
+    import urllib.error  # noqa: PLC0415
+    import urllib.request  # noqa: PLC0415
+
+    req = urllib.request.Request(f"{OLLAMA_URL}/api/embed", data=json.dumps({"model": model, "input": texts}).encode("utf-8"),
+                                 headers={"Content-Type": "application/json"}, method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=900) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except urllib.error.URLError as e:
+        raise RuntimeError(f"Could not reach Ollama at {OLLAMA_URL} ({e.reason}); `ollama pull {model}`.") from e
+    # Round to 6 decimals: plenty for cosine similarity, and it keeps cassettes small and
+    # identical across languages.
+    vectors = [[round(x, 6) for x in v] for v in data["embeddings"]]
+    return {"vectors": vectors, "model": data.get("model", model), "text": "", "stop_reason": "end_turn",
+            "usage": {"input_tokens": data.get("prompt_eval_count", 0), "output_tokens": 0}}
 
 
 # ---- providers --------------------------------------------------------------------------

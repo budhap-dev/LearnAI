@@ -994,3 +994,32 @@ ol.emb-list li button { flex: 1; }
 .loop-detail { margin: 0.6rem 0; padding: 0.7rem 0.9rem; border-left: 3px solid var(--accent); background: var(--bg); border-radius: 0 8px 8px 0; font-size: 0.9rem; }
 .loop-detail p { margin: 0.2rem 0; }
 .loop-messages { background: var(--term-bg); color: var(--term-text); padding: 0.7rem 0.9rem; border-radius: 8px; font-size: 0.8rem; overflow-x: auto; max-height: 14rem; }
+
+/* chunking */
+.chunk-view { display: grid; gap: 0.4rem; margin: 0.6rem 0; max-height: 22rem; overflow-y: auto; }
+.chunk { font-size: 0.82rem; line-height: 1.45; padding: 0.45rem 0.6rem; border-radius: 6px; background: hsl(var(--h) 60% 50% / 0.12); border-left: 3px solid hsl(var(--h) 60% 48%); }
+.chunk-n { display: inline-block; font-size: 0.7rem; font-weight: 600; color: hsl(var(--h) 60% 40%); margin-right: 0.5rem; font-family: var(--mono); }
+
+/* hybrid search */
+.hs-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; margin: 0.6rem 0; }
+.hs-col h4 { margin: 0 0 0.3rem; font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.hs-col ol { margin: 0; padding-left: 1.2rem; font-size: 0.86rem; }
+.hs-col li { display: flex; justify-content: space-between; gap: 0.4rem; padding: 0.15rem 0; border-bottom: 1px solid var(--border); }
+.hs-id { font-family: var(--mono); }
+@media (max-width: 640px) { .hs-cols { grid-template-columns: 1fr; } }
+
+/* rag stepper */
+.rag-stages { list-style: none; padding: 0; margin: 0.5rem 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.rag-stages li { font-size: 0.82rem; padding: 0.3rem 0.65rem; border-radius: 99px; border: 1px solid var(--border); cursor: pointer; }
+.rag-stages li.done { opacity: 0.7; }
+.rag-stages li.current { background: var(--accent); color: #fff; border-color: var(--accent); }
+.rag-answer { font-size: 0.95rem; }
+
+/* finetune vs rag */
+.ftvr-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(14rem, 2fr); gap: 1.2rem; align-items: start; }
+.ftvr-q { border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.8rem; margin: 0 0 0.6rem; font-size: 0.86rem; }
+.ftvr-q legend { font-weight: 600; padding: 0 0.3rem; }
+.ftvr-q label { display: block; padding: 0.15rem 0; }
+.ftvr-side .dist-row { grid-template-columns: 9rem 1fr 2.5rem; }
+.ftvr-note { padding: 0.6rem 0.8rem; background: var(--accent-soft); border-radius: 8px; }
+@media (max-width: 640px) { .ftvr-grid { grid-template-columns: 1fr; } }

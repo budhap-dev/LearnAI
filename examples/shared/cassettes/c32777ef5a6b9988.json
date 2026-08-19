@@ -1,0 +1,42 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Passages:\n\n[seats] You are billed for seats, not for people: a seat is a licence that can be assigned to a user and reassigned when someone leaves. Removing a user frees the seat immediately; the seat count only changes when an admin reduces it under Settings > Plan. Seat reductions take effect at the next renewal; seat additions are prorated and charged immediately. If you believe you were charged for more seats than you assigned, check the seat count on the plan page first - unassigned seats are still billed.\n\n[password-reset] Use 'Forgot password' on the sign-in page; the reset link is valid for 30 minutes and can only be used once. Accounts lock for 15 minutes after ten failed attempts. If your organisation enforces SSO, password reset is disabled and you must reset through your identity provider. Admins can also send a reset link from the user's page. We never ask for passwords by email or chat.\n\n[plans] Starter includes up to 5 seats, 10,000 API calls per month and community support. Pro includes unlimited seats at a per-seat price, 250,000 API calls per month, SSO, audit logs and email support with a one-business-day response target. Enterprise adds a custom API quota, dedicated support with a four-hour response target, data residency options and a signed DPA. Upgrades apply immediately and are prorated; downgrades apply at the next renewal.\n\nAnswer:\nPro and Enterprise plans include single sign-on [plans].\n\nIs every factual claim in the answer supported by the passages? Ignore phrasing; flag any number, policy or step that is not in the passages."
+      }
+    ],
+    "max_tokens": 120,
+    "system": "You are a strict grader. JSON only.",
+    "temperature": 0,
+    "json_schema": {
+      "type": "object",
+      "properties": {
+        "supported": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "supported",
+        "reason"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "text": "{\"supported\": true, \"reason\": \"The answer states that Pro and Enterprise plans include single sign-on, which is supported by the [plans] passage that mentions 'Pro includes ... SSO' and 'Enterprise ... SSO'.\"}",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 379,
+      "output_tokens": 50
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

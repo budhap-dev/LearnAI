@@ -1,0 +1,142 @@
+[
+  {
+    "id": "6.6-q1",
+    "topic": "grounding",
+    "difficulty": 2,
+    "stem": "Grounding is…",
+    "options": [
+      "A bigger context window",
+      "A vector index",
+      "A fine-tuned model",
+      "Rules and checks that make the answer come from the passages and make that checkable: citations, refusal, verification in code"
+    ],
+    "answer": 3,
+    "explanation": "Prompt + code + routing, all three."
+  },
+  {
+    "id": "6.6-q2",
+    "topic": "claim vs evidence",
+    "difficulty": 2,
+    "stem": "A citation the model wrote is…",
+    "options": [
+      "A claim — it becomes evidence only when code verifies the id exists and the numbers appear in the cited passage",
+      "Unnecessary with good models",
+      "Proof of correctness",
+      "Always accurate"
+    ],
+    "answer": 0,
+    "explanation": "Verify in code; traceable is not proven, but it blocks invention."
+  },
+  {
+    "id": "6.6-q3",
+    "topic": "unknown id",
+    "difficulty": 2,
+    "stem": "The model cites an id that was not among the provided passages. Code should…",
+    "options": [
+      "Add the passage retroactively",
+      "Ignore the citation",
+      "Serve it",
+      "Flag the answer for review — it cannot be checked and likely came from memory or invention"
+    ],
+    "answer": 3,
+    "explanation": "This is exactly what the id check exists for."
+  },
+  {
+    "id": "6.6-q4",
+    "topic": "numbers",
+    "difficulty": 2,
+    "stem": "The cheapest faithfulness check is…",
+    "options": [
+      "Counting words",
+      "Every number in a sentence appears in the text of a passage that sentence cites",
+      "Checking spelling",
+      "Asking the model if it is sure"
+    ],
+    "answer": 1,
+    "explanation": "It catches the commonest invention: a plausible figure."
+  },
+  {
+    "id": "6.6-q5",
+    "topic": "refusal",
+    "difficulty": 2,
+    "stem": "In the recorded run the uncovered question produced…",
+    "options": [
+      "NOT_COVERED — retrieval returned the least-bad articles and the scoped model said no; route to a human",
+      "An error",
+      "An invented discount policy",
+      "A citation to a random article"
+    ],
+    "answer": 0,
+    "explanation": "The system can say no, and code can tell that it did."
+  },
+  {
+    "id": "6.6-q6",
+    "topic": "render",
+    "difficulty": 2,
+    "stem": "Rendering citations as links…",
+    "options": [
+      "Is decorative",
+      "Slows the page",
+      "Lets users check, raises trust, and tells you which articles answer which questions — and which questions have none",
+      "Breaks the prompt"
+    ],
+    "answer": 2,
+    "explanation": "A free signal about coverage gaps."
+  },
+  {
+    "id": "6.6-q7",
+    "topic": "route",
+    "difficulty": 2,
+    "stem": "The three routes after verification are…",
+    "options": [
+      "Serve, cache, delete",
+      "Serve (clean), review (any unknown id / uncited claim / number not in source), escalate (NOT_COVERED)",
+      "Retry, retry, retry",
+      "Log, ignore, serve"
+    ],
+    "answer": 1,
+    "explanation": "Route on what the checks found."
+  },
+  {
+    "id": "6.6-q8",
+    "topic": "passes",
+    "difficulty": 2,
+    "stem": "An answer passes every code check. It is…",
+    "options": [
+      "Traceable, not proven — correctness still needs the golden-set eval and, where it matters, a human",
+      "Guaranteed correct",
+      "Certainly wrong",
+      "Ready without further evaluation"
+    ],
+    "answer": 0,
+    "explanation": "Checks block invention; evals measure correctness."
+  },
+  {
+    "id": "6.6-q9",
+    "topic": "over-refusal",
+    "difficulty": 2,
+    "stem": "The model refuses questions the corpus covers. First things to check…",
+    "options": [
+      "The vector store size",
+      "Retrieval (hit@k for those questions), a threshold set too high, a prompt rule too strict — measure refusal precision",
+      "The citation renderer",
+      "The temperature"
+    ],
+    "answer": 1,
+    "explanation": "Over-refusal erodes trust as fast as invention does."
+  },
+  {
+    "id": "6.6-q10",
+    "topic": "judge",
+    "difficulty": 2,
+    "stem": "For claims code cannot check (paraphrased policy statements)…",
+    "options": [
+      "Add a faithfulness judge and spot-check it",
+      "Disable citations",
+      "Skip verification",
+      "Trust the model"
+    ],
+    "answer": 0,
+    "explanation": "Code where you can, judges where you must, humans on a sample."
+  }
+]

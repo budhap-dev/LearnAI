@@ -1,0 +1,43 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Query: Yearly plan refund process and timeline\n\nRate how well each passage answers the query: 3 = directly answers, 2 = partly, 1 = related only, 0 = unrelated. Return scores in passage order.\n\n[0] Refund policy\nAnnual plans can be refunded in full within 14 days of purchase. After 14 days, annual plans are not refundable, but you can cancel auto-renewal at any time and keep access until the end of the term. Monthly plans are not refundable; cancelling stops the next charge. Refunds are issued to the original payment method and typically arrive within 5 business days, though some banks take up to 10. To request a refund, open a ticket from the billing page with the invoice number; a billing specialist replies within one business day.\n\n[1] Billing cycles and invoices\nSubscriptions renew automatically at the end of each cycle: monthly plans on the same calendar day each month, annual plans on the anniversary of purchase. The billing date cannot currently be moved; if you need invoices aligned to a fiscal month, switch to annual billing and choose the start date when you upgrade. Invoices are emailed to the billing contact and are available under Settings > Billing > Invoices for seven years. VAT is applied based on the billing address; add a VAT number to receive reverse-charge invoices in the EU.\n\n[2] Data retention and deletion\nCustomer data is retained for the life of the subscription and for 30 days after cancellation, during which you can export it or reactivate. After 30 days the workspace and its backups are scheduled for deletion, completed within a further 30 days. Audit logs are retained for 1 year on Pro and 3 years on Enterprise. To delete a workspace sooner, an owner can request immediate deletion from Settings > Workspace; this is irreversible and requires typing the workspace name to confirm.\n\n[3] Plan tiers\nStarter includes up to 5 seats, 10,000 API calls per month and community support. Pro includes unlimited seats at a per-seat price, 250,000 API calls per month, SSO, audit logs and email support with a one-business-day response target. Enterprise adds a custom API quota, dedicated support with a four-hour response target, data residency options and a signed DPA. Upgrades apply immediately and are prorated; downgrades apply at the next renewal.\n\n[4] Seats and user management\nYou are billed for seats, not for people: a seat is a licence that can be assigned to a user and reassigned when someone leaves. Removing a user frees the seat immediately; the seat count only changes when an admin reduces it under Settings > Plan. Seat reductions take effect at the next renewal; seat additions are prorated and charged immediately. If you believe you were charged for more seats than you assigned, check the seat count on the plan page first - unassigned seats are still billed."
+      }
+    ],
+    "max_tokens": 120,
+    "system": "You are a precise relevance judge. Output JSON only.",
+    "temperature": 0,
+    "json_schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "text": "{\"scores\": [3, 1, 0, 0, 0]}",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 643,
+      "output_tokens": 19
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

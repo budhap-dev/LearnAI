@@ -1,0 +1,142 @@
+[
+  {
+    "id": "6.1-q1",
+    "topic": "what RAG does",
+    "difficulty": 2,
+    "stem": "Retrieval-augmented generation, in one sentence…",
+    "options": [
+      "Replaces the model with a search engine",
+      "Finds the passages relevant to the question, puts them in the prompt with ids, and asks the model to answer only from them with citations",
+      "Trains the model on your documents",
+      "Makes the context window bigger"
+    ],
+    "answer": 1,
+    "explanation": "Retrieval moves facts from the model's memory into the prompt, per request — the model supplies language and judgement, your documents supply facts."
+  },
+  {
+    "id": "6.1-q2",
+    "topic": "fine-tune facts",
+    "difficulty": 2,
+    "stem": "Fine-tuning is a poor way to add facts because…",
+    "options": [
+      "It is too cheap",
+      "It shifts behaviour reliably but knowledge unreliably, still invents specifics, and every fact change means retraining",
+      "It only works on images",
+      "It disables citations permanently"
+    ],
+    "answer": 1,
+    "explanation": "Fine-tune for behaviour; retrieve for knowledge."
+  },
+  {
+    "id": "6.1-q3",
+    "topic": "long context",
+    "difficulty": 2,
+    "stem": "Sending the whole corpus in every prompt instead of retrieving…",
+    "options": [
+      "Is required for citations",
+      "Costs tokens on every request, loses the middle of long prompts, and gives no citations",
+      "Is free with caching",
+      "Is always more accurate"
+    ],
+    "answer": 1,
+    "explanation": "Long context is a capacity for one long document at low volume — not a retrieval strategy."
+  },
+  {
+    "id": "6.1-q4",
+    "topic": "provenance",
+    "difficulty": 2,
+    "stem": "The single feature only retrieval gives you for free is…",
+    "options": [
+      "Lower latency",
+      "Better grammar",
+      "Provenance — a citation to the passage each claim came from",
+      "Fewer tokens"
+    ],
+    "answer": 2,
+    "explanation": "Citations let users check, reviewers audit, and code verify."
+  },
+  {
+    "id": "6.1-q5",
+    "topic": "freshness",
+    "difficulty": 2,
+    "stem": "Your knowledge changes daily. Which approach keeps answers current?",
+    "options": [
+      "Fine-tuning every night",
+      "Retrieval — update the index, not the model",
+      "A larger context window",
+      "Higher temperature"
+    ],
+    "answer": 1,
+    "explanation": "Freshness is an index update; fine-tuning is a training project."
+  },
+  {
+    "id": "6.1-q6",
+    "topic": "combo",
+    "difficulty": 2,
+    "stem": "Most production systems end up with…",
+    "options": [
+      "No prompts",
+      "Only fine-tuning",
+      "Only long context",
+      "Prompting for rules + retrieval for facts, and fine-tuning only if evals show the prompt cannot get the behaviour"
+    ],
+    "answer": 3,
+    "explanation": "The approaches answer different questions; they combine."
+  },
+  {
+    "id": "6.1-q7",
+    "topic": "costs",
+    "difficulty": 2,
+    "stem": "A cost RAG introduces that prompting alone does not…",
+    "options": [
+      "Mandatory GPU hosting",
+      "Higher model prices",
+      "Loss of the system prompt",
+      "An ingest pipeline, an embedding model and store, and two new failure modes that need their own metrics"
+    ],
+    "answer": 3,
+    "explanation": "Retrieval is engineering: pipelines, indexes and evals."
+  },
+  {
+    "id": "6.1-q8",
+    "topic": "refusal",
+    "difficulty": 2,
+    "stem": "Scoping the model to retrieved passages lets it…",
+    "options": [
+      "Skip citations",
+      "Ignore the system prompt",
+      "Answer anything confidently",
+      "Refuse when the documents do not cover the question instead of inventing an answer"
+    ],
+    "answer": 3,
+    "explanation": "The refusal path is one of the main things retrieval buys."
+  },
+  {
+    "id": "6.1-q9",
+    "topic": "single doc",
+    "difficulty": 2,
+    "stem": "The right case for long context rather than retrieval is…",
+    "options": [
+      "Any chat app",
+      "A catalogue of a million products",
+      "One long document, low volume, high value — e.g. summarising a contract on demand",
+      "A support desk over a knowledge base"
+    ],
+    "answer": 2,
+    "explanation": "Capacity for one careful answer; not a retrieval strategy for traffic."
+  },
+  {
+    "id": "6.1-q10",
+    "topic": "portability",
+    "difficulty": 2,
+    "stem": "A retrieval index built today…",
+    "options": [
+      "Expires after 30 days",
+      "Must be rebuilt for every model release",
+      "Still works with next year's model — the documents and index outlive any vendor",
+      "Only works with the model that embedded it… for generation too"
+    ],
+    "answer": 2,
+    "explanation": "The embedding model must stay fixed for the index, but the generation model can change freely."
+  }
+]

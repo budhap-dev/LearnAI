@@ -10,6 +10,9 @@ import {
   CacheHitMiss, ModalityPipeline, ModelRouter, RequestSequence, StreamingTimeline, ToolRoundTrip, TraceWaterfall,
 } from './diagrams/apis';
 import {
+  ChunkOverlap, GroundedVsUngrounded, HybridFusion, RagDecisionMatrix, RagEvalTriad, RagPipeline, TwoStageRetrieval,
+} from './diagrams/rag';
+import {
   ClassicVsLlm, ConfusionMatrixDiagram, DecisionBoundary, KMeansSteps, MlLifecycle, NeuralNet,
 } from './diagrams/classicml';
 import {
@@ -61,6 +64,13 @@ const REGISTRY: Record<string, ComponentType> = {
   'cache-hit-miss': CacheHitMiss,
   'model-router': ModelRouter,
   'trace-waterfall': TraceWaterfall,
+  'rag-decision-matrix': RagDecisionMatrix,
+  'rag-pipeline': RagPipeline,
+  'chunk-overlap': ChunkOverlap,
+  'hybrid-fusion': HybridFusion,
+  'two-stage-retrieval': TwoStageRetrieval,
+  'grounded-vs-ungrounded': GroundedVsUngrounded,
+  'rag-eval-triad': RagEvalTriad,
 };
 
 export function Diagram({ name }: { name: string }) {

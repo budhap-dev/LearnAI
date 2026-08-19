@@ -45,11 +45,12 @@ const CASSETTES = join(SHARED, 'cassettes');
  * only to make a point. Override per run with LEARNAI_LLM_PROVIDER / LEARNAI_LLM_MODEL.
  */
 const CONFIG = JSON.parse(readFileSync(join(SHARED, 'llm-config.json'), 'utf8')) as {
-  provider: string; model: string; vision_model?: string; ollama_url?: string;
+  provider: string; model: string; vision_model?: string; embed_model?: string; ollama_url?: string;
 };
 export const PROVIDER = process.env.LEARNAI_LLM_PROVIDER ?? CONFIG.provider;
 export const DEFAULT_MODEL = process.env.LEARNAI_LLM_MODEL ?? CONFIG.model;
 export const VISION_MODEL = process.env.LEARNAI_LLM_VISION_MODEL ?? CONFIG.vision_model ?? DEFAULT_MODEL;
+export const EMBED_MODEL = process.env.LEARNAI_LLM_EMBED_MODEL ?? CONFIG.embed_model ?? 'nomic-embed-text';
 const OLLAMA_URL = process.env.OLLAMA_URL ?? CONFIG.ollama_url ?? 'http://localhost:11434';
 
 export interface ToolCall {
@@ -261,6 +262,46 @@ export class Stream implements AsyncIterable<string> {
 
 export function stream(messages: Message[] | string, options: Omit<CompleteOptions, 'jsonSchema' | 'effort' | 'tools'> = {}): Stream {
   return new Stream(buildRequest(messages, options, true));
+}
+
+export interface Embeddings {
+  vectors: number[][];
+  model: string;
+  inputTokens: number;
+  recordedAt: string;
+  replayed: boolean;
+}
+
+/**
+ * Turn texts into vectors (Lesson 2.3 / Module 6). One request per call, cached like any other -
+ * the cassette holds the vectors, so replay needs no embedding model either.
+ */
+export async function embed(texts: string[], options: { model?: string } = {}): Promise<Embeddings> {
+  const model = options.model ?? EMBED_MODEL;
+  const request: Record<string, unknown> = { provider: PROVIDER, embed_model: model, texts: [...texts] };
+  const path = join(CASSETTES, `${requestHash(request)}.json`);
+  const m = mode();
+  if (m === 'replay') {
+    const cassette = replay(path, request);
+    const r = cassette.response as CassetteResponse & { vectors: number[][] };
+    return { vectors: r.vectors, model: r.model, inputTokens: r.usage.input_tokens, recordedAt: cassette.recorded_at, replayed: true };
+  }
+  if (PROVIDER !== 'ollama') {
+    throw new Error('the anthropic provider has no embeddings endpoint; set LEARNAI_LLM_PROVIDER=ollama for embeddings (or add an embeddings vendor to the adapter)');
+  }
+  let res: Response;
+  try {
+    res = await fetch(`${OLLAMA_URL}/api/embed`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model, input: texts }) });
+  } catch (e) {
+    throw new Error(`Could not reach Ollama at ${OLLAMA_URL} (${(e as Error).message}); \`ollama pull ${model}\`.`);
+  }
+  if (!res.ok) throw new Error(`Ollama ${res.status}: ${await res.text()}`);
+  const data = (await res.json()) as { model?: string; embeddings: number[][]; prompt_eval_count?: number };
+  // Round to 6 decimals: plenty for cosine similarity, keeps cassettes small and identical across languages.
+  const vectors = data.embeddings.map((v) => v.map((x) => Math.round(x * 1e6) / 1e6));
+  const response = { vectors, model: data.model ?? model, text: '', stop_reason: 'end_turn', usage: { input_tokens: data.prompt_eval_count ?? 0, output_tokens: 0 } };
+  const cassette = record(path, request, response as CassetteResponse, m);
+  return { vectors, model: response.model, inputTokens: response.usage.input_tokens, recordedAt: cassette.recorded_at, replayed: false };
 }
 
 // ---- providers --------------------------------------------------------------------------

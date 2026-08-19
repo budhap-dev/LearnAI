@@ -1,0 +1,26 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Articles:\n\n[api-limits] API rate limits\nEach API key is limited to 60 requests per minute on Starter, 600 on Pro and a negotiated limit on Enterprise. Exceeding the limit returns HTTP 429 with a Retry-After header; clients should back off exponentially and honour the header. Monthly call quotas are separate from per-minute limits and are shown on the usage page; when a quota is exhausted, requests return 402 until the next cycle or until the plan is upgraded. Webhook deliveries do not count toward the quota.\n\n[plans] Plan tiers\nStarter includes up to 5 seats, 10,000 API calls per month and community support. Pro includes unlimited seats at a per-seat price, 250,000 API calls per month, SSO, audit logs and email support with a one-business-day response target. Enterprise adds a custom API quota, dedicated support with a four-hour response target, data residency options and a signed DPA. Upgrades apply immediately and are prorated; downgrades apply at the next renewal.\n\n[security-incident] Reporting a security issue\nIf you believe you have found a vulnerability or that your account has been compromised, email security@ (or use the in-app 'Report a security issue' link) rather than opening a normal ticket. Include what you observed, the time, and any request IDs. We acknowledge reports within 24 hours and do not take action against good-faith researchers. For a suspected account compromise, also rotate your API keys immediately from Settings > API keys and enable SSO enforcement if available.\n\nQuestion: What happens when we go over our API rate limit?"
+      }
+    ],
+    "max_tokens": 200,
+    "system": "You answer customer questions using ONLY the provided articles. Cite the article id in square brackets after each claim. If the articles do not contain the answer, reply exactly NOT_COVERED. Be brief.",
+    "temperature": 0
+  },
+  "response": {
+    "text": "When you go over your API rate limit, you receive an HTTP 429 status code with a Retry-After header. Clients should back off exponentially and honor the header [api-limits].",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 412,
+      "output_tokens": 41
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

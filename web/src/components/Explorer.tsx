@@ -89,6 +89,34 @@ export const EXPLORERS: ExplorerInfo[] = [
     lesson: '5.3',
     load: () => import('./explorers/AgentLoop'),
   },
+  {
+    id: 'chunking',
+    name: 'Chunking',
+    teaches: 'Fixed, sentence, heading and whole-document chunking over one real guide: where the boundaries fall, how many chunks, what overlap costs.',
+    lesson: '6.3',
+    load: () => import('./explorers/Chunking'),
+  },
+  {
+    id: 'hybrid-search',
+    name: 'Hybrid search',
+    teaches: 'Keywords (BM25) vs meaning (real cosine scores) vs fused (RRF) over the handbook — where each wins.',
+    lesson: '6.4',
+    load: () => import('./explorers/HybridSearch'),
+  },
+  {
+    id: 'rag-stepper',
+    name: 'RAG stepper',
+    teaches: 'The RAG pipeline stage by stage on the real recorded run: retrieve with scores, assemble the prompt, the real answer, the verification.',
+    lesson: '6.2',
+    load: () => import('./explorers/RagStepper'),
+  },
+  {
+    id: 'finetune-vs-rag',
+    name: 'RAG vs fine-tuning',
+    teaches: 'Six questions about your situation; prompting, retrieval, fine-tuning and long context score themselves.',
+    lesson: '6.1',
+    load: () => import('./explorers/FinetuneVsRag'),
+  },
 ];
 
 const byId = Object.fromEntries(EXPLORERS.map((e) => [e.id, e]));

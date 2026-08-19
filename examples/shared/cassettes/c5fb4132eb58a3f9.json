@@ -1,0 +1,26 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Articles:\n\n[retention] Data retention and deletion\nCustomer data is retained for the life of the subscription and for 30 days after cancellation, during which you can export it or reactivate. After 30 days the workspace and its backups are scheduled for deletion, completed within a further 30 days. Audit logs are retained for 1 year on Pro and 3 years on Enterprise. To delete a workspace sooner, an owner can request immediate deletion from Settings > Workspace; this is irreversible and requires typing the workspace name to confirm.\n\n[refunds] Refund policy\nAnnual plans can be refunded in full within 14 days of purchase. After 14 days, annual plans are not refundable, but you can cancel auto-renewal at any time and keep access until the end of the term. Monthly plans are not refundable; cancelling stops the next charge. Refunds are issued to the original payment method and typically arrive within 5 business days, though some banks take up to 10. To request a refund, open a ticket from the billing page with the invoice number; a billing specialist replies within one business day.\n\n[seats] Seats and user management\nYou are billed for seats, not for people: a seat is a licence that can be assigned to a user and reassigned when someone leaves. Removing a user frees the seat immediately; the seat count only changes when an admin reduces it under Settings > Plan. Seat reductions take effect at the next renewal; seat additions are prorated and charged immediately. If you believe you were charged for more seats than you assigned, check the seat count on the plan page first - unassigned seats are still billed.\n\nQuestion: How long do you keep our data after we cancel, and can we delete it sooner?"
+      }
+    ],
+    "max_tokens": 220,
+    "system": "You answer customer questions using ONLY the provided articles.\nRules:\n1. Every sentence that states a fact ends with the id of the article it came from, in square brackets, e.g. [refunds].\n2. If the articles do not contain the answer, reply with exactly: NOT_COVERED\n3. Do not add facts, policies or numbers that are not in the articles.\n4. Be brief: two or three sentences.",
+    "temperature": 0
+  },
+  "response": {
+    "text": "Customer data is retained for 30 days after cancellation, during which you can export it or reactivate [retention]. You can request immediate deletion of the workspace through the Settings > Workspace option, which is irreversible and requires confirming the workspace name [retention].",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 474,
+      "output_tokens": 54
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

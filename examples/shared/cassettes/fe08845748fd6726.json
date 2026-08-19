@@ -1,0 +1,25 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Rewrite this customer message as a short search query (under 12 words) for a support knowledge base. Keep product terms and numbers; drop greetings and story. Reply with the query only.\n\nHi! Hope you're well. We signed up for the yearly thing back in early August, the team has barely used it and honestly it's not for us - is there any way to get the money back, and how long does that take?"
+      }
+    ],
+    "max_tokens": 30,
+    "temperature": 0
+  },
+  "response": {
+    "text": "Yearly plan refund process and timeline",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 106,
+      "output_tokens": 8
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

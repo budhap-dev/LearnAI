@@ -1,0 +1,142 @@
+[
+  {
+    "id": "6.7-q1",
+    "topic": "two halves",
+    "difficulty": 2,
+    "stem": "A RAG scorecard has two halves because…",
+    "options": [
+      "There are two languages",
+      "Two models are involved",
+      "Retrieval (was the right passage found) and generation (what the model did with it) fail separately and one number cannot tell them apart",
+      "Evals are run twice"
+    ],
+    "answer": 2,
+    "explanation": "hit@k for retrieval; correctness, faithfulness, refusal for generation."
+  },
+  {
+    "id": "6.7-q2",
+    "topic": "hit@k",
+    "difficulty": 2,
+    "stem": "hit@k measures…",
+    "options": [
+      "Whether any relevant passage is in the top k — in code, no model call, the ceiling on everything else",
+      "Answer length",
+      "Faithfulness",
+      "Cost"
+    ],
+    "answer": 0,
+    "explanation": "Low hit@k → fix retrieval first."
+  },
+  {
+    "id": "6.7-q3",
+    "topic": "sut",
+    "difficulty": 2,
+    "stem": "The eval's pipeline must be…",
+    "options": [
+      "Run on different documents",
+      "A stronger model",
+      "Identical to production's — an eval measures the system, not a demo of it",
+      "Simplified for speed"
+    ],
+    "answer": 2,
+    "explanation": "Otherwise the numbers are about nothing."
+  },
+  {
+    "id": "6.7-q4",
+    "topic": "correctness",
+    "difficulty": 2,
+    "stem": "Correctness by substring is…",
+    "options": [
+      "Fast and brittle — the recorded g9 was correct ('one-business-day') and marked wrong by the checker",
+      "Model-graded",
+      "Impossible to automate",
+      "Always reliable"
+    ],
+    "answer": 0,
+    "explanation": "Normalise (hyphens, whitespace, numbers) and keep the case."
+  },
+  {
+    "id": "6.7-q5",
+    "topic": "judge",
+    "difficulty": 2,
+    "stem": "LLM-as-judge faithfulness is…",
+    "options": [
+      "Unbiased",
+      "Ground truth",
+      "Only for images",
+      "Useful and biased — favours long, confident, well-formatted answers; keep the rubric narrow, use a schema, spot-check by hand"
+    ],
+    "answer": 3,
+    "explanation": "Evidence, not proof."
+  },
+  {
+    "id": "6.7-q6",
+    "topic": "refusal precision",
+    "difficulty": 2,
+    "stem": "Refusal precision measures…",
+    "options": [
+      "Token usage",
+      "Latency",
+      "How often the model apologises",
+      "NOT_COVERED exactly when the question is uncovered, and never when it is covered"
+    ],
+    "answer": 3,
+    "explanation": "Both directions matter: answering uncovered questions is dangerous; refusing covered ones is useless."
+  },
+  {
+    "id": "6.7-q7",
+    "topic": "diagnose",
+    "difficulty": 2,
+    "stem": "hit@3 = 60%, faithfulness = 98%, correctness = 58%. Work first on…",
+    "options": [
+      "The judge",
+      "The output format",
+      "Retrieval — the model is faithful to what it gets, but 40% of the time it gets the wrong passages",
+      "The prompt"
+    ],
+    "answer": 2,
+    "explanation": "hit@k caps everything downstream."
+  },
+  {
+    "id": "6.7-q8",
+    "topic": "too good",
+    "difficulty": 2,
+    "stem": "Faithfulness reads 100% for a month, then hand review finds invented numbers. Lesson?",
+    "options": [
+      "The judge has a blind spot — add code checks (numbers in sources), sharpen the rubric, keep spot-checking",
+      "Stop reviewing",
+      "The humans are wrong",
+      "Faithfulness cannot be measured"
+    ],
+    "answer": 0,
+    "explanation": "A too-good number is a prompt to look."
+  },
+  {
+    "id": "6.7-q9",
+    "topic": "golden size",
+    "difficulty": 2,
+    "stem": "Ten questions is…",
+    "options": [
+      "The industry standard",
+      "Too many",
+      "Plenty for production",
+      "A smoke test — real golden sets are hundreds, sampled from traffic and labelled by domain experts"
+    ],
+    "answer": 3,
+    "explanation": "Scale the set before trusting the numbers (8.2)."
+  },
+  {
+    "id": "6.7-q10",
+    "topic": "gate",
+    "difficulty": 2,
+    "stem": "A CI gate for RAG should…",
+    "options": [
+      "Trust the vendor's benchmarks",
+      "Run the scorecard on every change to chunking, index, prompt or model, several runs, and block on regression past written thresholds",
+      "Run once a quarter",
+      "Check only latency"
+    ],
+    "answer": 1,
+    "explanation": "Write the thresholds down before you need them."
+  }
+]

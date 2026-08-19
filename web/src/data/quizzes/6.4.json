@@ -1,0 +1,142 @@
+[
+  {
+    "id": "6.4-q1",
+    "topic": "gist",
+    "difficulty": 2,
+    "stem": "Embeddings miss…",
+    "options": [
+      "Long documents",
+      "Paraphrase",
+      "Meaning",
+      "Exact tokens — error codes, ids, jargon — because they capture gist"
+    ],
+    "answer": 3,
+    "explanation": "Keywords nail exact tokens; vectors nail paraphrase."
+  },
+  {
+    "id": "6.4-q2",
+    "topic": "bm25",
+    "difficulty": 2,
+    "stem": "BM25 scores a document by…",
+    "options": [
+      "Cosine similarity of embeddings",
+      "Rarity of each query term (idf) × saturating term frequency, normalised for document length",
+      "Number of pages",
+      "Recency"
+    ],
+    "answer": 1,
+    "explanation": "Four lines of maths that power most search engines' default ranking."
+  },
+  {
+    "id": "6.4-q3",
+    "topic": "stop words",
+    "difficulty": 2,
+    "stem": "Without stop-word removal…",
+    "options": [
+      "'what does a … mean' outscores the one rare token that matters",
+      "Nothing changes",
+      "Vectors improve",
+      "BM25 runs faster"
+    ],
+    "answer": 0,
+    "explanation": "Real engines also stem (refund/refunds)."
+  },
+  {
+    "id": "6.4-q4",
+    "topic": "rrf",
+    "difficulty": 2,
+    "stem": "Reciprocal rank fusion works by…",
+    "options": [
+      "Adding 1/(k + rank) from each list, ignoring the incomparable raw scores",
+      "Averaging cosine and BM25 scores",
+      "Taking only the vector list",
+      "Multiplying the scores"
+    ],
+    "answer": 0,
+    "explanation": "One constant (k≈60), robust, widely used."
+  },
+  {
+    "id": "6.4-q5",
+    "topic": "fusion value",
+    "difficulty": 2,
+    "stem": "The value of fusion is…",
+    "options": [
+      "Removing the need for a reranker",
+      "Always beating both lists",
+      "Never being the worse list across a traffic mix you cannot predict",
+      "Halving latency"
+    ],
+    "answer": 2,
+    "explanation": "It rarely beats the better list on its own query."
+  },
+  {
+    "id": "6.4-q6",
+    "topic": "jargon",
+    "difficulty": 2,
+    "stem": "For 'does SCIM work for deprovisioning leavers', in the recording…",
+    "options": [
+      "Vectors won outright",
+      "BM25 returned nothing",
+      "Both missed",
+      "Keywords found SCIM in the SSO article while vectors read it as deletion; fusion kept SSO on top"
+    ],
+    "answer": 3,
+    "explanation": "Jargon the embedding model barely knows is a keyword job."
+  },
+  {
+    "id": "6.4-q7",
+    "topic": "store choice",
+    "difficulty": 2,
+    "stem": "You have 400k chunks in Postgres. The sensible vector store is…",
+    "options": [
+      "An in-memory array in the app",
+      "A new dedicated vector database immediately",
+      "A spreadsheet",
+      "pgvector with an HNSW index in that Postgres, filtering by tenant in the same query"
+    ],
+    "answer": 3,
+    "explanation": "Put vectors where your data already is until scale forces a dedicated store."
+  },
+  {
+    "id": "6.4-q8",
+    "topic": "ann",
+    "difficulty": 2,
+    "stem": "An ANN index (HNSW/IVF) trades…",
+    "options": [
+      "Accuracy for cost",
+      "Latency for storage",
+      "Vectors for keywords",
+      "A little recall for a lot of speed — a knob you tune and measure with hit@k"
+    ],
+    "answer": 3,
+    "explanation": "Measure recall after turning the knob."
+  },
+  {
+    "id": "6.4-q9",
+    "topic": "filter first",
+    "difficulty": 2,
+    "stem": "Tenant filtering after vector search (retrieve 50, then filter) fails when…",
+    "options": [
+      "Scores are high",
+      "k is large",
+      "A small tenant's chunks are not in the global top 50 — filter first, in the index query",
+      "The tenant has many documents"
+    ],
+    "answer": 2,
+    "explanation": "Metadata filters before the vector search are cheaper and more precise."
+  },
+  {
+    "id": "6.4-q10",
+    "topic": "protect",
+    "difficulty": 2,
+    "stem": "Vectors need the same access control as documents because…",
+    "options": [
+      "A vector can be inverted to approximate its text",
+      "They expire",
+      "They contain the model weights",
+      "They are large"
+    ],
+    "answer": 0,
+    "explanation": "Treat the store like the documents."
+  }
+]

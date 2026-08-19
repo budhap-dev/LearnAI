@@ -1,0 +1,142 @@
+[
+  {
+    "id": "6.5-q1",
+    "topic": "bi-encoder",
+    "difficulty": 2,
+    "stem": "First-stage vector search is approximate because…",
+    "options": [
+      "Query and chunk are embedded separately — the model never sees them together",
+      "It ignores the title",
+      "It uses keywords",
+      "It is too slow"
+    ],
+    "answer": 0,
+    "explanation": "Which is why it is fast, and why a reranker can do better on a short list."
+  },
+  {
+    "id": "6.5-q2",
+    "topic": "reranker",
+    "difficulty": 2,
+    "stem": "A reranker…",
+    "options": [
+      "Replaces the index",
+      "Embeds the corpus again",
+      "Runs before retrieval",
+      "Reads query and candidate together and orders a few dozen precisely — too expensive for the corpus, fine for twenty"
+    ],
+    "answer": 3,
+    "explanation": "Two stages: cheap recall, expensive precision."
+  },
+  {
+    "id": "6.5-q3",
+    "topic": "rewrite",
+    "difficulty": 2,
+    "stem": "Query rewriting helps most for…",
+    "options": [
+      "Numeric lookups",
+      "Exact ids",
+      "Short keyword searches",
+      "Chatty, multi-part or pronoun-laden messages, and vocabulary mismatch between users and documents"
+    ],
+    "answer": 3,
+    "explanation": "Turn a message into a search query before retrieval."
+  },
+  {
+    "id": "6.5-q4",
+    "topic": "hyde",
+    "difficulty": 2,
+    "stem": "HyDE is…",
+    "options": [
+      "A reranking model",
+      "A chunking strategy",
+      "Asking the model for a hypothetical answer and searching with that, because answers look like documents",
+      "A vector database"
+    ],
+    "answer": 2,
+    "explanation": "Same idea as rewriting, inverted."
+  },
+  {
+    "id": "6.5-q5",
+    "topic": "llm rerank",
+    "difficulty": 2,
+    "stem": "The LLM reranker in the example versus a cross-encoder…",
+    "options": [
+      "Runs over the whole corpus",
+      "Free",
+      "Always more accurate",
+      "Zero setup but slower and costlier; a cross-encoder is the production version of the same job"
+    ],
+    "answer": 3,
+    "explanation": "Same shape: top-N, rerank, top-k."
+  },
+  {
+    "id": "6.5-q6",
+    "topic": "latency",
+    "difficulty": 2,
+    "stem": "Reranking 200 candidates at 400 ms is slow. The fix…",
+    "options": [
+      "Increase k",
+      "Rerank fewer candidates (20–30) and verify hit@k holds",
+      "Remove reranking",
+      "Rerank offline"
+    ],
+    "answer": 1,
+    "explanation": "The expensive step is meant to run over a handful."
+  },
+  {
+    "id": "6.5-q7",
+    "topic": "keep",
+    "difficulty": 2,
+    "stem": "Keep a rewrite or rerank step when…",
+    "options": [
+      "The vendor recommends it",
+      "It is cheap",
+      "It moves hit@k on the golden set — otherwise it is latency and cost for nothing",
+      "It feels better"
+    ],
+    "answer": 2,
+    "explanation": "Measure before and after."
+  },
+  {
+    "id": "6.5-q8",
+    "topic": "when rerank",
+    "difficulty": 2,
+    "stem": "Reranking helps most when…",
+    "options": [
+      "There is no first stage",
+      "hit@3 is already 99%",
+      "The corpus is tiny and clean",
+      "The corpus is large or noisy and the right passage is in the top-20 but not the top-3"
+    ],
+    "answer": 3,
+    "explanation": "hit@20 high, hit@3 low is the signal."
+  },
+  {
+    "id": "6.5-q9",
+    "topic": "multi-part",
+    "difficulty": 2,
+    "stem": "A message asks two questions. The rewriter should…",
+    "options": [
+      "Produce two queries, retrieve for both, and merge (e.g. with RRF) or label per sub-question",
+      "Concatenate them",
+      "Refuse",
+      "Pick one"
+    ],
+    "answer": 0,
+    "explanation": "Rewrite handles multi-part input."
+  },
+  {
+    "id": "6.5-q10",
+    "topic": "parent child",
+    "difficulty": 2,
+    "stem": "Parent–child retrieval returns to the model…",
+    "options": [
+      "The enclosing section of the small chunks that matched, de-duplicated by parent",
+      "Only the matching sentences",
+      "The child ids only",
+      "The whole corpus"
+    ],
+    "answer": 0,
+    "explanation": "Precise retrieval, enough context to answer."
+  }
+]

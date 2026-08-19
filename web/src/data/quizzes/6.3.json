@@ -1,0 +1,142 @@
+[
+  {
+    "id": "6.3-q1",
+    "topic": "why chunk",
+    "difficulty": 2,
+    "stem": "A whole 40-page document as one embedding is bad because…",
+    "options": [
+      "Embeddings cannot exceed one page",
+      "It loses the title",
+      "It is too cheap",
+      "The vector averages everything; no specific fact stands out"
+    ],
+    "answer": 3,
+    "explanation": "One vector per piece; the piece decides what retrieval can find."
+  },
+  {
+    "id": "6.3-q2",
+    "topic": "too small",
+    "difficulty": 2,
+    "stem": "Chunks that are too small…",
+    "options": [
+      "Always retrieve best",
+      "Cost more per token",
+      "Cannot be embedded",
+      "Lose the context that makes them meaningful and can cut a fact in half"
+    ],
+    "answer": 3,
+    "explanation": "Overlap and title-prefixing mitigate; measure."
+  },
+  {
+    "id": "6.3-q3",
+    "topic": "overlap",
+    "difficulty": 2,
+    "stem": "Overlap between fixed windows exists to…",
+    "options": [
+      "Reduce token cost",
+      "Speed up indexing",
+      "Make sure a fact straddling a boundary appears whole in at least one chunk",
+      "Improve citations"
+    ],
+    "answer": 2,
+    "explanation": "It costs embedding the same words twice — a deliberate trade."
+  },
+  {
+    "id": "6.3-q4",
+    "topic": "natural",
+    "difficulty": 2,
+    "stem": "The best chunker when a document has headings is…",
+    "options": [
+      "One chunk per document",
+      "Fixed 50-word windows",
+      "Random sampling",
+      "Split on the headings — the author already marked where topics start and stop"
+    ],
+    "answer": 3,
+    "explanation": "Natural boundaries first; windows when there is no structure."
+  },
+  {
+    "id": "6.3-q5",
+    "topic": "measure what",
+    "difficulty": 2,
+    "stem": "The two numbers to read together when comparing chunkers are…",
+    "options": [
+      "Hit@k (did we find it) and words sent (how much came with it)",
+      "Embedding dimensions and price",
+      "Token count and model name",
+      "Latency and temperature"
+    ],
+    "answer": 0,
+    "explanation": "Same hit rate at a fraction of the text is the win."
+  },
+  {
+    "id": "6.3-q6",
+    "topic": "real result",
+    "difficulty": 2,
+    "stem": "In the recorded run, whole-document chunks hit 100% but…",
+    "options": [
+      "Could not be embedded",
+      "Sent ~1,000 words per question vs ~160 for sentence chunks — 6× the tokens and distraction",
+      "Had lower hit rate",
+      "Were slower to chunk"
+    ],
+    "answer": 1,
+    "explanation": "Hit rate alone hides cost and distraction."
+  },
+  {
+    "id": "6.3-q7",
+    "topic": "title prefix",
+    "difficulty": 2,
+    "stem": "Prepending the title/section path to each chunk…",
+    "options": [
+      "Increases overlap",
+      "Makes chunks like 'Seat reductions take effect at renewal' retrievable by carrying the topic",
+      "Is only for PDFs",
+      "Breaks the headings strategy"
+    ],
+    "answer": 1,
+    "explanation": "Context the chunk alone lacks."
+  },
+  {
+    "id": "6.3-q8",
+    "topic": "parent child",
+    "difficulty": 2,
+    "stem": "Parent–child retrieval means…",
+    "options": [
+      "Two embedding models",
+      "Two vector stores",
+      "Retrieving the parent document twice",
+      "Embed small chunks for precise retrieval, return the enclosing section to the model for context"
+    ],
+    "answer": 3,
+    "explanation": "The usual answer to fact lookups and explanations sharing a corpus."
+  },
+  {
+    "id": "6.3-q9",
+    "topic": "tickets",
+    "difficulty": 2,
+    "stem": "20,000 short single-topic support tickets should be chunked as…",
+    "options": [
+      "Sentences",
+      "One chunk per ticket with the subject prepended",
+      "Fixed 30-word windows",
+      "Merged into one document"
+    ],
+    "answer": 1,
+    "explanation": "Chunking adapts to the material; the rules still apply."
+  },
+  {
+    "id": "6.3-q10",
+    "topic": "when measure",
+    "difficulty": 2,
+    "stem": "How often should you re-measure chunking?",
+    "options": [
+      "Before and after every chunking change, on a golden set",
+      "Only when the model changes",
+      "Once, at launch",
+      "Never — chunking is set and forget"
+    ],
+    "answer": 0,
+    "explanation": "Cheap to change, expensive to get wrong silently."
+  }
+]
