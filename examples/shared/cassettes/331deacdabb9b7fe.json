@@ -1,0 +1,24 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Classify this support email as exactly one of: billing, bug, how-to, other. Reply with the label only.\n\nFrom: dana.k@example.com\nMy card 4111 1111 1111 1111 was charged twice for order ORD-1042. Please refund one charge."
+      }
+    ],
+    "max_tokens": 10
+  },
+  "response": {
+    "text": "billing",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 88,
+      "output_tokens": 2
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

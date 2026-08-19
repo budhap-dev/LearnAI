@@ -1,0 +1,142 @@
+[
+  {
+    "id": "5.3-q1",
+    "topic": "contract",
+    "difficulty": 2,
+    "stem": "In tool calling, who executes the tool?",
+    "options": [
+      "The user",
+      "The provider's servers",
+      "Your code — the model only emits a structured request",
+      "The model, inside the provider"
+    ],
+    "answer": 2,
+    "explanation": "The model proposes; your code validates, authorises and runs. Every capability is a function you wrote."
+  },
+  {
+    "id": "5.3-q2",
+    "topic": "schemas",
+    "difficulty": 2,
+    "stem": "Tool descriptions matter because…",
+    "options": [
+      "They only help documentation",
+      "They set the model's temperature",
+      "They are ignored by the model",
+      "They are how the model decides WHEN to call a tool; argument schemas decide HOW"
+    ],
+    "answer": 3,
+    "explanation": "Schemas are prompt text. 'Use this for any maths instead of doing it yourself' changes behaviour; 'calculator' does not."
+  },
+  {
+    "id": "5.3-q3",
+    "topic": "untrusted",
+    "difficulty": 2,
+    "stem": "Tool arguments from the model should be treated as…",
+    "options": [
+      "Irrelevant — the tool ignores them",
+      "Trusted if the model is a frontier model",
+      "Trusted, since the schema constrains them",
+      "Untrusted input: parsed, validated, allow-listed, run with least privilege"
+    ],
+    "answer": 3,
+    "explanation": "They arrived from a text predictor that may have read an injected document. Validate like a query parameter."
+  },
+  {
+    "id": "5.3-q4",
+    "topic": "errors",
+    "difficulty": 2,
+    "stem": "A tool lookup fails (not found). The best response is…",
+    "options": [
+      "Return an empty string",
+      "Retry the tool forever",
+      "Raise an exception to stop the loop",
+      "Return the error as data so the model can read it and recover"
+    ],
+    "answer": 3,
+    "explanation": "Errors as data keep the conversation going; exceptions end the loop and the user sees a 500."
+  },
+  {
+    "id": "5.3-q5",
+    "topic": "cap",
+    "difficulty": 2,
+    "stem": "Why does every tool loop need a step cap?",
+    "options": [
+      "To make the model faster",
+      "The API requires it",
+      "A model can call tools forever (or repeat the same call); the cap bounds cost and turns a loop into a visible error",
+      "Caps are only for agents"
+    ],
+    "answer": 2,
+    "explanation": "Without a cap a bug becomes a bill. With one, it becomes a log line."
+  },
+  {
+    "id": "5.3-q6",
+    "topic": "history",
+    "difficulty": 2,
+    "stem": "After the model returns tool calls, what goes into the message history next?",
+    "options": [
+      "The assistant turn containing the tool calls, then one tool-result message per call",
+      "A fresh user message",
+      "Only the tool results",
+      "Nothing until the final answer"
+    ],
+    "answer": 0,
+    "explanation": "The conversation must show what was asked and what came back, in order, or the model loses the thread."
+  },
+  {
+    "id": "5.3-q7",
+    "topic": "privilege",
+    "difficulty": 2,
+    "stem": "`delete_records({\"where\": \"1=1\"})` should be prevented by…",
+    "options": [
+      "A lower temperature",
+      "Safety training",
+      "The tool not being able to express it: narrow arguments, policy in code, a human gate for destructive actions",
+      "A stern description"
+    ],
+    "answer": 2,
+    "explanation": "Least privilege means the dangerous action is not available — not that the model is asked not to use it."
+  },
+  {
+    "id": "5.3-q8",
+    "topic": "cost",
+    "difficulty": 2,
+    "stem": "Each iteration of a tool loop…",
+    "options": [
+      "Re-sends the growing history — cost and context usage grow with every step",
+      "Is free after the first",
+      "Resets the context",
+      "Uses a cached context automatically"
+    ],
+    "answer": 0,
+    "explanation": "Tool calling multiplies calls and each carries the history; caps and prompt caching (5.5) matter."
+  },
+  {
+    "id": "5.3-q9",
+    "topic": "eval-tool",
+    "difficulty": 2,
+    "stem": "The calculator tool allow-lists characters before evaluating. Why?",
+    "options": [
+      "To reduce tokens",
+      "To speed it up",
+      "Allow-lists are a style choice",
+      "Because the expression comes from an untrusted source; without an allow-list, an injected prompt could make the tool run arbitrary code"
+    ],
+    "answer": 3,
+    "explanation": "No eval on untrusted input — the model's arguments are untrusted."
+  },
+  {
+    "id": "5.3-q10",
+    "topic": "agents",
+    "difficulty": 2,
+    "stem": "An 'agent' is, structurally…",
+    "options": [
+      "A prompt that says 'you are an agent'",
+      "A different API",
+      "This loop: observe, decide, call tools, read results, repeat — with a cap and errors as data",
+      "A model with memory built in"
+    ],
+    "answer": 2,
+    "explanation": "Module 7 adds planning, memory and more tools, but the loop is the one from this lesson."
+  }
+]

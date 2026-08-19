@@ -1,0 +1,142 @@
+[
+  {
+    "id": "5.7-q1",
+    "topic": "question",
+    "difficulty": 2,
+    "stem": "The first question in an LLM incident review is…",
+    "options": [
+      "How many users were affected",
+      "What did the model actually receive and what did it return?",
+      "Which vendor was used",
+      "Who wrote the prompt"
+    ],
+    "answer": 1,
+    "explanation": "Without per-call traces the review ends in guesses."
+  },
+  {
+    "id": "5.7-q2",
+    "topic": "span",
+    "difficulty": 2,
+    "stem": "A span for one model call should include…",
+    "options": [
+      "Trace id, step, prompt id + hash, model, tokens in/out, cost, stop reason, validated, redacted preview (and latency in production)",
+      "Only the status code",
+      "The full raw prompt and response",
+      "Only the cost"
+    ],
+    "answer": 0,
+    "explanation": "Enough to reproduce and aggregate; not so much that it becomes a PII liability."
+  },
+  {
+    "id": "5.7-q3",
+    "topic": "validated",
+    "difficulty": 2,
+    "stem": "Why is 'validated' the metric to alert on rather than HTTP error rate?",
+    "options": [
+      "HTTP errors are rare",
+      "Vendors do not expose error rates",
+      "The model can answer successfully (200) and still be useless; only your validator knows if the output worked",
+      "Validation is cheaper to compute"
+    ],
+    "answer": 2,
+    "explanation": "HTTP success is not feature success."
+  },
+  {
+    "id": "5.7-q4",
+    "topic": "hash",
+    "difficulty": 2,
+    "stem": "A prompt hash appears in traces that is not in the deployed registry. That means…",
+    "options": [
+      "Nothing; hashes drift",
+      "An unreviewed change is live — alert and find who changed what",
+      "The model updated itself",
+      "A cache hit"
+    ],
+    "answer": 1,
+    "explanation": "The registry (4.4) publishes the deployed set; unknown hashes are a change-control alarm."
+  },
+  {
+    "id": "5.7-q5",
+    "topic": "stop",
+    "difficulty": 2,
+    "stem": "`stop_reason = max_tokens` means…",
+    "options": [
+      "A tool was called",
+      "The model refused",
+      "The output was truncated — raise max_tokens or shorten the prompt; it is not an error code",
+      "A network error"
+    ],
+    "answer": 2,
+    "explanation": "Track the truncation rate per prompt id."
+  },
+  {
+    "id": "5.7-q6",
+    "topic": "redact",
+    "difficulty": 2,
+    "stem": "Before a span is written you should…",
+    "options": [
+      "Store everything for completeness",
+      "Encrypt and forget",
+      "Redact obvious PII (emails, card numbers, names) and store a short preview, not the full text",
+      "Log only the model name"
+    ],
+    "answer": 2,
+    "explanation": "Logs outlive requests and have wider access than the request did."
+  },
+  {
+    "id": "5.7-q7",
+    "topic": "raw",
+    "difficulty": 2,
+    "stem": "If you need raw prompts/outputs for debugging or evals…",
+    "options": [
+      "Keep them in a separate short-retention store with access control",
+      "Put them in the app log",
+      "Email them to the team",
+      "Never keep them"
+    ],
+    "answer": 0,
+    "explanation": "Separate store, short retention, access control (9.6)."
+  },
+  {
+    "id": "5.7-q8",
+    "topic": "dashboards",
+    "difficulty": 2,
+    "stem": "Which dashboard panel earns its place?",
+    "options": [
+      "Lines of prompt text",
+      "Number of tool schemas",
+      "Developer commits per day",
+      "Validation-pass rate per prompt id × model"
+    ],
+    "answer": 3,
+    "explanation": "Also: tokens per part, cost p95 per tenant, latency, cache hit rate, truncation rate."
+  },
+  {
+    "id": "5.7-q9",
+    "topic": "latency",
+    "difficulty": 2,
+    "stem": "Why is latency missing from the example's spans?",
+    "options": [
+      "The adapter hides it",
+      "It is logged elsewhere",
+      "Replayed calls have none; in production it is the first column",
+      "Latency does not matter"
+    ],
+    "answer": 2,
+    "explanation": "Record TTFT and total per span (9.3)."
+  },
+  {
+    "id": "5.7-q10",
+    "topic": "tokens-per-part",
+    "difficulty": 2,
+    "stem": "Logging tokens per part (system/history/retrieved/answer) lets you…",
+    "options": [
+      "See exactly what to trim when cost or latency drifts",
+      "Avoid caching",
+      "Skip validation",
+      "Improve model accuracy"
+    ],
+    "answer": 0,
+    "explanation": "The context budget (2.5) is only manageable if you can see it per request."
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Write a two-sentence reply acknowledging this billing issue and saying a human will follow up within one business day. Do not promise a refund.\n\nFrom: dana.k@example.com\nMy card 4111 1111 1111 1111 was charged twice for order ORD-1042. Please refund one charge."
+      }
+    ],
+    "max_tokens": 120
+  },
+  "response": {
+    "text": "We apologize for the inconvenience caused by the duplicate charge on your card ending in 4111. A human will follow up within one business day to resolve this issue.",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 91,
+      "output_tokens": 36
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

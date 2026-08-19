@@ -1,0 +1,42 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Reply with only a JSON object with keys \"city\" and \"country\" for the capital of Portugal. No prose."
+      }
+    ],
+    "max_tokens": 60,
+    "stream": true
+  },
+  "response": {
+    "text": "{\"city\": \"Lisbon\", \"country\": \"Portugal\"}",
+    "chunks": [
+      "{\"",
+      "city",
+      "\":",
+      " \"",
+      "L",
+      "is",
+      "bon",
+      "\",",
+      " \"",
+      "country",
+      "\":",
+      " \"",
+      "Port",
+      "ugal",
+      "\"}"
+    ],
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 40,
+      "output_tokens": 16
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

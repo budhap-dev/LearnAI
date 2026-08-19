@@ -1,0 +1,78 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Explain in two sentences why streaming improves perceived latency for a chat UI."
+      }
+    ],
+    "max_tokens": 120,
+    "stream": true
+  },
+  "response": {
+    "text": "Streaming improves perceived latency for a chat UI by allowing the server to send partial responses incrementally, making the interface feel more responsive. This continuous flow of data mimics real-time interaction, reducing the delay users perceive between their input and the system's response.",
+    "chunks": [
+      "Streaming",
+      " improves",
+      " perceived",
+      " latency",
+      " for",
+      " a",
+      " chat",
+      " UI",
+      " by",
+      " allowing",
+      " the",
+      " server",
+      " to",
+      " send",
+      " partial",
+      " responses",
+      " increment",
+      "ally",
+      ",",
+      " making",
+      " the",
+      " interface",
+      " feel",
+      " more",
+      " responsive",
+      ".",
+      " This",
+      " continuous",
+      " flow",
+      " of",
+      " data",
+      " mim",
+      "ics",
+      " real",
+      "-time",
+      " interaction",
+      ",",
+      " reducing",
+      " the",
+      " delay",
+      " users",
+      " perceive",
+      " between",
+      " their",
+      " input",
+      " and",
+      " the",
+      " system",
+      "'s",
+      " response",
+      "."
+    ],
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 31,
+      "output_tokens": 52
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

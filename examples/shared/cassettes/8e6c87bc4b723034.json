@@ -1,0 +1,24 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "In one sentence: what does an HTTP 429 mean and what should a client do?"
+      }
+    ],
+    "max_tokens": 80
+  },
+  "response": {
+    "text": "An HTTP 429 Too Many Requests means the client is sending requests faster than allowed, and the client should slow down the request rate and retry later.",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 36,
+      "output_tokens": 33
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "5.6-q1",
+    "topic": "three",
+    "difficulty": 2,
+    "stem": "The three cost-control habits are…",
+    "options": [
+      "A cap per request, a ledger per tenant, and a router by task shape",
+      "Logging, alerting, dashboards",
+      "A bigger model, more retries, longer prompts",
+      "Caching, streaming, batching"
+    ],
+    "answer": 0,
+    "explanation": "All three are rules in code wrapped around the call."
+  },
+  {
+    "id": "5.6-q2",
+    "topic": "degrade",
+    "difficulty": 2,
+    "stem": "A tenant hits its daily budget. Default policy?",
+    "options": [
+      "Degrade — smaller model, shorter answers, queue — and alert; refuse only for abuse",
+      "Charge double",
+      "Refuse until midnight",
+      "Ignore it"
+    ],
+    "answer": 0,
+    "explanation": "Refusal turns a cost control into an outage for a paying customer."
+  },
+  {
+    "id": "5.6-q3",
+    "topic": "router",
+    "difficulty": 2,
+    "stem": "A router should route by…",
+    "options": [
+      "Alphabetical order",
+      "Coin flip",
+      "The shape of the task — classification/extraction to small, judgement/reasoning to large — tuned with eval numbers",
+      "Whichever model is newest"
+    ],
+    "answer": 2,
+    "explanation": "Small models are genuinely good at extraction and classification; measure each route on the golden set."
+  },
+  {
+    "id": "5.6-q4",
+    "topic": "cap",
+    "difficulty": 2,
+    "stem": "A per-request input cap prevents…",
+    "options": [
+      "Rate limits",
+      "One oversized prompt from costing a fortune or overflowing the window — truncate deliberately or reject",
+      "Hallucination",
+      "Slow models"
+    ],
+    "answer": 1,
+    "explanation": "A ceiling per request is the first line of cost predictability."
+  },
+  {
+    "id": "5.6-q5",
+    "topic": "escalate",
+    "difficulty": 2,
+    "stem": "Confidence escalation means…",
+    "options": [
+      "Asking the user",
+      "Always using the large model",
+      "Retrying the same model",
+      "Try the small model with a schema; escalate to the large one when validation fails or it says not_found"
+    ],
+    "answer": 3,
+    "explanation": "Cheap first, expensive only when needed — measure the escalation rate."
+  },
+  {
+    "id": "5.6-q6",
+    "topic": "evidence",
+    "difficulty": 2,
+    "stem": "Before moving a task down a tier you should…",
+    "options": [
+      "Check the vendor's marketing",
+      "Ask the team",
+      "Just do it and watch complaints",
+      "Measure that route on the golden set"
+    ],
+    "answer": 3,
+    "explanation": "'It seemed fine' is not a measurement."
+  },
+  {
+    "id": "5.6-q7",
+    "topic": "jobs",
+    "difficulty": 2,
+    "stem": "A batch job under a service account burns the shared daily budget at 00:05. Fix?",
+    "options": [
+      "Raise the budget",
+      "Block the job",
+      "Move everything to the large model",
+      "Separate budgets per principal and per kind (users vs jobs); jobs to batch with their own ledger"
+    ],
+    "answer": 3,
+    "explanation": "Budgets must be per principal and per kind of principal."
+  },
+  {
+    "id": "5.6-q8",
+    "topic": "alerts",
+    "difficulty": 2,
+    "stem": "A useful cost alert is…",
+    "options": [
+      "p95 cost per request above a threshold, or large-model share of traffic rising",
+      "Total monthly bill only",
+      "CPU usage",
+      "Number of users"
+    ],
+    "answer": 0,
+    "explanation": "Alerts map to actions: review the router, check the prompt, find the tenant."
+  },
+  {
+    "id": "5.6-q9",
+    "topic": "saving",
+    "difficulty": 2,
+    "stem": "Against 'everything to the large model', a budget-and-route policy typically…",
+    "options": [
+      "Removes the need for evals",
+      "Costs more",
+      "Cuts the bill substantially and, more importantly, puts a ceiling on every request and tenant",
+      "Changes nothing"
+    ],
+    "answer": 2,
+    "explanation": "Predictability is the point; the saving is the bonus."
+  },
+  {
+    "id": "5.6-q10",
+    "topic": "when-large",
+    "difficulty": 2,
+    "stem": "When is 'everything to the large model' right?",
+    "options": [
+      "Never",
+      "For classification",
+      "Always",
+      "Low volume, high stakes, judgement-heavy, no eval set yet — quality first, optimise once you can measure"
+    ],
+    "answer": 3,
+    "explanation": "Optimisation without measurement is guessing."
+  }
+]

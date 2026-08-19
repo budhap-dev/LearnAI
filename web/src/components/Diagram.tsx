@@ -7,6 +7,9 @@ import {
   AiAsComponent, AiNestedSets, AiStack, FailureTaxonomy, ThreeKindsOfLearning, TrainVsInfer,
 } from './diagrams/foundations';
 import {
+  CacheHitMiss, ModalityPipeline, ModelRouter, RequestSequence, StreamingTimeline, ToolRoundTrip, TraceWaterfall,
+} from './diagrams/apis';
+import {
   ClassicVsLlm, ConfusionMatrixDiagram, DecisionBoundary, KMeansSteps, MlLifecycle, NeuralNet,
 } from './diagrams/classicml';
 import {
@@ -51,6 +54,13 @@ const REGISTRY: Record<string, ComponentType> = {
   'prompt-lifecycle': PromptLifecycle,
   'accuracy-vs-thinking': AccuracyVsThinking,
   'trust-boundary': TrustBoundary,
+  'request-sequence': RequestSequence,
+  'streaming-timeline': StreamingTimeline,
+  'tool-round-trip': ToolRoundTrip,
+  'modality-pipeline': ModalityPipeline,
+  'cache-hit-miss': CacheHitMiss,
+  'model-router': ModelRouter,
+  'trace-waterfall': TraceWaterfall,
 };
 
 export function Diagram({ name }: { name: string }) {

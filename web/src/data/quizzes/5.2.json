@@ -1,0 +1,142 @@
+[
+  {
+    "id": "5.2-q1",
+    "topic": "ttft",
+    "difficulty": 2,
+    "stem": "Streaming mainly improves…",
+    "options": [
+      "Total generation time",
+      "Time to first token — the latency the user feels — not total generation time",
+      "Model accuracy",
+      "Token cost"
+    ],
+    "answer": 1,
+    "explanation": "The model still writes one token at a time; streaming just shows them as they arrive instead of after the last one."
+  },
+  {
+    "id": "5.2-q2",
+    "topic": "chunks",
+    "difficulty": 2,
+    "stem": "What can you assume about stream chunk boundaries?",
+    "options": [
+      "Each chunk is a whole word",
+      "Chunks end at sentence boundaries",
+      "Nothing — accumulate and treat the concatenation as the text",
+      "Each chunk is exactly one token"
+    ],
+    "answer": 2,
+    "explanation": "Chunking depends on the server's batching; boundaries carry no meaning."
+  },
+  {
+    "id": "5.2-q3",
+    "topic": "json",
+    "difficulty": 2,
+    "stem": "Streamed structured output arrives as…",
+    "options": [
+      "Plain prose",
+      "A growing prefix of a JSON document that cannot be parsed until it closes (or with a partial-JSON parser)",
+      "Complete JSON objects per chunk",
+      "One field per chunk"
+    ],
+    "answer": 1,
+    "explanation": "Either wait for the end, try-parse after each chunk, or use a partial-JSON parser. Never brace-count."
+  },
+  {
+    "id": "5.2-q4",
+    "topic": "cancel",
+    "difficulty": 2,
+    "stem": "What does cancelling a stream save?",
+    "options": [
+      "Nothing; the call is billed in full regardless",
+      "Output tokens nobody would read — the model stops generating when the connection closes",
+      "Input tokens",
+      "Only network bandwidth"
+    ],
+    "answer": 1,
+    "explanation": "Output tokens are the expensive ones; propagate the abort all the way to the model call so it actually stops."
+  },
+  {
+    "id": "5.2-q5",
+    "topic": "mid-stream",
+    "difficulty": 2,
+    "stem": "A stream fails after half the answer. Your consumer should…",
+    "options": [
+      "Crash",
+      "Assume the rest will arrive",
+      "Handle 'partial text + error' explicitly: show it marked, or retry from scratch — but decide",
+      "Show the partial text as if complete"
+    ],
+    "answer": 2,
+    "explanation": "Mid-stream failures are normal (network, rate limit, filter). Design the state for it."
+  },
+  {
+    "id": "5.2-q6",
+    "topic": "when-not",
+    "difficulty": 2,
+    "stem": "When is streaming the wrong choice?",
+    "options": [
+      "Always for long answers",
+      "When the user is on mobile",
+      "When the consumer is code — classification, extraction, routing — or the whole output must be validated before anything is shown",
+      "Never"
+    ],
+    "answer": 2,
+    "explanation": "Stream for humans who are waiting; code wants the complete, validated result."
+  },
+  {
+    "id": "5.2-q7",
+    "topic": "gateway",
+    "difficulty": 2,
+    "stem": "Your gateway buffers upstream responses before forwarding. Effect on streaming?",
+    "options": [
+      "It reduces cost",
+      "None",
+      "It turns every streamed answer back into a spinner — the gateway must stream too",
+      "It makes streaming faster"
+    ],
+    "answer": 2,
+    "explanation": "Any hop that buffers defeats streaming. Proxies must forward chunks as they arrive."
+  },
+  {
+    "id": "5.2-q8",
+    "topic": "sse",
+    "difficulty": 2,
+    "stem": "Streaming over HTTP is usually implemented as…",
+    "options": [
+      "A second request per token",
+      "Email",
+      "Server-sent events: a long-lived response with one small event per chunk and a final usage event",
+      "Polling every second"
+    ],
+    "answer": 2,
+    "explanation": "SDKs hide the transport; the adapter yields text pieces and fills in accounting at the end."
+  },
+  {
+    "id": "5.2-q9",
+    "topic": "abort",
+    "difficulty": 2,
+    "stem": "The user closes the tab. What must happen for the model to stop?",
+    "options": [
+      "The browser tells the model directly",
+      "The abort must propagate each hop: browser → your server → upstream request cancelled",
+      "Nothing; the model notices",
+      "Only the server log is updated"
+    ],
+    "answer": 1,
+    "explanation": "Any hop that swallows the abort keeps paying and generating."
+  },
+  {
+    "id": "5.2-q10",
+    "topic": "ui",
+    "difficulty": 2,
+    "stem": "The right UI state for a cancelled stream is…",
+    "options": [
+      "Partial text kept and marked as stopped, with a clear action",
+      "Blank",
+      "The partial text shown as if complete",
+      "An error page"
+    ],
+    "answer": 0,
+    "explanation": "Users benefit from what arrived; honesty about it being partial matters."
+  }
+]
