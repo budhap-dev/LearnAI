@@ -14,6 +14,8 @@ export interface ModuleInfo {
   emoji: string;
   level: Level;
   blurb: string;
+  /** One line: what a reader can build after finishing the module. Optional. */
+  build?: string;
 }
 
 export interface LessonMeta {

@@ -66,9 +66,11 @@ export function Home() {
             return (
               <article className="module-card" key={m.id} style={{ ['--mc' as string]: `var(--m${m.id})` }}>
                 <h3>
-                  <span className="num">{m.id}</span>
-                  <span className="module-emoji" aria-hidden="true">{m.emoji}</span>
-                  {m.name}
+                  <Link to={`/module/${m.id}`} className="module-card-title">
+                    <span className="num">{m.id}</span>
+                    <span className="module-emoji" aria-hidden="true">{m.emoji}</span>
+                    {m.name}
+                  </Link>
                 </h3>
                 <p className={`level level-${m.level}`}>{LEVEL_LABEL[m.level]}</p>
                 <p>{m.blurb}</p>

@@ -4,76 +4,87 @@
     "name": "Foundations",
     "emoji": "🌱",
     "level": "basic",
-    "blurb": "What AI actually is, how a model learns, where a probabilistic component belongs in a software system, and the honest list of what goes wrong."
+    "blurb": "What AI actually is, how a model learns, where a probabilistic component belongs in a software system, and the honest list of what goes wrong.",
+    "build": "Place a probabilistic component correctly in a system, tell a learned function from a rule, and name the honest list of how it fails."
   },
   {
     "id": 2,
     "name": "How LLMs actually work",
     "emoji": "🧠",
     "level": "basic",
-    "blurb": "A language model is a next-token predictor. Tokens, embeddings, attention, the context window, sampling and training - each drawn, each with a dial you can turn."
+    "blurb": "A language model is a next-token predictor. Tokens, embeddings, attention, the context window, sampling and training - each drawn, each with a dial you can turn.",
+    "build": "Reason from tokens, context windows and sampling to real consequences: cost, limits, and why the same prompt varies."
   },
   {
     "id": 3,
     "name": "Classic ML for engineers",
     "emoji": "📈",
     "level": "basic",
-    "blurb": "When a regression or a gradient-boosted tree beats an LLM, how to evaluate a model honestly, and how to serve one without a data-science team."
+    "blurb": "When a regression or a gradient-boosted tree beats an LLM, how to evaluate a model honestly, and how to serve one without a data-science team.",
+    "build": "Pick a regression or a tree over an LLM when it wins, evaluate a model honestly, and serve one without a data-science team."
   },
   {
     "id": 4,
     "name": "Prompting & structured output",
     "emoji": "✍️",
     "level": "intermediate",
-    "blurb": "Prompts as versioned, tested code: roles, patterns that actually work, reliable JSON, reasoning budgets, and the first look at prompt injection."
+    "blurb": "Prompts as versioned, tested code: roles, patterns that actually work, reliable JSON, reasoning budgets, and the first look at prompt injection.",
+    "build": "Write prompts as versioned, tested code that return reliable structured output — and recognise prompt injection."
   },
   {
     "id": 5,
     "name": "Building with LLM APIs",
     "emoji": "🔌",
     "level": "intermediate",
-    "blurb": "Calls done properly: retries, streaming, tool calling, multimodal input, caching and batch, token budgets, and tracing from day one."
+    "blurb": "Calls done properly: retries, streaming, tool calling, multimodal input, caching and batch, token budgets, and tracing from day one.",
+    "build": "Make production-grade model calls: retries and idempotency, streaming, tool calling, vision, caching/batch, and tracing."
   },
   {
     "id": 6,
     "name": "RAG & knowledge",
     "emoji": "📚",
     "level": "intermediate",
-    "blurb": "Retrieval-augmented generation end to end: chunking, embeddings, hybrid search, reranking, grounded answers with citations, and how to measure it."
+    "blurb": "Retrieval-augmented generation end to end: chunking, embeddings, hybrid search, reranking, grounded answers with citations, and how to measure it.",
+    "build": "Build a retrieval-augmented feature end to end — chunking, hybrid search, reranking, grounded citations — and measure it."
   },
   {
     "id": 7,
     "name": "Agents & orchestration",
     "emoji": "🤖",
     "level": "intermediate",
-    "blurb": "Workflow or agent? The agent loop, tools done well, MCP, memory, multi-agent and human approval gates - and the failure modes of each."
+    "blurb": "Workflow or agent? The agent loop, tools done well, MCP, memory, multi-agent and human approval gates - and the failure modes of each.",
+    "build": "Choose workflow vs agent, build a tool-using loop under least privilege, and add memory and human approval gates."
   },
   {
     "id": 8,
     "name": "Evaluation & quality",
     "emoji": "🎯",
     "level": "advanced",
-    "blurb": "\"It looks good\" is not evidence. Golden sets, scorers, LLM-as-judge, regression gates in CI, online evaluation and red-teaming."
+    "blurb": "\"It looks good\" is not evidence. Golden sets, scorers, LLM-as-judge, regression gates in CI, online evaluation and red-teaming.",
+    "build": "Turn 'it looks good' into evidence: golden sets, scorers, LLM-as-judge, and an eval gate that runs in CI."
   },
   {
     "id": 9,
     "name": "Production: architecture, security, operations",
     "emoji": "🛡️",
     "level": "advanced",
-    "blurb": "The reference architecture, the gateway, latency and cost engineering, OWASP LLM Top 10, privacy and governance, guardrails and running it on call."
+    "blurb": "The reference architecture, the gateway, latency and cost engineering, OWASP LLM Top 10, privacy and governance, guardrails and running it on call.",
+    "build": "Ship an LLM feature with a gateway, guardrails, cost and latency budgets, OWASP controls, and an incident playbook."
   },
   {
     "id": 10,
     "name": "Customising models",
     "emoji": "🧪",
     "level": "advanced",
-    "blurb": "When to fine-tune and when not to; LoRA, distillation, small and local models, and adapting embeddings to your domain."
+    "blurb": "When to fine-tune and when not to; LoRA, distillation, small and local models, and adapting embeddings to your domain.",
+    "build": "Decide fine-tune vs RAG, run a LoRA or distillation, choose a local model, and adapt embeddings to your domain."
   },
   {
     "id": 11,
     "name": "AI in the software lifecycle & capstones",
     "emoji": "🏗️",
     "level": "advanced",
-    "blurb": "Working with coding agents, designing an AI feature with an eval plan, team and process, frameworks - and four capstone builds."
+    "blurb": "Working with coding agents, designing an AI feature with an eval plan, team and process, frameworks - and four capstone builds.",
+    "build": "Design an AI feature with an eval plan, run the team and process around it, and use frameworks without being trapped by one."
   }
 ]

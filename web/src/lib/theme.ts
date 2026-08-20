@@ -12,6 +12,10 @@ export const THEMES = [
   { id: 'slate', label: 'Slate', hint: 'muted blue-grey' },
   { id: 'midnight', label: 'Midnight', hint: 'deep navy dark' },
   { id: 'paper', label: 'Paper', hint: 'warm, long reading' },
+  { id: 'sage', label: 'Sage', hint: 'soft green calm' },
+  { id: 'mist', label: 'Mist', hint: 'cool, low glare' },
+  { id: 'forest', label: 'Forest', hint: 'warm green dark' },
+  { id: 'dusk', label: 'Dusk', hint: 'amber, low blue' },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]['id'];

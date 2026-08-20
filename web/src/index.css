@@ -121,6 +121,90 @@
   --term-text: #e5ddd0;
 }
 
+/* Sage: soft green-grey light, muted sage accent - restful, easy on the eyes */
+:root[data-theme="sage"] {
+  color-scheme: light;
+  --bg: #eaf0e7;
+  --surface: #f5faf2;
+  --border: #d2ddcd;
+  --text: #2f3a30;
+  --muted: #5f6c5c;
+  --accent: #4a7c59;
+  --accent-soft: #dde9db;
+  --correct: #3f7a4e;
+  --correct-soft: #dfeede;
+  --wrong: #a5503f;
+  --wrong-soft: #f1e2dc;
+  --term-bg: #273028;
+  --term-text: #d9e2d5;
+  --code-bg: #eef4ea;
+  --code-text: #2c352b;
+  --code-border: #d2ddcd;
+}
+
+/* Mist: cool blue-grey light, soft steel accent - airy and low-glare */
+:root[data-theme="mist"] {
+  color-scheme: light;
+  --bg: #edf1f5;
+  --surface: #f8fbfd;
+  --border: #d6dde6;
+  --text: #2e3742;
+  --muted: #5d6874;
+  --accent: #567aa0;
+  --accent-soft: #e0e8f1;
+  --correct: #3a7a63;
+  --correct-soft: #deeee8;
+  --wrong: #a24a5b;
+  --wrong-soft: #f3e3e7;
+  --term-bg: #2b333d;
+  --term-text: #d7dee6;
+  --code-bg: #eef2f6;
+  --code-text: #2b333d;
+  --code-border: #d6dde6;
+}
+
+/* Forest: deep warm green-black, soft leaf accent - low blue light, gentle dark */
+:root[data-theme="forest"] {
+  color-scheme: dark;
+  --bg: #141a13;
+  --surface: #1c231a;
+  --border: #2c352a;
+  --text: #d9e2d2;
+  --muted: #93a08b;
+  --accent: #8fbf87;
+  --accent-soft: #1f2b1c;
+  --correct: #7fc98d;
+  --correct-soft: #16281a;
+  --wrong: #e39a8a;
+  --wrong-soft: #2f201c;
+  --term-bg: #0d120c;
+  --term-text: #cdd8c6;
+  --code-bg: #1a211a;
+  --code-text: #d3ddcc;
+  --code-border: #2c352a;
+}
+
+/* Dusk: warm charcoal-plum dark, soft amber accent - cosy, minimal blue light */
+:root[data-theme="dusk"] {
+  color-scheme: dark;
+  --bg: #1a1518;
+  --surface: #241d21;
+  --border: #362b30;
+  --text: #e8ddd6;
+  --muted: #a89a91;
+  --accent: #d9a066;
+  --accent-soft: #2e2119;
+  --correct: #a8bd7a;
+  --correct-soft: #232617;
+  --wrong: #e59a8c;
+  --wrong-soft: #33211d;
+  --term-bg: #130f12;
+  --term-text: #ddd2ca;
+  --code-bg: #221b1f;
+  --code-text: #e2d8d1;
+  --code-border: #362b30;
+}
+
 * { box-sizing: border-box; }
 
 html {
@@ -171,6 +255,7 @@ header nav a { display: inline-flex; align-items: center; gap: 0.6rem; }
 .nav-ico svg { display: block; }
 .nav-toggle { display: none; }        /* hamburger: mobile only */
 .nav-backdrop { display: none; }      /* drawer backdrop: mobile only */
+.nav-header { display: none; }        /* drawer heading bar: mobile only */
 header nav a {
   text-decoration: none; color: var(--muted); font-size: 0.94rem;
   padding: 0.35rem 0.7rem; border-radius: 8px;
@@ -253,6 +338,7 @@ button:disabled { cursor: default; }
 .lid { font-family: var(--mono); color: var(--muted); font-size: 0.85rem; min-width: 2.6rem; }
 .lid.big { color: var(--accent); margin-right: 0.6rem; }
 .ltitle { flex: 1; }
+.lsummary { display: block; margin-top: 0.15rem; color: var(--muted); font-size: 0.82rem; font-weight: 400; line-height: 1.4; }
 
 .badge { font-size: 0.72rem; padding: 0.15rem 0.5rem; border-radius: 99px; border: 1px solid var(--border); }
 .badge.done { background: var(--correct-soft); color: var(--correct); border-color: transparent; }
@@ -356,23 +442,46 @@ button:disabled { cursor: default; }
     position: fixed; top: 0; left: 0; bottom: 0;
     width: min(20rem, 82vw); flex: none;
     flex-direction: column; align-items: stretch; gap: 0.5rem;
-    padding: 4.75rem 1rem 1.5rem;      /* clear the sticky header bar */
+    padding: 0 1rem 1.5rem;
     /* colourful top, matching the bar, fading to a clean surface for the list below */
     background:
       linear-gradient(180deg,
         color-mix(in srgb, var(--accent) 16%, var(--surface)) 0,
         var(--surface) 9rem);
-    border-right: 1px solid var(--border);
+    border-right: 3px solid var(--accent);   /* theme-contrasting edge against the dimmed page */
+    border-radius: 0 18px 18px 0;       /* curved outer corners */
     box-shadow: 10px 0 30px rgb(0 0 0 / 0.18);
-    z-index: 40; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    /* above the sticky header (z 50) so the drawer's own heading bar shows at the very top */
+    z-index: 60; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
     transform: translateX(-100%); transition: transform 0.22s ease;
   }
   .site-nav.open { transform: translateX(0); }
+
+  /* the drawer's own top bar: a heading with a clear separator under it */
+  .nav-header {
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0;           /* stays as the drawer scrolls */
+    margin: 0 -1rem 0.6rem;             /* full-bleed so the separator spans the drawer */
+    padding: 0.95rem 1rem 0.8rem;
+    background: color-mix(in srgb, var(--accent) 16%, var(--surface));
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 32%, var(--border));
+    border-radius: 0 18px 0 0;          /* match the drawer's top-right curve */
+  }
+  .nav-header-title { font-weight: 700; font-size: 1.15rem; color: var(--text); }
+  .nav-header-title span { color: var(--accent); }
+  .nav-close {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 2rem; height: 2rem; font-size: 1.05rem; line-height: 1;
+    background: transparent; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 8px; cursor: pointer;
+  }
+  .nav-close:hover { color: var(--text); background: var(--surface); }
   .site-nav nav { flex-direction: column; align-items: stretch; gap: 0.15rem; }
   .site-nav nav { gap: 0; }
   .site-nav nav a {
     padding: 0.85rem 0.7rem; font-size: 1rem; border-radius: 0;
-    border-bottom: 1px solid var(--border);   /* light separator, follows the theme */
+    color: var(--text);                        /* full contrast in the drawer - it is the menu */
+    border-bottom: 1px solid var(--border);    /* light separator, follows the theme */
   }
   .site-nav nav a:last-child { border-bottom: none; }
   .site-nav .nav-ico { display: inline-flex; }
@@ -399,7 +508,9 @@ button:disabled { cursor: default; }
   }
   .nav-backdrop {
     display: block; position: fixed; inset: 0;
-    background: rgb(0 0 0 / 0.45); border: 0; z-index: 39;
+    /* Below the header's stacking context (position:sticky, z-index:50) so it never covers the
+       drawer, which lives inside the header. It still dims the page content behind. */
+    background: rgb(0 0 0 / 0.45); border: 0; z-index: 45;
     opacity: 0; pointer-events: none; transition: opacity 0.22s ease;
   }
   .nav-backdrop.show { opacity: 1; pointer-events: auto; }
@@ -506,6 +617,10 @@ button:disabled { cursor: default; }
 .swatch[data-swatch="slate"]    { background: linear-gradient(135deg, #f4f6f8 50%, #33567d 50%); }
 .swatch[data-swatch="midnight"] { background: linear-gradient(135deg, #0b1220 50%, #4fc3d9 50%); }
 .swatch[data-swatch="paper"]    { background: linear-gradient(135deg, #f7f2e9 50%, #8a5a2b 50%); }
+.swatch[data-swatch="sage"]     { background: linear-gradient(135deg, #eaf0e7 50%, #4a7c59 50%); }
+.swatch[data-swatch="mist"]     { background: linear-gradient(135deg, #edf1f5 50%, #567aa0 50%); }
+.swatch[data-swatch="forest"]   { background: linear-gradient(135deg, #141a13 50%, #8fbf87 50%); }
+.swatch[data-swatch="dusk"]     { background: linear-gradient(135deg, #1a1518 50%, #d9a066 50%); }
 
 .theme-menu {
   position: absolute; right: 0; top: calc(100% + 6px); z-index: 20;
@@ -1107,4 +1222,54 @@ ol.emb-list li button { flex: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   .site-nav, .nav-backdrop { transition: none; }
+}
+
+/* ---- Module overview page (US-305) ------------------------------------------------- */
+.module-page { --mc: var(--accent); }
+.module-page .crumb { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+.module-page .crumb a { color: var(--muted); }
+.module-page .crumb a:hover { color: var(--accent); }
+.module-page-title {
+  display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0 0 0.4rem;
+}
+.module-page-title .num {
+  background: color-mix(in srgb, var(--mc) 18%, transparent); color: var(--mc);
+}
+.module-page-title .module-emoji { font-size: 1.6rem; }
+.module-page .level { display: inline-block; margin: 0 0 0.75rem; }
+.module-page-blurb { font-size: 1.05rem; color: var(--text); margin: 0 0 1.1rem; max-width: 60ch; }
+.module-build {
+  border-left: 3px solid var(--mc); background: color-mix(in srgb, var(--mc) 8%, var(--surface));
+  border-radius: 0 8px 8px 0; padding: 0.75rem 1rem; margin: 0 0 1.4rem; max-width: 60ch;
+}
+.module-build-label {
+  display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--mc); font-weight: 700; margin-bottom: 0.25rem;
+}
+.module-build p { margin: 0; color: var(--text); }
+.module-page-stats { font-size: 0.85rem; margin: 0 0 1rem; }
+.badge.kind { background: color-mix(in srgb, var(--mc) 12%, transparent); color: var(--mc); border-color: transparent; }
+
+.module-nav {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;
+  border-top: 1px solid var(--border); padding-top: 1.2rem;
+}
+.module-nav-link {
+  display: flex; flex-direction: column; gap: 0.15rem; padding: 0.7rem 0.9rem;
+  border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text);
+}
+.module-nav-link:hover { border-color: var(--accent); background: var(--surface); }
+.module-nav-link.next { text-align: right; }
+.module-nav-link .dir { font-size: 0.78rem; color: var(--muted); }
+.module-nav-link .nm { font-weight: 600; }
+
+.module-overview-link { margin: 0.1rem 0 0.6rem; font-size: 0.85rem; }
+.module-overview-link a { color: var(--mc, var(--accent)); text-decoration: none; }
+.module-overview-link a:hover { text-decoration: underline; }
+.module-card-title { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--text); }
+.module-card-title:hover { color: var(--accent); }
+
+@media (max-width: 640px) {
+  .module-nav { grid-template-columns: 1fr; }
+  .module-nav-link.next { text-align: left; }
 }
