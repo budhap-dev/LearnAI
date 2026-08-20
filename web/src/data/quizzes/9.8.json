@@ -1,0 +1,142 @@
+[
+  {
+    "id": "9.8-q1",
+    "topic": "operate",
+    "difficulty": 2,
+    "stem": "A shipped LLM feature is…",
+    "options": [
+      "Finished at launch",
+      "An operated system needing SLOs, an incident playbook, drift watch, and a deprecation plan",
+      "The vendor's responsibility",
+      "Maintenance-free"
+    ],
+    "answer": 1,
+    "explanation": "Shipping is the middle, not the end."
+  },
+  {
+    "id": "9.8-q2",
+    "topic": "slo signals",
+    "difficulty": 2,
+    "stem": "LLM SLOs cover…",
+    "options": [
+      "Latency, quality, guardrail pass rate, cost, and availability - not just uptime",
+      "Only latency",
+      "Only cost",
+      "Only uptime"
+    ],
+    "answer": 0,
+    "explanation": "Alert on the tail and the rate, not the mean."
+  },
+  {
+    "id": "9.8-q3",
+    "topic": "missing slo",
+    "difficulty": 2,
+    "stem": "Users escalate more but no error-rate alert fires. Missing…",
+    "options": [
+      "An uptime SLO",
+      "Nothing",
+      "A latency SLO",
+      "A quality SLO - the feature returns successful-but-worse answers"
+    ],
+    "answer": 3,
+    "explanation": "LLM features fail by fluent wrong answers, not errors (2.8)."
+  },
+  {
+    "id": "9.8-q4",
+    "topic": "incident order",
+    "difficulty": 2,
+    "stem": "The incident playbook starts with…",
+    "options": [
+      "Blame the users",
+      "Which versions were live (prompt, model, index) and were they what you evaluated",
+      "Restart the service",
+      "Scale up"
+    ],
+    "answer": 1,
+    "explanation": "A silent vendor model bump is the classic cause."
+  },
+  {
+    "id": "9.8-q5",
+    "topic": "trace",
+    "difficulty": 2,
+    "stem": "The most useful sentence in an AI incident is…",
+    "options": [
+      "'Here is exactly what the model received' - sayable only if you traced it",
+      "'The model is bad'",
+      "'Add more prompt'",
+      "'Restart it'"
+    ],
+    "answer": 0,
+    "explanation": "The trace (5.7) makes the investigation a checklist."
+  },
+  {
+    "id": "9.8-q6",
+    "topic": "silent bump",
+    "difficulty": 2,
+    "stem": "Answers worsen overnight with no code change: likely cause…",
+    "options": [
+      "The vendor rolled the model version under you - check trace version vs evaluated, pin/roll back",
+      "Users changed",
+      "The network",
+      "The cache expired"
+    ],
+    "answer": 0,
+    "explanation": "Floating versions change behaviour with no deploy (9.2)."
+  },
+  {
+    "id": "9.8-q7",
+    "topic": "drift",
+    "difficulty": 2,
+    "stem": "Drift means…",
+    "options": [
+      "The world changed (new questions, updated docs); watch online signals and grow the golden set",
+      "The model got smaller",
+      "The cache filled",
+      "The code broke"
+    ],
+    "answer": 0,
+    "explanation": "A static golden set slowly goes out of date (3.5, 8.5)."
+  },
+  {
+    "id": "9.8-q8",
+    "topic": "deprecation",
+    "difficulty": 2,
+    "stem": "Model deprecation is handled by…",
+    "options": [
+      "A forced flag-day",
+      "Rewriting the app",
+      "A gated rollout to the successor (canary -> eval gate -> shift), because the model is pinned behind the gateway",
+      "Ignoring it"
+    ],
+    "answer": 2,
+    "explanation": "A rollout ladder (8.5), not an emergency."
+  },
+  {
+    "id": "9.8-q9",
+    "topic": "prompts code",
+    "difficulty": 2,
+    "stem": "A live system-prompt edit without a deploy is wrong because…",
+    "options": [
+      "It is faster",
+      "A prompt is code: it must be versioned, eval-gated and rollback-able",
+      "Only models are code",
+      "Prompts never matter"
+    ],
+    "answer": 1,
+    "explanation": "An untested live edit can silently regress (4.4, 8.4)."
+  },
+  {
+    "id": "9.8-q10",
+    "topic": "change mgmt",
+    "difficulty": 2,
+    "stem": "Operating an LLM feature is…",
+    "options": [
+      "A brand-new discipline",
+      "Impossible",
+      "The vendor's job",
+      "Your existing change-management and on-call discipline applied to a probabilistic component"
+    ],
+    "answer": 3,
+    "explanation": "Prompts, models, indexes, guardrails are versioned artefacts."
+  }
+]

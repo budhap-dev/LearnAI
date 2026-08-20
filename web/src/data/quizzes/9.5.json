@@ -1,0 +1,142 @@
+[
+  {
+    "id": "9.5-q1",
+    "topic": "structural",
+    "difficulty": 2,
+    "stem": "LLM security is…",
+    "options": [
+      "Making the model refuse",
+      "Structural controls, one per risk, that are properties of the system - not model instructions",
+      "A strong system prompt",
+      "Trusting the vendor"
+    ],
+    "answer": 1,
+    "explanation": "The model can always be steered (8.6)."
+  },
+  {
+    "id": "9.5-q2",
+    "topic": "owasp",
+    "difficulty": 2,
+    "stem": "The OWASP LLM Top 10 is…",
+    "options": [
+      "A pricing tier",
+      "The shared list of risk classes each mapped to a control your review checks",
+      "A model benchmark",
+      "A prompt template"
+    ],
+    "answer": 1,
+    "explanation": "Coverage becomes auditable."
+  },
+  {
+    "id": "9.5-q3",
+    "topic": "executable",
+    "difficulty": 2,
+    "stem": "Encoding the review as predicates over config lets you…",
+    "options": [
+      "Run it in CI, so removing a control fails the build",
+      "Skip the review",
+      "Trust the model",
+      "Avoid testing"
+    ],
+    "answer": 0,
+    "explanation": "Same as the red-team suite (8.6)."
+  },
+  {
+    "id": "9.5-q4",
+    "topic": "secret control",
+    "difficulty": 2,
+    "stem": "The control for sensitive-info disclosure (LLM06) is…",
+    "options": [
+      "Encrypt the prompt",
+      "A longer system prompt",
+      "Tell the model not to reveal secrets",
+      "No secrets in context; scope data to the caller - so there is nothing to leak"
+    ],
+    "answer": 3,
+    "explanation": "The secret not in context cannot be leaked."
+  },
+  {
+    "id": "9.5-q5",
+    "topic": "resistance",
+    "difficulty": 2,
+    "stem": "'Couldn't extract the prompt in 200 attempts' is…",
+    "options": [
+      "Proof of safety",
+      "Sufficient",
+      "Not a pass: fix structurally (no secrets in context) rather than measure resistance",
+      "A strong result"
+    ],
+    "answer": 2,
+    "explanation": "Resistance rates measure luck, not safety."
+  },
+  {
+    "id": "9.5-q6",
+    "topic": "injection control",
+    "difficulty": 2,
+    "stem": "The control for prompt injection (LLM01) is…",
+    "options": [
+      "Block bad words",
+      "Fence untrusted input as data; never let it act as instructions",
+      "Ask the model to ignore injections",
+      "Lower temperature"
+    ],
+    "answer": 1,
+    "explanation": "4.6 - structure plus parsing, not a prompt plea."
+  },
+  {
+    "id": "9.5-q7",
+    "topic": "mcp risks",
+    "difficulty": 2,
+    "stem": "A third-party web-fetch MCP tool introduces…",
+    "options": [
+      "No new risk",
+      "Only latency",
+      "Only cost",
+      "LLM01 (fetched pages are untrusted input) and LLM03 supply chain (third-party code with your creds)"
+    ],
+    "answer": 3,
+    "explanation": "Fence the content; vet/pin/scope/sandbox the server (7.4)."
+  },
+  {
+    "id": "9.5-q8",
+    "topic": "agency",
+    "difficulty": 2,
+    "stem": "The control for excessive agency (LLM08) is…",
+    "options": [
+      "An output length limit",
+      "A faster model",
+      "A careful prompt",
+      "A human gate on irreversible actions"
+    ],
+    "answer": 3,
+    "explanation": "Approval is a separate identity (7.6)."
+  },
+  {
+    "id": "9.5-q9",
+    "topic": "ci review",
+    "difficulty": 2,
+    "stem": "Because controls are config predicates, a refactor that removes one…",
+    "options": [
+      "Cannot be detected",
+      "Needs a manual review",
+      "Is silently accepted",
+      "Fails the build"
+    ],
+    "answer": 3,
+    "explanation": "The review is a test that runs on every change."
+  },
+  {
+    "id": "9.5-q10",
+    "topic": "threat test",
+    "difficulty": 2,
+    "stem": "The one-line threat test is…",
+    "options": [
+      "'Is the model accurate?'",
+      "'Is the vendor trusted?'",
+      "'Is the prompt safe?'",
+      "'If the model were malicious, what could it make my system DO?' - bound the answer in code"
+    ],
+    "answer": 3,
+    "explanation": "Bound by least privilege, gates, validation, scoped data."
+  }
+]

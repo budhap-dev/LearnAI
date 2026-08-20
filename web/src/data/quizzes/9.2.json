@@ -1,0 +1,142 @@
+[
+  {
+    "id": "9.2-q1",
+    "topic": "one door",
+    "difficulty": 2,
+    "stem": "A gateway is…",
+    "options": [
+      "The model itself",
+      "The vendor's SDK",
+      "One internal service every model call goes through - keys, quotas, routing, fallback, the log",
+      "A caching layer only"
+    ],
+    "answer": 2,
+    "explanation": "Application code never calls a vendor directly."
+  },
+  {
+    "id": "9.2-q2",
+    "topic": "keys",
+    "difficulty": 2,
+    "stem": "Where do API keys live with a gateway?",
+    "options": [
+      "In one service; application code never sees a vendor credential",
+      "In the client",
+      "In the prompt",
+      "In each service's env"
+    ],
+    "answer": 0,
+    "explanation": "One place to rotate, audit and protect."
+  },
+  {
+    "id": "9.2-q3",
+    "topic": "routing config",
+    "difficulty": 2,
+    "stem": "Routing is config so that…",
+    "options": [
+      "The model runs faster",
+      "Prompts are shorter",
+      "Tokens are cheaper",
+      "Adding or swapping a model is not a code change"
+    ],
+    "answer": 3,
+    "explanation": "Vendor choice becomes reversible."
+  },
+  {
+    "id": "9.2-q4",
+    "topic": "rate limit",
+    "difficulty": 2,
+    "stem": "Per-tenant rate limiting exists so that…",
+    "options": [
+      "The bill is lower",
+      "The model is safer",
+      "Latency drops",
+      "One noisy tenant (or a runaway loop) cannot starve the others"
+    ],
+    "answer": 3,
+    "explanation": "Multi-tenant fairness needs a central chokepoint."
+  },
+  {
+    "id": "9.2-q5",
+    "topic": "fallback",
+    "difficulty": 2,
+    "stem": "On an upstream outage the gateway…",
+    "options": [
+      "Fails over through a preference list automatically, so one vendor's outage is not yours",
+      "Retries the same model forever",
+      "Returns an error to the user",
+      "Switches off the feature"
+    ],
+    "answer": 0,
+    "explanation": "Availability via routing, transparent to app code."
+  },
+  {
+    "id": "9.2-q6",
+    "topic": "chokepoint",
+    "difficulty": 2,
+    "stem": "A per-customer monthly token budget is impossible without a gateway because…",
+    "options": [
+      "Budgets need a database",
+      "Models do not report tokens",
+      "There is no single place that sees all calls to enforce it",
+      "It is a vendor feature"
+    ],
+    "answer": 2,
+    "explanation": "Cross-cutting policy needs one chokepoint."
+  },
+  {
+    "id": "9.2-q7",
+    "topic": "cost start",
+    "difficulty": 2,
+    "stem": "Cost and tracing start at the gateway because…",
+    "options": [
+      "It is the one place every call passes",
+      "It renders the UI",
+      "It is the fastest service",
+      "It holds the model"
+    ],
+    "answer": 0,
+    "explanation": "Cost you cannot see per-tenant you cannot control (9.4)."
+  },
+  {
+    "id": "9.2-q8",
+    "topic": "model bump",
+    "difficulty": 2,
+    "stem": "With a gateway, adopting a new model version means…",
+    "options": [
+      "Canary it via routing config, run the eval gate, shift traffic as numbers hold",
+      "Nothing changes",
+      "Point production at it immediately",
+      "Rewrite the app"
+    ],
+    "answer": 0,
+    "explanation": "A controlled rollout (8.5) gated on evals (8.4)."
+  },
+  {
+    "id": "9.2-q9",
+    "topic": "free tier",
+    "difficulty": 2,
+    "stem": "On the free static-hosting tier, the gateway should be…",
+    "options": [
+      "Skipped",
+      "An Azure Function",
+      "Your always-on backend service, not a per-call serverless function",
+      "Part of the static site"
+    ],
+    "answer": 2,
+    "explanation": "A Functions API is what moves you off the free plan."
+  },
+  {
+    "id": "9.2-q10",
+    "topic": "spof",
+    "difficulty": 2,
+    "stem": "The gateway is a single point of failure, so you…",
+    "options": [
+      "Accept the risk",
+      "Remove it",
+      "Cache everything",
+      "Run it redundant, keep it thin/stateless, and fail to a sensible default route"
+    ],
+    "answer": 3,
+    "explanation": "Central does not mean fragile if designed for it."
+  }
+]

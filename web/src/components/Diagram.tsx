@@ -16,6 +16,9 @@ import {
   EvalGate, EvalLoop, GoldenLifecycle, JudgeBias, RolloutLadder, ScorerLadder,
 } from './diagrams/evals';
 import {
+  CostBreakdown, GatewaySequence, GuardrailLayers, LatencyWaterfall, ReferenceArchitecture, ThreatModel,
+} from './diagrams/production';
+import {
   ChunkOverlap, GroundedVsUngrounded, HybridFusion, RagDecisionMatrix, RagEvalTriad, RagPipeline, TwoStageRetrieval,
 } from './diagrams/rag';
 import {
@@ -89,6 +92,12 @@ const REGISTRY: Record<string, ComponentType> = {
   'judge-bias': JudgeBias,
   'eval-gate': EvalGate,
   'rollout-ladder': RolloutLadder,
+  'reference-architecture': ReferenceArchitecture,
+  'gateway-sequence': GatewaySequence,
+  'latency-waterfall': LatencyWaterfall,
+  'cost-breakdown': CostBreakdown,
+  'threat-model': ThreatModel,
+  'guardrail-layers': GuardrailLayers,
 };
 
 export function Diagram({ name }: { name: string }) {

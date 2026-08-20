@@ -1,0 +1,142 @@
+[
+  {
+    "id": "9.3-q1",
+    "topic": "two numbers",
+    "difficulty": 2,
+    "stem": "A response time is…",
+    "options": [
+      "Only TTFT",
+      "One number: total",
+      "Only generation",
+      "TTFT (queue + prompt) plus generation (output tokens / rate)"
+    ],
+    "answer": 3,
+    "explanation": "Two causes, two fixes, tuned separately."
+  },
+  {
+    "id": "9.3-q2",
+    "topic": "ttft grows",
+    "difficulty": 2,
+    "stem": "TTFT grows with…",
+    "options": [
+      "Input (prompt) size",
+      "The model's age",
+      "Temperature",
+      "Output size"
+    ],
+    "answer": 0,
+    "explanation": "The prompt must be read before the first token."
+  },
+  {
+    "id": "9.3-q3",
+    "topic": "gen grows",
+    "difficulty": 2,
+    "stem": "Generation time grows with…",
+    "options": [
+      "Output size (tokens / tokens-per-second)",
+      "Prompt size",
+      "Cache hit rate",
+      "The number of tools"
+    ],
+    "answer": 0,
+    "explanation": "A long answer is slow regardless of prompt."
+  },
+  {
+    "id": "9.3-q4",
+    "topic": "percentiles",
+    "difficulty": 2,
+    "stem": "You report…",
+    "options": [
+      "The median only",
+      "Percentiles (p95/p99), not the mean",
+      "The minimum",
+      "The mean"
+    ],
+    "answer": 1,
+    "explanation": "The tail is the SLO; the mean is where incidents hide."
+  },
+  {
+    "id": "9.3-q5",
+    "topic": "mean lies",
+    "difficulty": 2,
+    "stem": "The mean latency lies because…",
+    "options": [
+      "Latency is constant",
+      "Percentiles are inaccurate",
+      "Traffic has a heavy tail; the mean sits near the common case and hides the slow requests",
+      "Means are hard to compute"
+    ],
+    "answer": 2,
+    "explanation": "p95/p99 are the worst-served experience."
+  },
+  {
+    "id": "9.3-q6",
+    "topic": "streaming feel",
+    "difficulty": 2,
+    "stem": "Streaming changes…",
+    "options": [
+      "Which number the user feels - TTFT instead of total - with no quality cost",
+      "The token price",
+      "The total work",
+      "The model's accuracy"
+    ],
+    "answer": 0,
+    "explanation": "Biggest latency UX win available (5.2)."
+  },
+  {
+    "id": "9.3-q7",
+    "topic": "throughput",
+    "difficulty": 2,
+    "stem": "Throughput is…",
+    "options": [
+      "Output length",
+      "The same as latency",
+      "A separate axis: requests per second, with different levers than one-request latency",
+      "Cache size"
+    ],
+    "answer": 2,
+    "explanation": "Raise concurrency, shorten outputs, or batch offline."
+  },
+  {
+    "id": "9.3-q8",
+    "topic": "feels slow",
+    "difficulty": 2,
+    "stem": "'Feels slow' at a healthy 4s mean total: first move…",
+    "options": [
+      "Add more prompt",
+      "Buy a faster model",
+      "Check p95/p99 and turn on streaming so users feel TTFT",
+      "Raise temperature"
+    ],
+    "answer": 2,
+    "explanation": "The mean hides the tail; 'feels slow' is usually TTFT."
+  },
+  {
+    "id": "9.3-q9",
+    "topic": "long output",
+    "difficulty": 2,
+    "stem": "A slow 1,500-token summary with a small prompt: best lever…",
+    "options": [
+      "Increase concurrency",
+      "Add caching",
+      "Shrink the prompt",
+      "Shorten the output - total scales with output tokens"
+    ],
+    "answer": 3,
+    "explanation": "Generation dominates; the small prompt is not the bottleneck."
+  },
+  {
+    "id": "9.3-q10",
+    "topic": "alert",
+    "difficulty": 2,
+    "stem": "You alert on…",
+    "options": [
+      "The peak only",
+      "Nothing until users complain",
+      "The mean only",
+      "The tail and the rate, not the mean"
+    ],
+    "answer": 3,
+    "explanation": "9.8 - SLOs are about the tail."
+  }
+]
