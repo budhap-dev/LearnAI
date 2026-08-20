@@ -1,0 +1,142 @@
+[
+  {
+    "id": "8.3-q1",
+    "topic": "cheapest",
+    "difficulty": 2,
+    "stem": "The rule for choosing a scorer is…",
+    "options": [
+      "Always use exact match",
+      "Use the newest model",
+      "Use the cheapest rung that can honestly measure the expectation",
+      "Always use a judge"
+    ],
+    "answer": 2,
+    "explanation": "Cost rises and trust falls down the ladder."
+  },
+  {
+    "id": "8.3-q2",
+    "topic": "exact fails",
+    "difficulty": 2,
+    "stem": "In the recording, exact match marked a CORRECT answer wrong because…",
+    "options": [
+      "The model failed",
+      "The answer was wrong",
+      "The set was stale",
+      "It said '14-day window', not the literal '14 days' - string scorers measure phrasing"
+    ],
+    "answer": 3,
+    "explanation": "4.4's brittle checker."
+  },
+  {
+    "id": "8.3-q3",
+    "topic": "normaliser bug",
+    "difficulty": 2,
+    "stem": "The normalised scorer also failed the correct answers because…",
+    "options": [
+      "Judges are needed",
+      "Normalisation is impossible",
+      "Its normaliser had a bug (did not fold days->day) - normalisers are code with bugs, test them",
+      "The answers were wrong"
+    ],
+    "answer": 2,
+    "explanation": "Test normalisers like any code."
+  },
+  {
+    "id": "8.3-q4",
+    "topic": "code checks",
+    "difficulty": 2,
+    "stem": "Code-based scorers measure…",
+    "options": [
+      "Phrasing",
+      "Meaning",
+      "Properties: citations present, numbers consistent, schema valid, length sane",
+      "Tone"
+    ],
+    "answer": 2,
+    "explanation": "Each is a deterministic line of code catching a failure class."
+  },
+  {
+    "id": "8.3-q5",
+    "topic": "judge scalar",
+    "difficulty": 2,
+    "stem": "In the recording, the judge's booleans were right but its 1-5 score…",
+    "options": [
+      "Was accurate",
+      "Ranked them correctly",
+      "Was noise - both correct answers got 1/5; scalar scores need calibration",
+      "Matched the humans"
+    ],
+    "answer": 2,
+    "explanation": "Ask judges narrow yes/no questions."
+  },
+  {
+    "id": "8.3-q6",
+    "topic": "order bias",
+    "difficulty": 2,
+    "stem": "The pairwise judge's verdict flipped with order, meaning…",
+    "options": [
+      "The judge is broken forever",
+      "The answers were equal",
+      "It preferred position, not quality - it cannot rank that pair",
+      "Order never matters"
+    ],
+    "answer": 2,
+    "explanation": "Run both orders; count a win only when they agree."
+  },
+  {
+    "id": "8.3-q7",
+    "topic": "judge guards",
+    "difficulty": 2,
+    "stem": "LLM-as-judge needs…",
+    "options": [
+      "A bigger model",
+      "A narrow rubric, the source in the prompt, a schema, low temperature, and calibration",
+      "No rubric",
+      "High temperature"
+    ],
+    "answer": 1,
+    "explanation": "A judge is a model with all of Module 2's failings."
+  },
+  {
+    "id": "8.3-q8",
+    "topic": "calibrate",
+    "difficulty": 2,
+    "stem": "You must re-calibrate a judge when…",
+    "options": [
+      "Only if it fails",
+      "Only yearly",
+      "The judge model changes - its biases are not stable across versions",
+      "Never"
+    ],
+    "answer": 2,
+    "explanation": "2.7 applies to judges too."
+  },
+  {
+    "id": "8.3-q9",
+    "topic": "tone",
+    "difficulty": 2,
+    "stem": "Scoring 'warm but professional tone' needs…",
+    "options": [
+      "A schema",
+      "LLM-as-judge with a narrow rubric calibrated on human tone labels - tone is meaning",
+      "Exact match on phrases",
+      "Counting exclamation marks"
+    ],
+    "answer": 1,
+    "explanation": "Tone is meaning, not phrasing or a countable property."
+  },
+  {
+    "id": "8.3-q10",
+    "topic": "wrong-right",
+    "difficulty": 2,
+    "stem": "A wrong answer that happened to quote '14 days' would…",
+    "options": [
+      "Fail exact match",
+      "Be impossible",
+      "Be caught by the judge only",
+      "Pass both string scorers - they measure phrasing, not correctness"
+    ],
+    "answer": 3,
+    "explanation": "Only code/judge checks measure the property that matters."
+  }
+]

@@ -13,6 +13,9 @@ import {
   AgentFailures, AgentLoopStops, McpTopology, MemoryTiers, PatternGallery, SupervisorGate,
 } from './diagrams/agents';
 import {
+  EvalGate, EvalLoop, GoldenLifecycle, JudgeBias, RolloutLadder, ScorerLadder,
+} from './diagrams/evals';
+import {
   ChunkOverlap, GroundedVsUngrounded, HybridFusion, RagDecisionMatrix, RagEvalTriad, RagPipeline, TwoStageRetrieval,
 } from './diagrams/rag';
 import {
@@ -80,6 +83,12 @@ const REGISTRY: Record<string, ComponentType> = {
   'memory-tiers': MemoryTiers,
   'supervisor-gate': SupervisorGate,
   'agent-failures': AgentFailures,
+  'eval-loop': EvalLoop,
+  'golden-lifecycle': GoldenLifecycle,
+  'scorer-ladder': ScorerLadder,
+  'judge-bias': JudgeBias,
+  'eval-gate': EvalGate,
+  'rollout-ladder': RolloutLadder,
 };
 
 export function Diagram({ name }: { name: string }) {

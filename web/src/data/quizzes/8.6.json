@@ -1,0 +1,142 @@
+[
+  {
+    "id": "8.6-q1",
+    "topic": "different question",
+    "difficulty": 2,
+    "stem": "A safety eval asks…",
+    "options": [
+      "Is the answer fluent",
+      "Is it cheap",
+      "Can the system be made to do the wrong thing - not is the answer right",
+      "Is it fast"
+    ],
+    "answer": 2,
+    "explanation": "Adversarial inputs, outcome-based scorers."
+  },
+  {
+    "id": "8.6-q2",
+    "topic": "score outcomes",
+    "difficulty": 2,
+    "stem": "Safety is scored over…",
+    "options": [
+      "Outputs and actions - refund executed? PII returned? secret leaked? - never over refusals",
+      "Tone",
+      "Refusal rate",
+      "Whether the model refused"
+    ],
+    "answer": 0,
+    "explanation": "A model that refuses 99% still breaches 1%."
+  },
+  {
+    "id": "8.6-q3",
+    "topic": "mostly resists",
+    "difficulty": 2,
+    "stem": "'The model mostly resists' is…",
+    "options": [
+      "94% safe",
+      "Fine at scale",
+      "Not a defence - occasional compliance is a breach, and attackers retry",
+      "A passing result"
+    ],
+    "answer": 2,
+    "explanation": "In the recording all six attacks landed on the undefended system."
+  },
+  {
+    "id": "8.6-q4",
+    "topic": "structural",
+    "difficulty": 2,
+    "stem": "The defended system held every attack because of…",
+    "options": [
+      "Higher refusal training",
+      "A better model",
+      "A firmer system prompt",
+      "Structural guards that do not depend on the model cooperating"
+    ],
+    "answer": 3,
+    "explanation": "Least context, gated actions, scoped access, output classifier."
+  },
+  {
+    "id": "8.6-q5",
+    "topic": "least context",
+    "difficulty": 2,
+    "stem": "The system-prompt-reveal attack failed under defence because…",
+    "options": [
+      "The request was blocked by regex",
+      "The secrets were not in the model's context to leak",
+      "The model refused",
+      "The prompt said no"
+    ],
+    "answer": 1,
+    "explanation": "Least context: nothing to reveal."
+  },
+  {
+    "id": "8.6-q6",
+    "topic": "gated",
+    "difficulty": 2,
+    "stem": "The injected-refund attack failed because…",
+    "options": [
+      "The model ignored it",
+      "Write tools propose; a human gate executes - injected instructions cannot act",
+      "The order did not exist",
+      "The amount was wrong"
+    ],
+    "answer": 1,
+    "explanation": "7.6's gate, as a safety control."
+  },
+  {
+    "id": "8.6-q7",
+    "topic": "refusal rate",
+    "difficulty": 2,
+    "stem": "'Refused 47 of 50 jailbreaks (94%)' is…",
+    "options": [
+      "Unmeasurable",
+      "A 6% breach rate - not a passing safety result; fix structurally",
+      "A strong result",
+      "Acceptable"
+    ],
+    "answer": 1,
+    "explanation": "Below 100% on a harmful capability is a breach rate above 0%."
+  },
+  {
+    "id": "8.6-q8",
+    "topic": "gate",
+    "difficulty": 2,
+    "stem": "A red-team suite is…",
+    "options": [
+      "A manual review",
+      "A one-off audit",
+      "A model setting",
+      "A versioned golden set of attacks, gated on every change, with zero-tolerance critical slices"
+    ],
+    "answer": 3,
+    "explanation": "Same machinery as 8.4, adversarial content."
+  },
+  {
+    "id": "8.6-q9",
+    "topic": "owasp",
+    "difficulty": 2,
+    "stem": "Mapping attack cases to OWASP LLM Top 10 makes…",
+    "options": [
+      "Coverage auditable",
+      "The model safer",
+      "Attacks rarer",
+      "Judges unnecessary"
+    ],
+    "answer": 0,
+    "explanation": "Categories let you see what you are and are not testing."
+  },
+  {
+    "id": "8.6-q10",
+    "topic": "new technique",
+    "difficulty": 2,
+    "stem": "A new public jailbreak your suite doesn't cover means you should…",
+    "options": [
+      "Nothing - the suite passes",
+      "Add it as a case, test your guards, fix structurally if it breaches, and re-gate",
+      "Disable the feature",
+      "Retrain the model"
+    ],
+    "answer": 1,
+    "explanation": "Safety coverage tracks the threat landscape; new techniques become cases."
+  }
+]

@@ -20,12 +20,12 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | Area | State |
 |---|---|
 | **Deployed site** | 🟡 workflow written; Azure SWA resource + secret still to create |
-| **Lesson notes** | 🟡 **47 / 66** — Modules 1–7 complete (all of Basic and Intermediate) |
-| **Example code (Python + TS)** | 🟡 34 / 48 — Modules 1–3 (10), 4 (6), 5 (7), 6 (6), 7 (5) in both languages, byte-identical output enforced by the build; Module 6 runs a real RAG pipeline over a fixture handbook with recorded embeddings (`nomic-embed-text`) and answers |
+| **Lesson notes** | 🟡 **53 / 66** — Modules 1–8 complete (Basic, Intermediate, and Evaluation) |
+| **Example code (Python + TS)** | 🟡 38 / 48 — Modules 1–8 in both languages, byte-identical output enforced by the build |
 | **Verified output pipeline** | ✅ harnesses capture regions + outputs → build validates every fence, every explorer/diagram id against the registries, and that Python/TS agree → site; model calls go through the `llm` adapter and **replay recorded cassettes** (76 recorded with local Ollama models: `qwen3:8b` text, `gemma3:4b` vision, `nomic-embed-text` embeddings); `harness cassettes` / `prune` audit them |
-| **Diagrams** | 🟡 46 / ~120 — all of Modules 1–7 |
-| **Interactive explorers** | 🟡 14 / ~20 — tokeniser, sampling, embeddings, attention, context-budget, gradient-descent, confusion-matrix, injection-lab, cost, agent-loop, chunking, hybrid-search, rag-stepper, finetune-vs-rag |
-| **Quizzes** | 🟡 470 / 660 — Modules 1–7, options shuffled; 92 check cards |
+| **Diagrams** | 🟡 52 / ~120 — all of Modules 1–8 |
+| **Interactive explorers** | 🟡 15 / ~20 — adds eval-runner |
+| **Quizzes** | 🟡 530 / 660 — Modules 1–8, options shuffled; 104 check cards |
 | **Site features** | 🟡 home with pathway chooser, syllabus (pathway-aware, route list), lesson page with Py/TS code tabs, output blocks, diagrams, explorers, check-yourself cards, key terms, quiz; full-text search; progress dashboard with export/import/reset; **reference section** (glossary, decision tables, checklists, model reference); six themes |
 | **Pathways** | 🟡 Orientation · Builder · Architect — chooser, syllabus route order, pathway-aware prev/next; no depth toggles or audience-tagged questions yet |
 
@@ -428,7 +428,7 @@ snippet can never drift from the code that ran.
 - [x] `LEARNAI_LLM_MODE=record` refreshes cassettes with a real key; cassette diff reviewed in PR
 - [x] Output block shows model + recorded date when it came from a cassette
 
-### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 47 / 66 — *Modules 1–7 complete*
+### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 53 / 66 — *Modules 1–8 complete*
 - [ ] Notes for all lessons in §8, each with objectives, body, diagrams, exercises
 - [ ] Every code lesson has a Python and a TS example
 - [ ] Every lesson read for tone by pathway (Orientation ↔ Architect framing both work)
