@@ -1,0 +1,142 @@
+[
+  {
+    "id": "9.1-q1",
+    "topic": "the shape",
+    "difficulty": 2,
+    "stem": "The reference architecture's core message is…",
+    "options": [
+      "The model is the whole system",
+      "The model is one box; the system is the other twelve — gateway, retrieval, tools, guardrails, evals, tracing",
+      "The gateway is the model",
+      "Retrieval is optional"
+    ],
+    "answer": 1,
+    "explanation": "Reliability, safety, cost and portability live around the model, not in it."
+  },
+  {
+    "id": "9.1-q2",
+    "topic": "gap finder",
+    "difficulty": 2,
+    "stem": "The architecture is most useful as…",
+    "options": [
+      "A performance benchmark",
+      "A gap finder: put any design beside it and ask box by box 'where is this?'",
+      "A pricing model",
+      "A vendor comparison"
+    ],
+    "answer": 1,
+    "explanation": "Most incidents are a missing box, not a bad model."
+  },
+  {
+    "id": "9.1-q3",
+    "topic": "demo missing",
+    "difficulty": 2,
+    "stem": "A demo of prompt->model->show-answer is missing, most dangerously…",
+    "options": [
+      "Guardrails (unchecked output) and the gateway (no key isolation, quotas, routing, tracing)",
+      "The client",
+      "Retrieval and tools",
+      "Nothing important"
+    ],
+    "answer": 0,
+    "explanation": "It has the model box and nothing that makes it safe or operable."
+  },
+  {
+    "id": "9.1-q4",
+    "topic": "gateway box",
+    "difficulty": 2,
+    "stem": "The gateway box owns…",
+    "options": [
+      "The eval set",
+      "The prompt template",
+      "Keys, per-tenant quotas, routing, fallback, and the first log line",
+      "The vector index"
+    ],
+    "answer": 2,
+    "explanation": "One door for every model call (9.2)."
+  },
+  {
+    "id": "9.1-q5",
+    "topic": "cross-cut",
+    "difficulty": 2,
+    "stem": "Tracing, evals and cost are drawn as…",
+    "options": [
+      "Part of the client",
+      "A band across every box - cross-cutting concerns, not a single stage",
+      "Optional add-ons",
+      "One box after the model"
+    ],
+    "answer": 1,
+    "explanation": "Every request traced, every change eval-gated, every call costed."
+  },
+  {
+    "id": "9.1-q6",
+    "topic": "why shape",
+    "difficulty": 2,
+    "stem": "The architecture is always this shape because…",
+    "options": [
+      "It compensates for Module 2's facts: stateless, probabilistic, cutoff, metered",
+      "Vendors mandate it",
+      "It is a fashion",
+      "Frameworks require it"
+    ],
+    "answer": 0,
+    "explanation": "Change the model and the boxes stay - that is the point."
+  },
+  {
+    "id": "9.1-q7",
+    "topic": "vendor switch",
+    "difficulty": 2,
+    "stem": "Switching vendors should touch…",
+    "options": [
+      "Almost nothing - only the gateway's routing config",
+      "The whole prompt library",
+      "Every service",
+      "Most of the system"
+    ],
+    "answer": 0,
+    "explanation": "Isolating the vendor behind the gateway makes the switch a config change."
+  },
+  {
+    "id": "9.1-q8",
+    "topic": "retriever missing",
+    "difficulty": 2,
+    "stem": "A feature answering from private/fresh data with no retriever box is…",
+    "options": [
+      "Cheaper",
+      "More secure",
+      "Fine if the model is large",
+      "Hallucinating instead of retrieving"
+    ],
+    "answer": 3,
+    "explanation": "Facts it needs are not in the weights (Module 6)."
+  },
+  {
+    "id": "9.1-q9",
+    "topic": "orchestration",
+    "difficulty": 2,
+    "stem": "The orchestration box is…",
+    "options": [
+      "The UI",
+      "The model itself",
+      "The control flow: single call, workflow, or bounded agent loop",
+      "The database"
+    ],
+    "answer": 2,
+    "explanation": "7.1/7.2 - who owns the next step."
+  },
+  {
+    "id": "9.1-q10",
+    "topic": "guardrails place",
+    "difficulty": 2,
+    "stem": "Guardrails sit…",
+    "options": [
+      "In the model weights",
+      "In the system prompt",
+      "In the request path, in and out of the model, as code the model cannot bypass",
+      "In the client only"
+    ],
+    "answer": 2,
+    "explanation": "9.7 - the box that makes output safe to act on."
+  }
+]

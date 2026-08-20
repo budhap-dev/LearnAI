@@ -1,0 +1,142 @@
+[
+  {
+    "id": "9.7-q1",
+    "topic": "what",
+    "difficulty": 2,
+    "stem": "A guardrail is…",
+    "options": [
+      "A model setting",
+      "A vendor feature",
+      "A check in the request path, in code, that the model cannot talk its way past",
+      "A system-prompt instruction"
+    ],
+    "answer": 2,
+    "explanation": "Code, not a prompt plea."
+  },
+  {
+    "id": "9.7-q2",
+    "topic": "layers",
+    "difficulty": 2,
+    "stem": "Guardrails come in…",
+    "options": [
+      "One output check",
+      "The system prompt",
+      "One input check",
+      "Layers: input guards before the model, output guards after, plus escalation"
+    ],
+    "answer": 3,
+    "explanation": "Defence in depth, in and out."
+  },
+  {
+    "id": "9.7-q3",
+    "topic": "input guards",
+    "difficulty": 2,
+    "stem": "Input guards run first because…",
+    "options": [
+      "They are optional",
+      "The model requires them",
+      "They are cheap and block obvious abuse before you pay for a model call",
+      "They are more accurate"
+    ],
+    "answer": 2,
+    "explanation": "Size, injection signature, bulk-PII request."
+  },
+  {
+    "id": "9.7-q4",
+    "topic": "output guards",
+    "difficulty": 2,
+    "stem": "Output guards matter for safety because…",
+    "options": [
+      "They cut cost",
+      "A model that was steered still cannot emit a secret, act unapproved, or leak PII - code checks the bytes",
+      "They replace evals",
+      "They speed up the model"
+    ],
+    "answer": 1,
+    "explanation": "The last line, on the actual output."
+  },
+  {
+    "id": "9.7-q5",
+    "topic": "blocked output",
+    "difficulty": 2,
+    "stem": "A blocked output should…",
+    "options": [
+      "Return empty",
+      "Be ignored",
+      "Escalate to a human, not silently vanish",
+      "Retry forever"
+    ],
+    "answer": 2,
+    "explanation": "Silently dropping loses the false-positive correction and the true-positive signal."
+  },
+  {
+    "id": "9.7-q6",
+    "topic": "not guardrail1",
+    "difficulty": 2,
+    "stem": "'Never reveal secrets' in the system prompt is…",
+    "options": [
+      "Sufficient",
+      "Not a guardrail - the model can be steered past it",
+      "A strong guardrail",
+      "A code check"
+    ],
+    "answer": 1,
+    "explanation": "2.6/8.6 - instructions steer, not enforce."
+  },
+  {
+    "id": "9.7-q7",
+    "topic": "single check",
+    "difficulty": 2,
+    "stem": "A single check is…",
+    "options": [
+      "Not defence in depth - you need several independent layers, in and out",
+      "Enough if it is a model",
+      "Best practice",
+      "All you need"
+    ],
+    "answer": 0,
+    "explanation": "A gap in one layer is covered by another."
+  },
+  {
+    "id": "9.7-q8",
+    "topic": "model guard",
+    "difficulty": 2,
+    "stem": "An LLM moderation model as the only output guard is…",
+    "options": [
+      "Useless",
+      "Necessary but not sufficient - it can be wrong/steered; pair with deterministic code checks",
+      "Sufficient - a judge is strongest",
+      "The same as a prompt"
+    ],
+    "answer": 1,
+    "explanation": "8.3's judge biases apply; add cheap deterministic checks."
+  },
+  {
+    "id": "9.7-q9",
+    "topic": "seatbelt",
+    "difficulty": 2,
+    "stem": "Guardrails are the seatbelt because…",
+    "options": [
+      "You design for the crash you expect not to have - the model will sometimes fail",
+      "They are decorative",
+      "They slow the model",
+      "They replace the model"
+    ],
+    "answer": 0,
+    "explanation": "Assume the model fails; bound the damage."
+  },
+  {
+    "id": "9.7-q10",
+    "topic": "owasp link",
+    "difficulty": 2,
+    "stem": "Guardrails are where several OWASP controls are…",
+    "options": [
+      "Documented only",
+      "Implemented in the request path (output handling, disclosure, excessive agency)",
+      "Ignored",
+      "Delegated to the model"
+    ],
+    "answer": 1,
+    "explanation": "9.5's controls, made concrete."
+  }
+]

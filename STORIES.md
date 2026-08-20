@@ -20,12 +20,12 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | Area | State |
 |---|---|
 | **Deployed site** | 🟡 workflow written; Azure SWA resource + secret still to create |
-| **Lesson notes** | 🟡 **53 / 66** — Modules 1–8 complete (Basic, Intermediate, and Evaluation) |
-| **Example code (Python + TS)** | 🟡 38 / 48 — Modules 1–8 in both languages, byte-identical output enforced by the build |
+| **Lesson notes** | 🟡 **61 / 66** — Modules 1–9 complete |
+| **Example code (Python + TS)** | 🟡 43 / 48 — Modules 1–9 in both languages, byte-identical output enforced by the build |
 | **Verified output pipeline** | ✅ harnesses capture regions + outputs → build validates every fence, every explorer/diagram id against the registries, and that Python/TS agree → site; model calls go through the `llm` adapter and **replay recorded cassettes** (76 recorded with local Ollama models: `qwen3:8b` text, `gemma3:4b` vision, `nomic-embed-text` embeddings); `harness cassettes` / `prune` audit them |
-| **Diagrams** | 🟡 52 / ~120 — all of Modules 1–8 |
+| **Diagrams** | 🟡 58 / ~120 — all of Modules 1–9 |
 | **Interactive explorers** | 🟡 15 / ~20 — adds eval-runner |
-| **Quizzes** | 🟡 530 / 660 — Modules 1–8, options shuffled; 104 check cards |
+| **Quizzes** | 🟡 610 / 660 — Modules 1–9, options shuffled; 104 check cards |
 | **Site features** | 🟡 home with pathway chooser, syllabus (pathway-aware, route list), lesson page with Py/TS code tabs, output blocks, diagrams, explorers, check-yourself cards, key terms, quiz; full-text search; progress dashboard with export/import/reset; **reference section** (glossary, decision tables, checklists, model reference); six themes |
 | **Pathways** | 🟡 Orientation · Builder · Architect — chooser, syllabus route order, pathway-aware prev/next; no depth toggles or audience-tagged questions yet |
 
@@ -428,7 +428,7 @@ snippet can never drift from the code that ran.
 - [x] `LEARNAI_LLM_MODE=record` refreshes cassettes with a real key; cassette diff reviewed in PR
 - [x] Output block shows model + recorded date when it came from a cassette
 
-### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 53 / 66 — *Modules 1–8 complete*
+### US-205 · Write the 66 lessons *(Must, XL)* · 🟡 61 / 66 — *Modules 1–9 complete*
 - [ ] Notes for all lessons in §8, each with objectives, body, diagrams, exercises
 - [ ] Every code lesson has a Python and a TS example
 - [ ] Every lesson read for tone by pathway (Orientation ↔ Architect framing both work)

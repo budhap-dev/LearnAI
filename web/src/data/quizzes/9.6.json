@@ -1,0 +1,142 @@
+[
+  {
+    "id": "9.6-q1",
+    "topic": "data system",
+    "difficulty": 2,
+    "stem": "Every LLM feature is…",
+    "options": [
+      "Anonymous by default",
+      "A data-processing system with the usual obligations plus a few the model creates",
+      "Exempt from privacy law",
+      "Only the vendor's concern"
+    ],
+    "answer": 1,
+    "explanation": "Where prompts go, retention, training, accountability."
+  },
+  {
+    "id": "9.6-q2",
+    "topic": "minimise",
+    "difficulty": 2,
+    "stem": "The cheapest privacy control is…",
+    "options": [
+      "A longer prompt",
+      "Minimise: send the model what the task needs, not the whole record",
+      "Encrypt everything",
+      "A bigger model"
+    ],
+    "answer": 1,
+    "explanation": "Every field omitted cannot leak (LLM06)."
+  },
+  {
+    "id": "9.6-q3",
+    "topic": "logs pii",
+    "difficulty": 2,
+    "stem": "Raw prompts with PII in application logs are wrong because…",
+    "options": [
+      "Nothing is wrong",
+      "Logs are too small",
+      "Logs outlive requests and have broad access - a disclosure risk; redact before logging",
+      "It slows debugging"
+    ],
+    "answer": 2,
+    "explanation": "Keep any raw capture in a short-retention, access-controlled store (5.7)."
+  },
+  {
+    "id": "9.6-q4",
+    "topic": "memory pii",
+    "difficulty": 2,
+    "stem": "The 7.5 fact store is…",
+    "options": [
+      "Anonymous",
+      "Personal data: hold only what you would show the user, with provenance, timestamps, deletion",
+      "Internal plumbing",
+      "Exempt"
+    ],
+    "answer": 1,
+    "explanation": "Build the 'what we know about you' page."
+  },
+  {
+    "id": "9.6-q5",
+    "topic": "region",
+    "difficulty": 2,
+    "stem": "A best-on-eval model that processes in a prohibited region is…",
+    "options": [
+      "Usable with a disclaimer",
+      "Best regardless",
+      "Disqualified for that data: region is a hard gate, not a quality trade-off",
+      "Fine - evals win"
+    ],
+    "answer": 2,
+    "explanation": "Route by data sensitivity at the gateway (9.2)."
+  },
+  {
+    "id": "9.6-q6",
+    "topic": "training",
+    "difficulty": 2,
+    "stem": "On some vendor tiers your prompts may…",
+    "options": [
+      "Be used to train their models - read the terms; use the excluding endpoint for sensitive data",
+      "Never be stored",
+      "Always train the model",
+      "Be encrypted end to end"
+    ],
+    "answer": 0,
+    "explanation": "Fine-tuning on user data needs a lawful basis/consent."
+  },
+  {
+    "id": "9.6-q7",
+    "topic": "accountability",
+    "difficulty": 2,
+    "stem": "For a decision about a person…",
+    "options": [
+      "A human owns the decision of record; the model is an aid",
+      "No one is accountable",
+      "The vendor is liable",
+      "The model decides"
+    ],
+    "answer": 0,
+    "explanation": "'The AI decided' is not accountable (3.1, EU AI Act)."
+  },
+  {
+    "id": "9.6-q8",
+    "topic": "model card",
+    "difficulty": 2,
+    "stem": "Documenting the feature means…",
+    "options": [
+      "Nothing needed",
+      "A marketing page",
+      "A model card: purpose, data used, limitations, eval results, controls",
+      "The system prompt"
+    ],
+    "answer": 2,
+    "explanation": "What an auditor or incident review reads."
+  },
+  {
+    "id": "9.6-q9",
+    "topic": "risk tier",
+    "difficulty": 2,
+    "stem": "Higher-risk AI uses (access, money, rights) require…",
+    "options": [
+      "Less logging",
+      "Nothing extra",
+      "More oversight, testing and documentation, and human oversight",
+      "Only faster models"
+    ],
+    "answer": 2,
+    "explanation": "Know your tier (EU AI Act basics)."
+  },
+  {
+    "id": "9.6-q10",
+    "topic": "retention",
+    "difficulty": 2,
+    "stem": "'We keep everything forever' is…",
+    "options": [
+      "A breach waiting to be discovered - set and enforce retention per data type",
+      "Required",
+      "Free",
+      "Best for debugging"
+    ],
+    "answer": 0,
+    "explanation": "Retention limits shrink the blast radius."
+  }
+]

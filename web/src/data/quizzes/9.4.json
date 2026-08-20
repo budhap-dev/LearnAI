@@ -1,0 +1,142 @@
+[
+  {
+    "id": "9.4-q1",
+    "topic": "cost is",
+    "difficulty": 2,
+    "stem": "LLM cost is…",
+    "options": [
+      "Fixed by the vendor",
+      "Only about volume",
+      "A number you engineer with four levers, not a bill you receive",
+      "Unpredictable"
+    ],
+    "answer": 2,
+    "explanation": "Route, cache, batch, distil."
+  },
+  {
+    "id": "9.4-q2",
+    "topic": "route lever",
+    "difficulty": 2,
+    "stem": "The biggest single cost lever is usually…",
+    "options": [
+      "Batching",
+      "Routing cheap work to a small model",
+      "Caching",
+      "Distillation"
+    ],
+    "answer": 1,
+    "explanation": "Free once evals say the small model passes (8.4)."
+  },
+  {
+    "id": "9.4-q3",
+    "topic": "cache lever",
+    "difficulty": 2,
+    "stem": "Caching the stable prefix works by…",
+    "options": [
+      "Turning the system prompt and examples into cached input, billed at a fraction",
+      "Reusing old answers",
+      "Compressing tokens",
+      "Skipping the model"
+    ],
+    "answer": 0,
+    "explanation": "Needs a stable-first, byte-identical prefix (5.5)."
+  },
+  {
+    "id": "9.4-q4",
+    "topic": "batch lever",
+    "difficulty": 2,
+    "stem": "Batching applies to…",
+    "options": [
+      "Streaming responses",
+      "Every request",
+      "Interactive chat",
+      "Work nobody is waiting for - nightly jobs, backfills, evals"
+    ],
+    "answer": 3,
+    "explanation": "The async endpoint at a discount."
+  },
+  {
+    "id": "9.4-q5",
+    "topic": "distil",
+    "difficulty": 2,
+    "stem": "Distillation pays when…",
+    "options": [
+      "Always",
+      "Only for large models",
+      "Never",
+      "Training cost < per-request saving x volume over the model's life"
+    ],
+    "answer": 3,
+    "explanation": "High-volume stable tasks cross the line fast."
+  },
+  {
+    "id": "9.4-q6",
+    "topic": "showback whale",
+    "difficulty": 2,
+    "stem": "In the showback table the biggest cost was…",
+    "options": [
+      "The interactive chat (large model, human-waiting, cannot batch), not the high-volume cheap tasks",
+      "The highest-volume task",
+      "Retrieval",
+      "The smallest task"
+    ],
+    "answer": 0,
+    "explanation": "Volume and cost are not the same."
+  },
+  {
+    "id": "9.4-q7",
+    "topic": "bill doubled",
+    "difficulty": 2,
+    "stem": "The bill doubled; look first at…",
+    "options": [
+      "The vendor's pricing page",
+      "The cache",
+      "The highest-volume feature",
+      "The showback report - a low-volume expensive path often dominates"
+    ],
+    "answer": 3,
+    "explanation": "Per-feature attribution beats intuition."
+  },
+  {
+    "id": "9.4-q8",
+    "topic": "cache break",
+    "difficulty": 2,
+    "stem": "Putting a per-user name in the system prompt spikes cost because…",
+    "options": [
+      "Output grows",
+      "The model slows down",
+      "Names use many tokens",
+      "The prefix now varies per request, so it stops being cacheable"
+    ],
+    "answer": 3,
+    "explanation": "Caching needs a byte-identical prefix (5.5)."
+  },
+  {
+    "id": "9.4-q9",
+    "topic": "cost metric",
+    "difficulty": 2,
+    "stem": "Cost per request is…",
+    "options": [
+      "A metric to track and alert on; a rise is a regression, not an invoice surprise",
+      "The vendor's concern",
+      "Only visible monthly",
+      "Untrackable"
+    ],
+    "answer": 0,
+    "explanation": "Gate it like latency or an eval score."
+  },
+  {
+    "id": "9.4-q10",
+    "topic": "no product change",
+    "difficulty": 2,
+    "stem": "The four levers…",
+    "options": [
+      "Cut spend without changing what the user sees",
+      "Slow the product",
+      "Require a new model",
+      "Reduce quality"
+    ],
+    "answer": 0,
+    "explanation": "Same answers, less spend."
+  }
+]
