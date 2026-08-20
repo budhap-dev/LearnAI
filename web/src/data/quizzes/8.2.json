@@ -1,0 +1,142 @@
+[
+  {
+    "id": "8.2-q1",
+    "topic": "what",
+    "difficulty": 2,
+    "stem": "A golden set is…",
+    "options": [
+      "The held-out set for an LLM feature: real cases with known-good outcomes, run on every change",
+      "The training data",
+      "A prompt library",
+      "A set of perfect answers"
+    ],
+    "answer": 0,
+    "explanation": "3.3's discipline for language output."
+  },
+  {
+    "id": "8.2-q2",
+    "topic": "frequency not risk",
+    "difficulty": 2,
+    "stem": "Taking the most frequent questions as your set…",
+    "options": [
+      "Covers everything",
+      "Is the right default",
+      "Is too slow",
+      "Erases rare-but-critical slices like security - frequency is not risk"
+    ],
+    "answer": 3,
+    "explanation": "Stratify with a floor sized by cost-of-error."
+  },
+  {
+    "id": "8.2-q3",
+    "topic": "stratified",
+    "difficulty": 2,
+    "stem": "Stratified sampling with a floor…",
+    "options": [
+      "Ignores the common cases",
+      "Is random",
+      "Mirrors the traffic mix but guarantees every slice a minimum number of cases",
+      "Samples only rare cases"
+    ],
+    "answer": 2,
+    "explanation": "Common cases mirrored; rare-critical cases protected."
+  },
+  {
+    "id": "8.2-q4",
+    "topic": "label",
+    "difficulty": 2,
+    "stem": "A golden-set label is…",
+    "options": [
+      "A screenshot",
+      "The ideal answer verbatim",
+      "A checkable expectation plus provenance - not a transcript of the perfect answer",
+      "The model's own grade"
+    ],
+    "answer": 2,
+    "explanation": "Many answers are good (2.7); the scorer checks a property."
+  },
+  {
+    "id": "8.2-q5",
+    "topic": "provenance",
+    "difficulty": 2,
+    "stem": "Labels record who labelled them because…",
+    "options": [
+      "Logs need it",
+      "Auditors require names",
+      "The model must never grade its own eval - that would be circular",
+      "It is traditional"
+    ],
+    "answer": 2,
+    "explanation": "A person or a documented rule, never the system under test."
+  },
+  {
+    "id": "8.2-q6",
+    "topic": "include refusals",
+    "difficulty": 2,
+    "stem": "A golden set must include…",
+    "options": [
+      "Only frequent questions",
+      "The cases that should refuse or escalate, not just the happy path",
+      "Only short questions",
+      "Only answerable questions"
+    ],
+    "answer": 1,
+    "explanation": "Features fail dangerously exactly on the cases you left out."
+  },
+  {
+    "id": "8.2-q7",
+    "topic": "version",
+    "difficulty": 2,
+    "stem": "Versioning and hashing the set matters because…",
+    "options": [
+      "Numbers from different versions are different numbers - the hash stops silent drift",
+      "It looks rigorous",
+      "Hashes are fast",
+      "Storage is cheap"
+    ],
+    "answer": 0,
+    "explanation": "'we added a few cases and the score went up' is meaningless without it."
+  },
+  {
+    "id": "8.2-q8",
+    "topic": "size",
+    "difficulty": 2,
+    "stem": "Below ~30 cases…",
+    "options": [
+      "A single flaky case moves the rate by 3+ points - too noisy to gate on",
+      "Nothing works",
+      "Judges fail",
+      "The set is ideal"
+    ],
+    "answer": 0,
+    "explanation": "Start ~50, grow to hundreds; run each several times (8.4)."
+  },
+  {
+    "id": "8.2-q9",
+    "topic": "paraphrase trap",
+    "difficulty": 2,
+    "stem": "Generating 500 cases by model-paraphrasing 20 real ones…",
+    "options": [
+      "Is fine at 500",
+      "Shares the 20's blind spots and is labelled by the thing under test - false confidence",
+      "Is a great shortcut",
+      "Improves coverage"
+    ],
+    "answer": 1,
+    "explanation": "Coverage comes from real, diverse traffic and independent labels."
+  },
+  {
+    "id": "8.2-q10",
+    "topic": "grow",
+    "difficulty": 2,
+    "stem": "A golden set should grow…",
+    "options": [
+      "Only by paraphrasing",
+      "From every production miss and incident, each added with a note",
+      "Only when the model changes",
+      "Never - freeze it"
+    ],
+    "answer": 1,
+    "explanation": "The set tracks the product; a static set stops describing live traffic."
+  }
+]

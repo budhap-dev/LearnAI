@@ -1,0 +1,54 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "<policy>\nAnnual plans can be refunded in full within 14 days of purchase. Refunds are issued to the original payment method within 5 business days.\n</policy>\n\nQuestion: I bought an annual plan 10 days ago, can I get a refund?\n\nAnswer to grade:\nThank you for reaching out! I completely understand that circumstances change. The good news is that our policy allows full refunds on annual plans within 14 days of purchase, and since you purchased just 10 days ago, you are well within that window. Once processed, the refund will be issued to your original payment method within 5 business days. [refunds]"
+      }
+    ],
+    "max_tokens": 200,
+    "system": "You grade support answers strictly against the policy. Judge correctness of the outcome and grounding of every claim. Be terse.",
+    "temperature": 0,
+    "json_schema": {
+      "type": "object",
+      "properties": {
+        "correct": {
+          "type": "boolean",
+          "description": "does the answer state the policy outcome correctly?"
+        },
+        "grounded": {
+          "type": "boolean",
+          "description": "does every claim match the policy text?"
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "correct",
+        "grounded",
+        "score",
+        "reason"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "text": "{\"correct\": true, \"grounded\": true, \"score\": 1, \"reason\": \"The answer correctly states the refund policy, confirms the 14-day window, and notes the 5-business-day processing time, all in line with the provided policy.\"}",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 178,
+      "output_tokens": 57
+    }
+  },
+  "recorded_at": "2026-08-20",
+  "recorded_by": "python"
+}

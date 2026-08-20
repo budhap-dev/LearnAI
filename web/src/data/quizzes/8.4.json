@@ -1,0 +1,142 @@
+[
+  {
+    "id": "8.4-q1",
+    "topic": "one twist",
+    "difficulty": 2,
+    "stem": "An eval differs from a normal test suite because…",
+    "options": [
+      "The system is non-deterministic, so one run is a coin flip, not a measurement",
+      "It uses YAML",
+      "It needs a GPU",
+      "It is slower"
+    ],
+    "answer": 0,
+    "explanation": "Measure rates over several runs (2.7)."
+  },
+  {
+    "id": "8.4-q2",
+    "topic": "per case rate",
+    "difficulty": 2,
+    "stem": "The unit of measurement is…",
+    "options": [
+      "The overall total only",
+      "The pass rate per case over several attempts",
+      "A single pass",
+      "The best attempt"
+    ],
+    "answer": 1,
+    "explanation": "Per-case marks carry information totals destroy."
+  },
+  {
+    "id": "8.4-q3",
+    "topic": "aggregate hides",
+    "difficulty": 2,
+    "stem": "In the recording, the aggregate gate passed 9/12 -> 9/12 while…",
+    "options": [
+      "Everything improved",
+      "A covered case (g3) silently broke as the refusal case (g4) was fixed",
+      "Nothing changed",
+      "The set shrank"
+    ],
+    "answer": 1,
+    "explanation": "Compensating changes keep the total flat while a behaviour breaks."
+  },
+  {
+    "id": "8.4-q4",
+    "topic": "per case rule",
+    "difficulty": 2,
+    "stem": "The rule that caught the hidden regression was…",
+    "options": [
+      "A bigger set",
+      "A higher overall floor",
+      "A second judge",
+      "Per-case no-collapse: a case that went [+++]->[---] blocks, whatever the average"
+    ],
+    "answer": 3,
+    "explanation": "Gate on slice minimums and per-case collapse, not just the headline."
+  },
+  {
+    "id": "8.4-q5",
+    "topic": "slice",
+    "difficulty": 2,
+    "stem": "A change keeps the overall rate flat but the security slice drops 100%->60%. The gate should…",
+    "options": [
+      "Rerun",
+      "Block on the per-slice minimum - aggregates hide compensating changes",
+      "Pass - the total held",
+      "Lower the threshold"
+    ],
+    "answer": 1,
+    "explanation": "Critical slices get their own bar."
+  },
+  {
+    "id": "8.4-q6",
+    "topic": "flaky",
+    "difficulty": 2,
+    "stem": "A case at [+-+] is…",
+    "options": [
+      "Flaky - at the edge of the distribution; fix the prompt or set the threshold honestly",
+      "A judge error",
+      "A pass",
+      "A regression"
+    ],
+    "answer": 0,
+    "explanation": "Not a rerun-until-green ticket."
+  },
+  {
+    "id": "8.4-q7",
+    "topic": "regression",
+    "difficulty": 2,
+    "stem": "A case that went [+++]->[---] is…",
+    "options": [
+      "Noise",
+      "A pass",
+      "Flakiness",
+      "A regression - the change broke that behaviour"
+    ],
+    "answer": 3,
+    "explanation": "The per-case marks tell flakiness from regression."
+  },
+  {
+    "id": "8.4-q8",
+    "topic": "rerun green",
+    "difficulty": 2,
+    "stem": "Rerunning CI until the flaky case goes green is…",
+    "options": [
+      "Good practice",
+      "Faster",
+      "Required",
+      "P-hacking your own test suite - it ships a coin-flip"
+    ],
+    "answer": 3,
+    "explanation": "The flaky rate is real information; act on it."
+  },
+  {
+    "id": "8.4-q9",
+    "topic": "thresholds when",
+    "difficulty": 2,
+    "stem": "Gate thresholds should be decided…",
+    "options": [
+      "In advance, in peacetime - before a specific change makes you want to move them",
+      "By the model",
+      "After each run",
+      "When CI fails"
+    ],
+    "answer": 0,
+    "explanation": "Written-down thresholds resist motivated reasoning."
+  },
+  {
+    "id": "8.4-q10",
+    "topic": "when runs",
+    "difficulty": 2,
+    "stem": "The eval gate runs on every change to…",
+    "options": [
+      "Only the model",
+      "Only the code",
+      "Prompt, model or version, retrieval index, scorer, or the golden set",
+      "Only the prompt"
+    ],
+    "answer": 2,
+    "explanation": "Vendor model bumps run the same gate before adoption (9.8)."
+  }
+]

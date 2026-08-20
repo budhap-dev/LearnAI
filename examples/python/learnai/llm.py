@@ -90,9 +90,21 @@ def tool_result(call: ToolCall, content: Any) -> dict[str, Any]:
             "content": content if isinstance(content, str) else json.dumps(content, ensure_ascii=False, separators=(",", ":"))}
 
 
+def _int_floats(value: Any) -> Any:
+    """Whole floats become ints (0.0 -> 0) so Python and TypeScript canonicalise identically:
+    json.dumps(0.0) is "0.0" but JSON.stringify(0) is "0", which would split cassette keys."""
+    if isinstance(value, float) and value.is_integer():
+        return int(value)
+    if isinstance(value, dict):
+        return {k: _int_floats(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_int_floats(v) for v in value]
+    return value
+
+
 def canonical(request: dict[str, Any]) -> str:
     """Stable JSON: sorted keys, no whitespace, unicode kept. Must match the TypeScript twin."""
-    return json.dumps(request, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return json.dumps(_int_floats(request), sort_keys=True, separators=(",", ":"), ensure_ascii=False)
 
 
 def request_hash(request: dict[str, Any]) -> str:

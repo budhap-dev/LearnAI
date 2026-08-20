@@ -1023,3 +1023,14 @@ ol.emb-list li button { flex: 1; }
 .ftvr-side .dist-row { grid-template-columns: 9rem 1fr 2.5rem; }
 .ftvr-note { padding: 0.6rem 0.8rem; background: var(--accent-soft); border-radius: 8px; }
 @media (max-width: 640px) { .ftvr-grid { grid-template-columns: 1fr; } }
+
+/* eval runner */
+.eval-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 0.5rem 0; }
+.eval-table th, .eval-table td { text-align: left; padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--border); }
+.eval-table .marks { font-family: var(--mono); letter-spacing: 0.15em; }
+.eval-table tr.collapsed { background: var(--wrong-soft); }
+.eval-table tr.eval-totals td { font-weight: 700; border-top: 2px solid var(--border); border-bottom: none; }
+.eval-verdict { margin: 0.6rem 0; padding: 0.6rem 0.9rem; border-radius: var(--radius); font-weight: 700; }
+.eval-verdict.pass { background: var(--correct-soft); color: var(--correct); }
+.eval-verdict.fail { background: var(--wrong-soft); color: var(--wrong); }
+.eval-verdict .small { font-weight: 400; }

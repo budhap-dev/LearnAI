@@ -1,0 +1,142 @@
+[
+  {
+    "id": "8.1-q1",
+    "topic": "demo is anecdote",
+    "difficulty": 2,
+    "stem": "Why is a flawless demo weak evidence an LLM feature works?",
+    "options": [
+      "It is one sample from a non-deterministic system on one input you happened to try",
+      "Demos use too few tokens",
+      "Demos are not logged",
+      "Demos use the wrong model"
+    ],
+    "answer": 0,
+    "explanation": "Output is sampled (2.7), the input is not representative, and fluency is not correctness (2.8)."
+  },
+  {
+    "id": "8.1-q2",
+    "topic": "eval definition",
+    "difficulty": 2,
+    "stem": "Evaluation replaces 'it looks good' with…",
+    "options": [
+      "A longer prompt",
+      "A pass rate over a representative, labelled set, measured the same way every time",
+      "A second opinion from the model",
+      "A bigger model"
+    ],
+    "answer": 1,
+    "explanation": "3.3's held-out set and metrics, applied to a language-output component."
+  },
+  {
+    "id": "8.1-q3",
+    "topic": "offline",
+    "difficulty": 2,
+    "stem": "Offline evaluation…",
+    "options": [
+      "Gates a change against a golden set before it ships",
+      "Requires real users",
+      "Watches production dashboards",
+      "Only works for classifiers"
+    ],
+    "answer": 0,
+    "explanation": "Fast, cheap, per-PR; catches known regressions."
+  },
+  {
+    "id": "8.1-q4",
+    "topic": "online",
+    "difficulty": 2,
+    "stem": "Online evaluation…",
+    "options": [
+      "Replaces offline evals",
+      "Watches production and reveals cases the golden set did not contain",
+      "Runs in CI",
+      "Needs no metrics"
+    ],
+    "answer": 1,
+    "explanation": "Complement, not alternative; every miss becomes an offline case."
+  },
+  {
+    "id": "8.1-q5",
+    "topic": "both",
+    "difficulty": 2,
+    "stem": "A team with only offline evals…",
+    "options": [
+      "Has no regressions",
+      "Is fully covered",
+      "Cannot ship",
+      "Ships confidently into surprises the set never contained"
+    ],
+    "answer": 3,
+    "explanation": "Offline cannot contain what it has never seen; online is the watch."
+  },
+  {
+    "id": "8.1-q6",
+    "topic": "loop",
+    "difficulty": 2,
+    "stem": "The eval loop is closed by…",
+    "options": [
+      "Every production miss and incident becoming a new golden-set case",
+      "More reviewers",
+      "Retraining the model",
+      "Bigger dashboards"
+    ],
+    "answer": 0,
+    "explanation": "The set is the memory that stops the same bug shipping twice."
+  },
+  {
+    "id": "8.1-q7",
+    "topic": "sample not pass",
+    "difficulty": 2,
+    "stem": "The unit of an eval measurement is…",
+    "options": [
+      "A rate over several runs, not a single pass",
+      "One representative run",
+      "The best of three",
+      "The first success"
+    ],
+    "answer": 0,
+    "explanation": "One run of a sampled system measures luck (2.7)."
+  },
+  {
+    "id": "8.1-q8",
+    "topic": "read failures",
+    "difficulty": 2,
+    "stem": "Beyond the number, you must…",
+    "options": [
+      "Read a sample of the failures - the rate says something moved, the sample says what",
+      "Trust the aggregate",
+      "Increase temperature",
+      "Rerun until green"
+    ],
+    "answer": 0,
+    "explanation": "Numbers move; failures explain."
+  },
+  {
+    "id": "8.1-q9",
+    "topic": "two points",
+    "difficulty": 2,
+    "stem": "New prompt 84%, old 82%, set run once. Is it better?",
+    "options": [
+      "Yes, 84 beats 82",
+      "No, always noise",
+      "Not yet - run several times and check no slice/case regressed; 2 points may be noise",
+      "Only if the model changed"
+    ],
+    "answer": 2,
+    "explanation": "Confidence scales with evidence (8.4)."
+  },
+  {
+    "id": "8.1-q10",
+    "topic": "definition of done",
+    "difficulty": 2,
+    "stem": "A prompt change is done when…",
+    "options": [
+      "The author is happy",
+      "It looks good in a demo",
+      "It compiles",
+      "A number says it did not make things worse, on a representative set, past a pre-set threshold"
+    ],
+    "answer": 3,
+    "explanation": "Treat a prompt change as a deploy gated on a measurement."
+  }
+]

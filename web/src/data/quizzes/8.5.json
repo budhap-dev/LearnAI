@@ -1,0 +1,142 @@
+[
+  {
+    "id": "8.5-q1",
+    "topic": "why online",
+    "difficulty": 2,
+    "stem": "Online evaluation exists because…",
+    "options": [
+      "Offline evals are unnecessary",
+      "It is faster",
+      "Production contains failures you did not think to put in the golden set",
+      "It needs no metrics"
+    ],
+    "answer": 2,
+    "explanation": "Offline protects the known; online meets the unknown."
+  },
+  {
+    "id": "8.5-q2",
+    "topic": "ladder",
+    "difficulty": 2,
+    "stem": "Online rollout is…",
+    "options": [
+      "Instant 100%",
+      "A ladder of increasing exposure - shadow, canary, A/B, full - each on evidence",
+      "A single launch",
+      "A/B only"
+    ],
+    "answer": 1,
+    "explanation": "Rollback is always one step down."
+  },
+  {
+    "id": "8.5-q3",
+    "topic": "shadow",
+    "difficulty": 2,
+    "stem": "Shadow deployment…",
+    "options": [
+      "Is the same as A/B",
+      "Serves 5% of traffic",
+      "Requires labels",
+      "Runs the candidate on real inputs and serves the old version - real evidence, zero user risk"
+    ],
+    "answer": 3,
+    "explanation": "The underused rung; catches distribution mismatches before exposure."
+  },
+  {
+    "id": "8.5-q4",
+    "topic": "no labels",
+    "difficulty": 2,
+    "stem": "Online you usually lack…",
+    "options": [
+      "Traffic",
+      "Ground-truth labels - nobody labels live traffic in real time",
+      "Metrics",
+      "Models"
+    ],
+    "answer": 1,
+    "explanation": "So you triangulate proxy signals."
+  },
+  {
+    "id": "8.5-q5",
+    "topic": "proxies",
+    "difficulty": 2,
+    "stem": "Online quality is estimated from…",
+    "options": [
+      "Thumbs up/down alone",
+      "Latency alone",
+      "Implicit behaviour, explicit feedback, sampled scorers, and guardrail/cost metrics - triangulated",
+      "The judge alone"
+    ],
+    "answer": 2,
+    "explanation": "Each proxy is imperfect; read them together."
+  },
+  {
+    "id": "8.5-q6",
+    "topic": "implicit",
+    "difficulty": 2,
+    "stem": "Escalation and refusal rates rose while thumbs stayed flat. This means…",
+    "options": [
+      "Feedback is broken",
+      "Cost went up",
+      "A regression the explicit signal missed - users are routing around the assistant",
+      "It's fine"
+    ],
+    "answer": 2,
+    "explanation": "Implicit behaviour often reveals a drop first; explicit feedback is sparse and biased."
+  },
+  {
+    "id": "8.5-q7",
+    "topic": "ab",
+    "difficulty": 2,
+    "stem": "The A/B rung decides by…",
+    "options": [
+      "The author's judgement",
+      "Reading a few outputs",
+      "The offline score",
+      "Comparing candidate vs control on the metric that matters, over enough traffic to clear noise"
+    ],
+    "answer": 3,
+    "explanation": "Same sampling-variance discipline as 8.4, over users."
+  },
+  {
+    "id": "8.5-q8",
+    "topic": "close loop",
+    "difficulty": 2,
+    "stem": "Closing the online loop means…",
+    "options": [
+      "Bigger dashboards",
+      "Turning every production miss into a labelled, versioned golden case",
+      "More canaries",
+      "Retraining"
+    ],
+    "answer": 1,
+    "explanation": "Production teaches the gate; a non-growing set is not online eval."
+  },
+  {
+    "id": "8.5-q9",
+    "topic": "safe next",
+    "difficulty": 2,
+    "stem": "A change passes offline at 94%. The safest next rung is…",
+    "options": [
+      "Nothing more",
+      "A/B at 50%",
+      "Straight to 100%",
+      "Shadow, then canary - a high offline score bounds known risk, not unknown risk"
+    ],
+    "answer": 3,
+    "explanation": "The ladder increases exposure only as evidence accumulates."
+  },
+  {
+    "id": "8.5-q10",
+    "topic": "cost tradeoff",
+    "difficulty": 2,
+    "stem": "A canary is 8% better on the judge but 15% costlier. The decision…",
+    "options": [
+      "Reject it - cost rose",
+      "Let the model decide",
+      "Ship it - better is better",
+      "Is a value-per-dollar call by the owners - verify the quality gain is real and price it at full traffic"
+    ],
+    "answer": 3,
+    "explanation": "Quality and cost are both metrics; neither alone decides."
+  }
+]

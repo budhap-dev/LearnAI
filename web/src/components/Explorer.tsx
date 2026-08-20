@@ -117,6 +117,13 @@ export const EXPLORERS: ExplorerInfo[] = [
     lesson: '6.1',
     load: () => import('./explorers/FinetuneVsRag'),
   },
+  {
+    id: 'eval-runner',
+    name: 'Eval runner',
+    teaches: 'A golden set scored across two prompt versions with a threshold gate — watch a per-case regression that the aggregate score hides.',
+    lesson: '8.4',
+    load: () => import('./explorers/EvalRunner'),
+  },
 ];
 
 const byId = Object.fromEntries(EXPLORERS.map((e) => [e.id, e]));

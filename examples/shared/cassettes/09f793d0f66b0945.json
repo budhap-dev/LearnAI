@@ -1,0 +1,25 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer the customer's question using ONLY this policy. If the policy does not cover the question, reply exactly NOT_COVERED.\n\n<policy>\nAnnual plans can be refunded in full within 14 days of purchase. Monthly plans are not refundable; cancelling stops the next charge. Refunds arrive within 5 business days. The billing date cannot be moved.\n</policy>\n\nQuestion: I bought an annual plan 10 days ago, can I get a refund?\n\n[eval run 3]"
+      }
+    ],
+    "max_tokens": 150,
+    "temperature": 0.7
+  },
+  "response": {
+    "text": "Yes, you can get a full refund since annual plans can be refunded in full within 14 days of purchase. Refunds arrive within 5 business days.",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 117,
+      "output_tokens": 34
+    }
+  },
+  "recorded_at": "2026-08-20",
+  "recorded_by": "python"
+}
