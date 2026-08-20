@@ -1,0 +1,26 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "In one sentence, what is model quantisation?"
+      }
+    ],
+    "max_tokens": 120,
+    "system": "Answer in one or two plain sentences.",
+    "temperature": 0
+  },
+  "response": {
+    "text": "Model quantisation is the process of reducing the precision of the numbers used to represent weights and activations in a neural network to make it more efficient in terms of memory and computation.",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 39,
+      "output_tokens": 36
+    }
+  },
+  "recorded_at": "2026-08-20",
+  "recorded_by": "python"
+}
