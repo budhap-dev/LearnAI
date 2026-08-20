@@ -1,0 +1,25 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer from the policy only.\n\n<policy>\nSSO is available on Pro and Enterprise. SCIM provisioning is Enterprise only.\n</policy>\n\nQuestion: Also, does the Pro plan include SSO, or do we need Enterprise?"
+      }
+    ],
+    "max_tokens": 100,
+    "temperature": 0.2
+  },
+  "response": {
+    "text": "The Pro plan includes SSO. SCIM provisioning is only available on the Enterprise plan.",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 62,
+      "output_tokens": 19
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

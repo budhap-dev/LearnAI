@@ -1,0 +1,142 @@
+[
+  {
+    "id": "7.7-q1",
+    "topic": "four classes",
+    "difficulty": 2,
+    "stem": "The four agent failure classes are…",
+    "options": [
+      "Crashes, hangs, leaks, races",
+      "Loops/stalls, runaway spend, goal drift, compounding error",
+      "Bias, refusal, verbosity, cost",
+      "Latency, jitter, loss, duplication"
+    ],
+    "answer": 1,
+    "explanation": "Each exists because there is a loop; each has a code-shaped guardrail."
+  },
+  {
+    "id": "7.7-q2",
+    "topic": "repeat",
+    "difficulty": 2,
+    "stem": "The commonest failure is…",
+    "options": [
+      "Hallucinated tools",
+      "The same call with the same arguments, again - a model that did not get what it wanted just retries",
+      "Refusals",
+      "Crashes"
+    ],
+    "answer": 1,
+    "explanation": "Detect exact repeats; inject 'already tried; result was X' or stop."
+  },
+  {
+    "id": "7.7-q3",
+    "topic": "no progress",
+    "difficulty": 2,
+    "stem": "'No new information in the window' catches…",
+    "options": [
+      "Drift",
+      "Stalls that vary their calls slightly - progress means a (tool, args) pair not seen before",
+      "Fast loops only",
+      "Budget overruns"
+    ],
+    "answer": 1,
+    "explanation": "Weaker loops repeat with variations; freshness is the test."
+  },
+  {
+    "id": "7.7-q4",
+    "topic": "drift",
+    "difficulty": 2,
+    "stem": "The wander trace shows…",
+    "options": [
+      "An exact repeat",
+      "A crash",
+      "A budget overrun",
+      "An agent busy and succeeding at every call - on work irrelevant to the goal"
+    ],
+    "answer": 3,
+    "explanation": "Activity is not progress; the goal-relevance of the recent window is the cheap proxy."
+  },
+  {
+    "id": "7.7-q5",
+    "topic": "budget last resort",
+    "difficulty": 2,
+    "stem": "Budgets remain essential even with detectors because…",
+    "options": [
+      "Detectors are expensive",
+      "Budgets are traditional",
+      "Novel failure shapes will slip pattern detectors; the cap bounds damage regardless",
+      "Tokens are cheap"
+    ],
+    "answer": 2,
+    "explanation": "Guardrail of last resort, from 7.2."
+  },
+  {
+    "id": "7.7-q6",
+    "topic": "compounding",
+    "difficulty": 2,
+    "stem": "0.95 per step over 20 steps ≈…",
+    "options": [
+      "81%",
+      "64%",
+      "95%",
+      "36% chance every step was right - and a wrong mid-trace fact poisons later steps"
+    ],
+    "answer": 3,
+    "explanation": "The model conditions on its own history; errors compound and propagate."
+  },
+  {
+    "id": "7.7-q7",
+    "topic": "reset",
+    "difficulty": 2,
+    "stem": "Verification between steps matters because…",
+    "options": [
+      "End checks are impossible",
+      "Each verified step resets the multiplication - errors are caught where they happen, not discovered at the end",
+      "It uses fewer tokens",
+      "It looks rigorous"
+    ],
+    "answer": 1,
+    "explanation": "Schemas, value checks, test runs: 4.3 applied per iteration."
+  },
+  {
+    "id": "7.7-q8",
+    "topic": "responses",
+    "difficulty": 2,
+    "stem": "Auto-raising the budget when it trips causes…",
+    "options": [
+      "Nothing",
+      "Better answers",
+      "Faster convergence",
+      "Runaway spend with extra steps - escalation must be a human decision"
+    ],
+    "answer": 3,
+    "explanation": "The wrong response converts one failure into another."
+  },
+  {
+    "id": "7.7-q9",
+    "topic": "detector tuning",
+    "difficulty": 2,
+    "stem": "A drift detector firing on 15% of healthy runs should be…",
+    "options": [
+      "Ignored",
+      "Tuned like any classifier - widen the goal set, measure false positives on labelled traces, respond with a nudge not a kill",
+      "Made stricter",
+      "Deleted"
+    ],
+    "answer": 1,
+    "explanation": "Detectors are classifiers over traces; 3.3's precision/recall applies."
+  },
+  {
+    "id": "7.7-q10",
+    "topic": "trace again",
+    "difficulty": 2,
+    "stem": "Every exit path returns the trace because…",
+    "options": [
+      "Storage is cheap",
+      "It speeds up the loop",
+      "Users read traces",
+      "Debugging, evals and incident review all consume it - an agent is exactly as debuggable as its trace is complete"
+    ],
+    "answer": 3,
+    "explanation": "The through-line of 5.7, 7.2 and Module 8."
+  }
+]

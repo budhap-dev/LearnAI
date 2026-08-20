@@ -1,0 +1,142 @@
+[
+  {
+    "id": "7.2-q1",
+    "topic": "definition",
+    "difficulty": 2,
+    "stem": "An agent loop is…",
+    "options": [
+      "A chat with memory",
+      "A while loop with tools",
+      "A fine-tuned model",
+      "The tool loop with the model choosing next steps — plus goal, budgets, termination contract and a trace"
+    ],
+    "answer": 3,
+    "explanation": "The four organs are what separate an agent from an incident."
+  },
+  {
+    "id": "7.2-q2",
+    "topic": "two budgets",
+    "difficulty": 2,
+    "stem": "Steps AND tokens are both capped because…",
+    "options": [
+      "Two numbers look better",
+      "Tokens are free",
+      "Steps are free",
+      "Either alone is gameable: many cheap steps, or few enormous ones"
+    ],
+    "answer": 3,
+    "explanation": "Whichever trips first ends the run - with the trace."
+  },
+  {
+    "id": "7.2-q3",
+    "topic": "termination",
+    "difficulty": 2,
+    "stem": "Termination is…",
+    "options": [
+      "Requested of the model ('answer in prose when done') and guaranteed by the loop's budgets",
+      "A stop token",
+      "Guaranteed by the model",
+      "Impossible to ensure"
+    ],
+    "answer": 0,
+    "explanation": "The prompt asks; the budget enforces."
+  },
+  {
+    "id": "7.2-q4",
+    "topic": "degraded exit",
+    "difficulty": 2,
+    "stem": "When the budget trips mid-run, the caller should receive…",
+    "options": [
+      "An automatic retry with a doubled budget",
+      "Nothing",
+      "Partial findings, the stop reason, and the full trace",
+      "An exception"
+    ],
+    "answer": 2,
+    "explanation": "Budget exhaustion is a designed outcome; silently raising caps is how runaway spend happens."
+  },
+  {
+    "id": "7.2-q5",
+    "topic": "read-only",
+    "difficulty": 2,
+    "stem": "The example's tools were read-only so that…",
+    "options": [
+      "The worst possible outcome was a wrong sentence, not a wrong action",
+      "The model runs faster",
+      "Cassettes stay small",
+      "The trace stays short"
+    ],
+    "answer": 0,
+    "explanation": "Acting tools wait for 7.3's contracts and 7.6's gates."
+  },
+  {
+    "id": "7.2-q6",
+    "topic": "method",
+    "difficulty": 2,
+    "stem": "In the recordings, a vague method prompt checked one healthy service and blamed it; a specific method found the real cause. Lesson?",
+    "options": [
+      "Methods do not matter",
+      "Bigger models fix vague prompts",
+      "Always use temperature 0",
+      "Agents amplify prompt quality — and anything required must be code, not prose"
+    ],
+    "answer": 3,
+    "explanation": "The loop was identical; the method text changed the conclusion."
+  },
+  {
+    "id": "7.2-q7",
+    "topic": "skipped step",
+    "difficulty": 2,
+    "stem": "The model skipped the instructed deploy-check and still answered correctly. The right takeaway…",
+    "options": [
+      "The instruction was wrong",
+      "The model is unreliable",
+      "Instructions steer, not enforce; a mandatory step belongs in a chain",
+      "Deploys never matter"
+    ],
+    "answer": 2,
+    "explanation": "2.6's lesson arriving in the loop: required steps are code."
+  },
+  {
+    "id": "7.2-q8",
+    "topic": "trace",
+    "difficulty": 2,
+    "stem": "The trace exists because…",
+    "options": [
+      "It makes demos nicer",
+      "Agents are debuggable, evaluable and auditable exactly to the extent their traces are complete",
+      "The API requires it",
+      "Logs are traditional"
+    ],
+    "answer": 1,
+    "explanation": "It is 5.7's spans plus tool I/O — the artefact every later module consumes."
+  },
+  {
+    "id": "7.2-q9",
+    "topic": "revalidate",
+    "difficulty": 2,
+    "stem": "Tool arguments are re-validated on every iteration because…",
+    "options": [
+      "Schemas drift",
+      "Budgets require it",
+      "Caching invalidates them",
+      "Step 6 is as untrusted as step 1 — the model may now be conditioning on attacker text it read mid-run"
+    ],
+    "answer": 3,
+    "explanation": "Trust does not accumulate across iterations."
+  },
+  {
+    "id": "7.2-q10",
+    "topic": "wall clock",
+    "difficulty": 2,
+    "stem": "A wall-clock budget matters even with step and token caps because…",
+    "options": [
+      "Tokens measure time",
+      "A slow tool can burn minutes at zero steps and zero tokens — users and SLOs live in seconds",
+      "Steps measure time",
+      "It never matters"
+    ],
+    "answer": 1,
+    "explanation": "Three budgets for three resources the loop can exhaust."
+  }
+]

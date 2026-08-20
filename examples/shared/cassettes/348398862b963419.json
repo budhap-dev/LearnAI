@@ -1,0 +1,44 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Draft a billing adjustment proposal from this request. Extract the invoice id and amount exactly as stated; do not compute new figures.\n\nYou charged us for 42 seats this month but we reduced to 40 before renewal - please correct the invoice (INV-2291, difference 50.00)."
+      }
+    ],
+    "max_tokens": 200,
+    "json_schema": {
+      "type": "object",
+      "properties": {
+        "invoice": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "invoice",
+        "amount",
+        "summary"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "text": "{\n  \"invoice\": \"INV-2291\",\n  \"amount\": 50.00,\n  \"summary\": \"You charged us for 42 seats this month, but we reduced to 40 before renewal. Please correct the invoice.\"\n}",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 81,
+      "output_tokens": 57
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

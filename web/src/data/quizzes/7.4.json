@@ -1,0 +1,142 @@
+[
+  {
+    "id": "7.4-q1",
+    "topic": "what mcp is",
+    "difficulty": 2,
+    "stem": "MCP standardises…",
+    "options": [
+      "How a host app discovers and calls tool servers: tools, resources and prompts over one protocol",
+      "Tool permissions",
+      "Prompt quality",
+      "Model safety"
+    ],
+    "answer": 0,
+    "explanation": "Plumbing: N+M integrations instead of N×M."
+  },
+  {
+    "id": "7.4-q2",
+    "topic": "nxm",
+    "difficulty": 2,
+    "stem": "The N×M problem is…",
+    "options": [
+      "Too many prompts",
+      "Too many tokens",
+      "Every model-hosting app integrating every system bespoke, pair by pair",
+      "Too many models"
+    ],
+    "answer": 2,
+    "explanation": "One protocol collapses the matrix."
+  },
+  {
+    "id": "7.4-q3",
+    "topic": "three things",
+    "difficulty": 2,
+    "stem": "An MCP server offers…",
+    "options": [
+      "Keys, quotas, budgets",
+      "Tools (callable functions), resources (readable content), prompts (reusable templates)",
+      "Models, weights, adapters",
+      "Embeddings, indexes, chunks"
+    ],
+    "answer": 1,
+    "explanation": "Discovered at runtime by any MCP-speaking host."
+  },
+  {
+    "id": "7.4-q4",
+    "topic": "not standardised",
+    "difficulty": 2,
+    "stem": "What the protocol deliberately does not provide…",
+    "options": [
+      "Transport",
+      "Discovery",
+      "Permissions, trust of results, gates for consequential actions, quality, budgets",
+      "Tool schemas"
+    ],
+    "answer": 2,
+    "explanation": "Everything Module 7 taught remains yours, per server."
+  },
+  {
+    "id": "7.4-q5",
+    "topic": "supply chain",
+    "difficulty": 2,
+    "stem": "Installing a third-party MCP server is…",
+    "options": [
+      "A protocol formality",
+      "Risk-free by design",
+      "Installing a dependency that holds credentials and feeds your model's context - vet, pin, scope, sandbox",
+      "Only a latency question"
+    ],
+    "answer": 2,
+    "explanation": "A malicious server can exfiltrate what it reads and inject what your model consumes."
+  },
+  {
+    "id": "7.4-q6",
+    "topic": "browse tool",
+    "difficulty": 2,
+    "stem": "A 'browse any URL' server's primary risk is…",
+    "options": [
+      "Cache misses",
+      "Slow fetches",
+      "Version mismatch",
+      "Everything fetched is untrusted text entering prompts, and the server sees what your agent sends"
+    ],
+    "answer": 3,
+    "explanation": "An injection firehose plus a third party in the data path."
+  },
+  {
+    "id": "7.4-q7",
+    "topic": "when bespoke",
+    "difficulty": 2,
+    "stem": "Bespoke 5.3-style tools remain right when…",
+    "options": [
+      "Never",
+      "Always",
+      "Only for prototypes",
+      "One app owns a few latency-critical tools wrapping its own services"
+    ],
+    "answer": 3,
+    "explanation": "Library-vs-service: the protocol hop must buy something."
+  },
+  {
+    "id": "7.4-q8",
+    "topic": "when mcp",
+    "difficulty": 2,
+    "stem": "MCP earns its hop when…",
+    "options": [
+      "A single script needs one function",
+      "The tool is secret",
+      "Latency is critical",
+      "Several hosts need the same tools, or the integration is a product for/from others"
+    ],
+    "answer": 3,
+    "explanation": "Write once, permission-review once, every host inherits fixes."
+  },
+  {
+    "id": "7.4-q9",
+    "topic": "identity",
+    "difficulty": 2,
+    "stem": "Calls through an MCP server should carry…",
+    "options": [
+      "A scoped service identity per server plus the end user's authorisation context, enforced in the server's backend",
+      "No identity",
+      "Admin credentials for convenience",
+      "The model's identity"
+    ],
+    "answer": 0,
+    "explanation": "Least privilege per server; enforcement never lives in the model."
+  },
+  {
+    "id": "7.4-q10",
+    "topic": "server prompts",
+    "difficulty": 2,
+    "stem": "Adopting a server's shipped prompt template means…",
+    "options": [
+      "Automatic safety",
+      "A protocol violation",
+      "Third-party prompt material inside your trust boundary - useful, and version-pinned like your own registry entries",
+      "Free quality with no risk"
+    ],
+    "answer": 2,
+    "explanation": "It changes when they update it; 4.4's registry discipline applies."
+  }
+]
