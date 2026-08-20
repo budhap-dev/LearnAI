@@ -126,6 +126,7 @@
 html {
   /* Stop iOS inflating text in landscape, and keep 100vw honest */
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;   /* a stray wide child never forces the page sideways (clip keeps sticky) */
 }
 
 body {
@@ -148,19 +149,28 @@ button, .button { touch-action: manipulation; }   /* no double-tap zoom delay on
 a { color: var(--accent); }
 
 .shell { min-height: 100vh; display: flex; flex-direction: column; }
+.shell > * { min-width: 0; }   /* flex items may shrink below content width; wide children scroll in their own box */
 
 header {
   display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
   padding: 0.9rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-  position: sticky; top: 0; z-index: 10;
+  /* colourful, theme-aligned bar: a wash of the selected theme's accent, fading to surface */
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 32%, var(--border));
+  box-shadow: 0 2px 14px color-mix(in srgb, var(--accent) 16%, transparent);
+  position: sticky; top: 0; z-index: 50;
 }
 
 .brand { font-weight: 700; font-size: 1.15rem; text-decoration: none; color: var(--text); }
 .brand span { color: var(--accent); }
 
-header nav { display: flex; gap: 1.1rem; }
+header nav { display: flex; gap: 1.1rem; flex-wrap: wrap; row-gap: 0.3rem; }
+.site-nav { display: flex; align-items: center; gap: 1.5rem; flex: 1; }
+header nav a { display: inline-flex; align-items: center; gap: 0.6rem; }
+.nav-ico { display: none; color: var(--muted); }   /* icons show in the mobile drawer only */
+.nav-ico svg { display: block; }
+.nav-toggle { display: none; }        /* hamburger: mobile only */
+.nav-backdrop { display: none; }      /* drawer backdrop: mobile only */
 header nav a {
   text-decoration: none; color: var(--muted); font-size: 0.94rem;
   padding: 0.35rem 0.7rem; border-radius: 8px;
@@ -332,8 +342,67 @@ button:disabled { cursor: default; }
   h2 { font-size: 1.15rem; }
   .lede, .summary { font-size: 1rem; }
 
-  header { padding: 0.7rem 1rem; gap: 0.75rem; }
-  header nav { gap: 0.85rem; }
+  header { padding: 0.7rem 1rem; }
+
+  /* ---- mobile drawer (hamburger) ---- */
+  .nav-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    order: -1; margin-right: 0.4rem;    /* sit at the left end, before the brand */
+    width: 2.5rem; height: 2.5rem; font-size: 1.2rem;
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; cursor: pointer;
+  }
+  .site-nav {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: min(20rem, 82vw); flex: none;
+    flex-direction: column; align-items: stretch; gap: 0.5rem;
+    padding: 4.75rem 1rem 1.5rem;      /* clear the sticky header bar */
+    /* colourful top, matching the bar, fading to a clean surface for the list below */
+    background:
+      linear-gradient(180deg,
+        color-mix(in srgb, var(--accent) 16%, var(--surface)) 0,
+        var(--surface) 9rem);
+    border-right: 1px solid var(--border);
+    box-shadow: 10px 0 30px rgb(0 0 0 / 0.18);
+    z-index: 40; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    transform: translateX(-100%); transition: transform 0.22s ease;
+  }
+  .site-nav.open { transform: translateX(0); }
+  .site-nav nav { flex-direction: column; align-items: stretch; gap: 0.15rem; }
+  .site-nav nav { gap: 0; }
+  .site-nav nav a {
+    padding: 0.85rem 0.7rem; font-size: 1rem; border-radius: 0;
+    border-bottom: 1px solid var(--border);   /* light separator, follows the theme */
+  }
+  .site-nav nav a:last-child { border-bottom: none; }
+  .site-nav .nav-ico { display: inline-flex; }
+  .site-nav nav a.active .nav-ico { color: var(--accent); }   /* icon tracks the selected state */
+  .site-nav .header-right {
+    border-top: 1px solid var(--border);       /* separate the controls block from the links */
+    padding-top: 0.9rem;
+  }
+  .site-nav .header-right {
+    flex-direction: column; align-items: stretch;
+    width: 100%; margin: 0.6rem 0 0; gap: 0.7rem;
+  }
+  .site-nav .header-search, .site-nav .header-search input { width: 100%; }
+  .site-nav .theme-picker { width: 100%; }
+  .site-nav .theme-button { width: 100%; justify-content: flex-start; }
+  .site-nav .theme-menu {
+    position: static; min-width: 0; width: 100%; max-width: none;
+    margin-top: 0.3rem; box-shadow: none;
+  }
+  .site-nav .theme-menu button { white-space: normal; }
+  .site-nav .search-suggest {
+    position: static; width: 100%; margin-top: 0.3rem;
+    max-height: none; box-shadow: none;
+  }
+  .nav-backdrop {
+    display: block; position: fixed; inset: 0;
+    background: rgb(0 0 0 / 0.45); border: 0; z-index: 39;
+    opacity: 0; pointer-events: none; transition: opacity 0.22s ease;
+  }
+  .nav-backdrop.show { opacity: 1; pointer-events: auto; }
 
   .hero { padding-top: 0.25rem; }
   .cta { flex-direction: column; }
@@ -893,7 +962,8 @@ ol.emb-list li button { flex: 1; }
   background: conic-gradient(var(--accent) var(--pct, 0%), var(--border) 0);
 }
 .header-right { margin-left: auto; display: flex; gap: 0.6rem; align-items: center; }
-@media (max-width: 760px) { .header-search input { width: 11rem; } .progress-pill { display: none; } }
+@media (min-width: 641px) and (max-width: 760px) { .progress-pill { display: none; } }
+@media (min-width: 641px) and (max-width: 760px) { .header-search input { width: 11rem; } }
 
 /* ---- progress page ---- */
 .stat-cards { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); margin: 1rem 0 1.5rem; }
@@ -1034,3 +1104,7 @@ ol.emb-list li button { flex: 1; }
 .eval-verdict.pass { background: var(--correct-soft); color: var(--correct); }
 .eval-verdict.fail { background: var(--wrong-soft); color: var(--wrong); }
 .eval-verdict .small { font-weight: 400; }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav, .nav-backdrop { transition: none; }
+}
