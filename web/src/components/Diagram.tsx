@@ -10,6 +10,9 @@ import {
   CacheHitMiss, ModalityPipeline, ModelRouter, RequestSequence, StreamingTimeline, ToolRoundTrip, TraceWaterfall,
 } from './diagrams/apis';
 import {
+  AgentFailures, AgentLoopStops, McpTopology, MemoryTiers, PatternGallery, SupervisorGate,
+} from './diagrams/agents';
+import {
   ChunkOverlap, GroundedVsUngrounded, HybridFusion, RagDecisionMatrix, RagEvalTriad, RagPipeline, TwoStageRetrieval,
 } from './diagrams/rag';
 import {
@@ -71,6 +74,12 @@ const REGISTRY: Record<string, ComponentType> = {
   'two-stage-retrieval': TwoStageRetrieval,
   'grounded-vs-ungrounded': GroundedVsUngrounded,
   'rag-eval-triad': RagEvalTriad,
+  'pattern-gallery': PatternGallery,
+  'agent-loop-stops': AgentLoopStops,
+  'mcp-topology': McpTopology,
+  'memory-tiers': MemoryTiers,
+  'supervisor-gate': SupervisorGate,
+  'agent-failures': AgentFailures,
 };
 
 export function Diagram({ name }: { name: string }) {

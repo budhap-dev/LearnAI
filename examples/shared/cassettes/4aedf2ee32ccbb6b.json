@@ -1,0 +1,58 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Split this customer email into separate tasks and classify each.\n\n<email>\nSubject: two things\n\n1) You charged us for 42 seats this month but we reduced to 40 before renewal - please correct the invoice (INV-2291, difference 50.00).\n2) Also, does the Pro plan include SSO, or do we need Enterprise?\n</email>"
+      }
+    ],
+    "max_tokens": 300,
+    "system": "You are a triage supervisor. Extract every distinct request; invent nothing.",
+    "json_schema": {
+      "type": "object",
+      "properties": {
+        "tasks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "billing_adjustment",
+                  "product_question",
+                  "other"
+                ]
+              },
+              "detail": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "detail"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "tasks"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "text": "{\n  \"tasks\": [\n    {\n      \"kind\": \"billing_adjustment\",\n      \"detail\": \"You charged us for 42 seats this month but we reduced to 40 before renewal - please correct the invoice (INV-2291, difference 50.00).\"\n    },\n    {\n      \"kind\": \"product_question\",\n      \"detail\": \"Also, does the Pro plan include SSO, or do we need Enterprise?\"\n    }\n  ]\n}",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 118,
+      "output_tokens": 102
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "7.6-q1",
+    "topic": "what it is",
+    "difficulty": 2,
+    "stem": "Multi-agent is best understood as…",
+    "options": [
+      "A vendor feature",
+      "Emergent AI collaboration",
+      "Chat between models",
+      "Function decomposition where some functions are model calls - typed seams, narrow workers, small supervisor"
+    ],
+    "answer": 3,
+    "explanation": "The oldest tool in software, applied to model calls."
+  },
+  {
+    "id": "7.6-q2",
+    "topic": "supervisor",
+    "difficulty": 2,
+    "stem": "The supervisor has no tools and no authority so that…",
+    "options": [
+      "It stays cheap",
+      "It runs faster",
+      "It cannot be injected",
+      "Its worst failure is a misroute - caught by classifier evals, never costing money"
+    ],
+    "answer": 3,
+    "explanation": "Small blast radius by construction."
+  },
+  {
+    "id": "7.6-q3",
+    "topic": "typed seams",
+    "difficulty": 2,
+    "stem": "Handoffs are typed JSON because…",
+    "options": [
+      "Every seam becomes loggable, replayable, and evaluable on its own golden set",
+      "Models prefer it",
+      "JSON is fashionable",
+      "Prose is slower"
+    ],
+    "answer": 0,
+    "explanation": "Prose seams lose validation, replay, evals, idempotency and gate enforcement."
+  },
+  {
+    "id": "7.6-q4",
+    "topic": "gate essence",
+    "difficulty": 2,
+    "stem": "A working approval gate is…",
+    "options": [
+      "A system-prompt rule",
+      "A confirmation prompt to the model",
+      "A code boundary between propose and execute, crossed only by an identity from your auth system",
+      "A checkbox in the UI"
+    ],
+    "answer": 2,
+    "explanation": "No prompt output traverses it - the model cannot approve its own proposal."
+  },
+  {
+    "id": "7.6-q5",
+    "topic": "placement",
+    "difficulty": 2,
+    "stem": "Gates belong on…",
+    "options": [
+      "Reads",
+      "Irreversible or expensive actions: money, customer emails, deletions, permission changes",
+      "Every action equally",
+      "Drafts"
+    ],
+    "answer": 1,
+    "explanation": "A gate on everything trains reviewers to click yes - which is no gate."
+  },
+  {
+    "id": "7.6-q6",
+    "topic": "fatigue",
+    "difficulty": 2,
+    "stem": "Reviewers approving in two seconds means…",
+    "options": [
+      "The agent earned trust",
+      "Add a second approval",
+      "Alert fatigue: re-scope gates by blast radius and auto-serve the harmless paths",
+      "Reviews are efficient"
+    ],
+    "answer": 2,
+    "explanation": "Reviewer attention is finite; spend it where reversal is impossible."
+  },
+  {
+    "id": "7.6-q7",
+    "topic": "recorded run",
+    "difficulty": 2,
+    "stem": "In the recording, the SSO answer served immediately while the 50.00 correction…",
+    "options": [
+      "Was emailed to the customer",
+      "Was rejected automatically",
+      "Stopped at the gate as a proposal until the reviewer approved",
+      "Was executed by the worker"
+    ],
+    "answer": 2,
+    "explanation": "Money waits; grounded answers do not."
+  },
+  {
+    "id": "7.6-q8",
+    "topic": "scope creep",
+    "difficulty": 2,
+    "stem": "A worker answering outside its scope is a defect even when right because…",
+    "options": [
+      "It costs tokens",
+      "Rules are rules",
+      "Leaked work bypasses the grounding, evals and gating attached to the proper scope",
+      "It confuses logs"
+    ],
+    "answer": 2,
+    "explanation": "Guarantees attach to scopes; cross-seam work carries none."
+  },
+  {
+    "id": "7.6-q9",
+    "topic": "evidence",
+    "difficulty": 2,
+    "stem": "The reviewer must see…",
+    "options": [
+      "The model version",
+      "The proposal, the evidence and the trace - not 'the AI wants something, OK?'",
+      "Just the amount",
+      "The raw prompt"
+    ],
+    "answer": 1,
+    "explanation": "7.3's audit lines are what make review real."
+  },
+  {
+    "id": "7.6-q10",
+    "topic": "timeout",
+    "difficulty": 2,
+    "stem": "A pending proposal that times out should…",
+    "options": [
+      "Silently drop",
+      "Auto-approve to unblock",
+      "Escalate - never auto-approve",
+      "Retry the worker"
+    ],
+    "answer": 2,
+    "explanation": "Unowned queues rot into auto-approve; ownership and escalation are part of the gate."
+  }
+]

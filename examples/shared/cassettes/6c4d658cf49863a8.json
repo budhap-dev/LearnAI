@@ -1,0 +1,25 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Summarise this support conversation so far in 2-3 sentences for the assistant's own context. Keep concrete identifiers and open issues; drop pleasantries.\n\nuser: Hi - we're Acme Robotics, on the Pro plan, about 40 seats.\nassistant: Welcome! How can I help Acme today?\nuser: Our workspace id is WS-7731. We mainly use the API from eu-west.\nassistant: Noted. What do you need help with?\nuser: Reports were slow yesterday but it fixed itself.\nassistant: Good to hear - likely the incident we posted about."
+      }
+    ],
+    "max_tokens": 150,
+    "temperature": 0.2
+  },
+  "response": {
+    "text": "Acme Robotics, on the Pro plan with 40 seats and workspace ID WS-7731, reported slow reports via the EU-West API, which resolved itself. The assistant noted it might have been related to a previously mentioned incident. No specific open issues were identified yet.",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 140,
+      "output_tokens": 59
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

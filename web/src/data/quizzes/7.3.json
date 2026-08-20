@@ -1,0 +1,142 @@
+[
+  {
+    "id": "7.3-q1",
+    "topic": "untrusted",
+    "difficulty": 2,
+    "stem": "Tool arguments are untrusted input because…",
+    "options": [
+      "Schemas are optional",
+      "They are assembled by a text predictor that may be conditioned on attacker-written text, and the loop retries",
+      "JSON is unsafe",
+      "Models are malicious"
+    ],
+    "answer": 1,
+    "explanation": "Validate as if they came from the internet - indirectly they did."
+  },
+  {
+    "id": "7.3-q2",
+    "topic": "three layers",
+    "difficulty": 2,
+    "stem": "The three validation layers are…",
+    "options": [
+      "Lint, test, deploy",
+      "Schema (shape), reality (the world's bounds), policy (caps and rules) — none optional",
+      "Prompt, model, temperature",
+      "Try, catch, log"
+    ],
+    "answer": 1,
+    "explanation": "Defence in depth: the naive tool died for lacking all three."
+  },
+  {
+    "id": "7.3-q3",
+    "topic": "propose",
+    "difficulty": 2,
+    "stem": "'Propose, don't execute' means…",
+    "options": [
+      "Consequential tools stage a proposal; execution is a separate code path requiring real identity",
+      "Tools return drafts",
+      "The model asks politely",
+      "Execution is logged"
+    ],
+    "answer": 0,
+    "explanation": "The model's schema has no execute in it - like CI not pushing to prod."
+  },
+  {
+    "id": "7.3-q4",
+    "topic": "reality",
+    "difficulty": 2,
+    "stem": "'Validate against reality' means…",
+    "options": [
+      "Check types match",
+      "Check the prompt was followed",
+      "Check the JSON parses",
+      "Check the arguments against the world: the order exists, the amount is within what is refundable"
+    ],
+    "answer": 3,
+    "explanation": "Shape says number; reality says ≤ 50.00 refundable on this order."
+  },
+  {
+    "id": "7.3-q5",
+    "topic": "idempotent",
+    "difficulty": 2,
+    "stem": "Tools must be idempotent by key because…",
+    "options": [
+      "Keys are cheap",
+      "It is faster",
+      "Models like keys",
+      "The loop retries (5.1, 7.2), so any non-idempotent action can happen twice"
+    ],
+    "answer": 3,
+    "explanation": "One refund per order per reason; the retry is a no-op."
+  },
+  {
+    "id": "7.3-q6",
+    "topic": "naive result",
+    "difficulty": 2,
+    "stem": "The naive refund tool's failure was that it…",
+    "options": [
+      "Refused everything",
+      "'Worked' on every call — paying out on an eval'd expression, a nonsense id and a negative amount",
+      "Was slow",
+      "Crashed"
+    ],
+    "answer": 1,
+    "explanation": "No jailbreak needed; plausible text was enough."
+  },
+  {
+    "id": "7.3-q7",
+    "topic": "authz",
+    "difficulty": 2,
+    "stem": "The defence against a search tool queried for another customer's data is…",
+    "options": [
+      "A firmer system prompt",
+      "The tool's own authorisation: it searches only what the current user may see, regardless of query text",
+      "Lower temperature",
+      "Blocking keywords"
+    ],
+    "answer": 1,
+    "explanation": "Tools carry the caller's real permissions, never the model's ambitions."
+  },
+  {
+    "id": "7.3-q8",
+    "topic": "descriptions",
+    "difficulty": 2,
+    "stem": "Tool names and descriptions deserve care because…",
+    "options": [
+      "They appear in logs",
+      "The protocol requires them",
+      "Users read them",
+      "They are the only documentation the model gets - they decide when and how it calls"
+    ],
+    "answer": 3,
+    "explanation": "Vague contracts produce vague calls, forever."
+  },
+  {
+    "id": "7.3-q9",
+    "topic": "errors as data",
+    "difficulty": 2,
+    "stem": "Tool errors return as data (not exceptions) because…",
+    "options": [
+      "Errors are rare",
+      "Logs prefer JSON",
+      "Exceptions are slow",
+      "The model can recover from 'not found'; it cannot recover from an exception in your process"
+    ],
+    "answer": 3,
+    "explanation": "5.3's rule, now with audit attached."
+  },
+  {
+    "id": "7.3-q10",
+    "topic": "audit",
+    "difficulty": 2,
+    "stem": "Every tool call is audited so that…",
+    "options": [
+      "The agent's actions are reconstructable from the trace — for debugging, evals and incident review",
+      "Auditors like lines",
+      "Storage is cheap",
+      "Models learn from logs"
+    ],
+    "answer": 0,
+    "explanation": "7.2's trace extends into the tools."
+  }
+]

@@ -1,0 +1,52 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Extract durable account facts from this conversation as key/value pairs - things that will still be true next month (company, plan, ids, names, regions). Not the current issue.\n\nuser: Hi - we're Acme Robotics, on the Pro plan, about 40 seats.\nassistant: Welcome! How can I help Acme today?\nuser: Our workspace id is WS-7731. We mainly use the API from eu-west.\nassistant: Noted. What do you need help with?\nuser: Reports were slow yesterday but it fixed itself.\nassistant: Good to hear - likely the incident we posted about.\nuser: Also my name is Priya, I'm the platform lead.\nassistant: Thanks Priya.\nuser: Now the real question: we keep hitting 429s on the export endpoint since Monday.\nassistant: Let me look into the rate limits for exports."
+      }
+    ],
+    "max_tokens": 300,
+    "json_schema": {
+      "type": "object",
+      "properties": {
+        "facts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "key",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "facts"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "text": "{\n  \"facts\": [\n    {\n      \"key\": \"company\",\n      \"value\": \"Acme Robotics\"\n    },\n    {\n      \"key\": \"plan\",\n      \"value\": \"Pro\"\n    },\n    {\n      \"key\": \"workspace_id\",\n      \"value\": \"WS-7731\"\n    },\n    {\n      \"key\": \"region\",\n      \"value\": \"eu-west\"\n    },\n    {\n      \"key\": \"user_name\",\n      \"value\": \"Priya\"\n    },\n    {\n      \"key\": \"user_role\",\n      \"value\": \"platform lead\"\n    },\n    {\n      \"key\": \"issue\",\n      \"value\": \"hitting 429s on the export endpoint since Monday\"\n    }\n  ]\n}",
+    "model": "qwen3:8b",
+    "stop_reason": "end_turn",
+    "usage": {
+      "input_tokens": 198,
+      "output_tokens": 162
+    }
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

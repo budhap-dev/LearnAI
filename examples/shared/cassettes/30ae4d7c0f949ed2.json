@@ -1,0 +1,151 @@
+{
+  "request": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Users report checkout is slow since about 2pm. Find the most likely cause."
+      },
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_o0duk6xq",
+            "name": "list_services",
+            "arguments": {}
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_o0duk6xq",
+        "name": "list_services",
+        "content": "{\"services\":[\"database\",\"orders\",\"payments\"]}"
+      },
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_ohe6tfcf",
+            "name": "get_latency",
+            "arguments": {
+              "service": "orders"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_ohe6tfcf",
+        "name": "get_latency",
+        "content": "{\"service\":\"orders\",\"p95_ms\":[95,96,94,97,95,96]}"
+      },
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_tsfqwef1",
+            "name": "get_latency",
+            "arguments": {
+              "service": "payments"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_tsfqwef1",
+        "name": "get_latency",
+        "content": "{\"service\":\"payments\",\"p95_ms\":[120,118,121,260,265,262]}"
+      },
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_1pdlgayi",
+            "name": "get_latency",
+            "arguments": {
+              "service": "database"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_1pdlgayi",
+        "name": "get_latency",
+        "content": "{\"service\":\"database\",\"p95_ms\":[11,12,11,12,12,11]}"
+      }
+    ],
+    "max_tokens": 500,
+    "system": "You are a diagnostic agent. Work strictly from tool results; never invent numbers. Method: list the services, get latency for EVERY service, and for any service whose recent samples are clearly worse than its earlier ones, get its deploys. Only then conclude. Reply in prose only when done: the most likely cause in one sentence, citing the numbers.",
+    "tools": [
+      {
+        "name": "list_services",
+        "description": "List the service names you can inspect.",
+        "input_schema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "get_latency",
+        "description": "Six hourly p95 latency samples (ms) for a service, oldest first. The last three are the most recent hours.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "service": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "service"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "get_deploys",
+        "description": "Deploys to a service today, with time and change description.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "service": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "service"
+          ],
+          "additionalProperties": false
+        }
+      }
+    ]
+  },
+  "response": {
+    "text": "",
+    "model": "qwen3:8b",
+    "stop_reason": "tool_use",
+    "usage": {
+      "input_tokens": 542,
+      "output_tokens": 20
+    },
+    "tool_calls": [
+      {
+        "id": "call_wa808kec",
+        "name": "get_deploys",
+        "arguments": {
+          "service": "payments"
+        }
+      }
+    ]
+  },
+  "recorded_at": "2026-08-19",
+  "recorded_by": "python"
+}

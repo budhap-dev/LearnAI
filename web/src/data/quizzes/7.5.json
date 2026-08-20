@@ -1,0 +1,142 @@
+[
+  {
+    "id": "7.5-q1",
+    "topic": "no memory",
+    "difficulty": 2,
+    "stem": "All assistant 'memory' is…",
+    "options": [
+      "Stored in the weights",
+      "Text your code chose to re-send - a data pipeline, not a model feature",
+      "Automatic in chat APIs",
+      "A model capability to enable"
+    ],
+    "answer": 1,
+    "explanation": "2.4's no-state rule makes memory an engineering problem."
+  },
+  {
+    "id": "7.5-q2",
+    "topic": "three tiers",
+    "difficulty": 2,
+    "stem": "The three tiers are…",
+    "options": [
+      "Short, medium, long prompts",
+      "Cache, disk, tape",
+      "Recent turns verbatim, older turns summarised, durable facts in a store",
+      "Prompt, model, output"
+    ],
+    "answer": 2,
+    "explanation": "Each has an owner, a cost and a failure mode."
+  },
+  {
+    "id": "7.5-q3",
+    "topic": "summary loss",
+    "difficulty": 2,
+    "stem": "Summaries must never be trusted with…",
+    "options": [
+      "Exact things: ids, amounts, commitments - they are lossy in ways you did not choose",
+      "Greetings",
+      "Old topics",
+      "Chatter"
+    ],
+    "answer": 0,
+    "explanation": "Exact values go to the store or stay pinned verbatim."
+  },
+  {
+    "id": "7.5-q4",
+    "topic": "crossover",
+    "difficulty": 2,
+    "stem": "The recorded toy run compressed 90 words into 99 because…",
+    "options": [
+      "The store was full",
+      "Compression always inflates",
+      "The facts block and summary have fixed overhead - tiers pay only past a session-length crossover",
+      "The summariser failed"
+    ],
+    "answer": 2,
+    "explanation": "Short sessions may need nothing but the verbatim window; measure before building."
+  },
+  {
+    "id": "7.5-q5",
+    "topic": "extractor slip",
+    "difficulty": 2,
+    "stem": "The extractor stored the current issue despite 'not the current issue'. The fix is…",
+    "options": [
+      "Enforce in schema (allowed keys) and code (filter) - instructions steer, not enforce",
+      "Lower temperature",
+      "A firmer prompt",
+      "A bigger model"
+    ],
+    "answer": 0,
+    "explanation": "2.6 again: what must not happen is code's job."
+  },
+  {
+    "id": "7.5-q6",
+    "topic": "provenance",
+    "difficulty": 2,
+    "stem": "plan=Pro in the store contradicts billing. The principle…",
+    "options": [
+      "The store is always right",
+      "Facts need provenance and freshness; systems of record beat conversation for facts they own",
+      "Delete the store",
+      "The user is always right"
+    ],
+    "answer": 1,
+    "explanation": "Fetch billing truth from billing; timestamp conversational facts."
+  },
+  {
+    "id": "7.5-q7",
+    "topic": "privacy",
+    "difficulty": 2,
+    "stem": "The fact store is…",
+    "options": [
+      "Internal plumbing",
+      "Anonymous by nature",
+      "User-visible personal data with retention, access and deletion obligations - build the 'what we know' page",
+      "A cache"
+    ],
+    "answer": 2,
+    "explanation": "Hold only what you would comfortably show the user."
+  },
+  {
+    "id": "7.5-q8",
+    "topic": "injection persistence",
+    "difficulty": 2,
+    "stem": "Memory is an injection persistence mechanism because…",
+    "options": [
+      "Stores are read-only",
+      "Vectors decay",
+      "Summaries are signed",
+      "A fact written during a poisoned session replays into every future session as trusted-looking text"
+    ],
+    "answer": 3,
+    "explanation": "Validate at write time; treat values as data at read time."
+  },
+  {
+    "id": "7.5-q9",
+    "topic": "when to build",
+    "difficulty": 2,
+    "stem": "Sessions average 6 turns. Memory tiers should be…",
+    "options": [
+      "Built now for scale",
+      "Replaced by fine-tuning",
+      "Mandatory for chat",
+      "Deferred: the verbatim window fits the budget; add tiers when p95 length stops fitting"
+    ],
+    "answer": 3,
+    "explanation": "Compression machinery pays only when the uncompressed form stops fitting."
+  },
+  {
+    "id": "7.5-q10",
+    "topic": "who owns",
+    "difficulty": 2,
+    "stem": "Each tier's owner is…",
+    "options": [
+      "All: the model",
+      "All: the user",
+      "Window: the loop. Summary: your pipeline. Facts: your database",
+      "All: the vendor"
+    ],
+    "answer": 2,
+    "explanation": "Nothing here is a model feature; every arrow in the diagram is your code."
+  }
+]

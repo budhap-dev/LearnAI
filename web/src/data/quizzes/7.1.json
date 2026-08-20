@@ -1,0 +1,142 @@
+[
+  {
+    "id": "7.1-q1",
+    "topic": "the one question",
+    "difficulty": 2,
+    "stem": "The design question behind every multi-step LLM system is…",
+    "options": [
+      "Which framework to adopt",
+      "Who decides what happens next — your code, or the model",
+      "Which vendor to use",
+      "How many agents to spawn"
+    ],
+    "answer": 1,
+    "explanation": "Chains, routers, parallel and evaluator loops keep the graph in code; only the agent hands the next step to the model."
+  },
+  {
+    "id": "7.1-q2",
+    "topic": "chain",
+    "difficulty": 2,
+    "stem": "A chain is the right shape when…",
+    "options": [
+      "The task involves tools",
+      "The steps are known and fixed; only their contents need a model",
+      "Latency does not matter",
+      "There are more than three steps"
+    ],
+    "answer": 1,
+    "explanation": "Step count does not make an agent; known-path does not need one."
+  },
+  {
+    "id": "7.1-q3",
+    "topic": "router",
+    "difficulty": 2,
+    "stem": "A router adds to a chain…",
+    "options": [
+      "A judge",
+      "One cheap classification that picks which branch handles the input",
+      "Parallel execution",
+      "Unbounded loops"
+    ],
+    "answer": 1,
+    "explanation": "5.6's model routing applied to intent; branches stay simple and separately testable."
+  },
+  {
+    "id": "7.1-q4",
+    "topic": "parallel",
+    "difficulty": 2,
+    "stem": "The parallel pattern buys…",
+    "options": [
+      "Lower token cost",
+      "Latency of the slowest branch instead of the sum, for independent pieces",
+      "Better answers",
+      "Determinism"
+    ],
+    "answer": 1,
+    "explanation": "Fan out what does not depend on each other; merge in code."
+  },
+  {
+    "id": "7.1-q5",
+    "topic": "evaluator",
+    "difficulty": 2,
+    "stem": "The evaluator-optimiser loop is…",
+    "options": [
+      "A fine-tuning method",
+      "A vector search",
+      "An agent",
+      "Generate → judge against a rubric → retry with feedback, capped at a few rounds"
+    ],
+    "answer": 3,
+    "explanation": "Same economics as 4.3's retry policy: a third round rarely helps and doubles cost."
+  },
+  {
+    "id": "7.1-q6",
+    "topic": "agent when",
+    "difficulty": 2,
+    "stem": "The signature that genuinely calls for an agent is…",
+    "options": [
+      "Multiple tools",
+      "Branching that depends on content discovered mid-task",
+      "Many steps",
+      "High stakes"
+    ],
+    "answer": 1,
+    "explanation": "If you can write the path down in advance, a higher row expresses it better."
+  },
+  {
+    "id": "7.1-q7",
+    "topic": "cost of agent",
+    "difficulty": 2,
+    "stem": "What the agent row costs that the others do not…",
+    "options": [
+      "A vector store",
+      "Unknown cost until it stops, trajectory-style testing, and mandatory budgets and guardrails",
+      "A bigger model",
+      "More tokens per call"
+    ],
+    "answer": 1,
+    "explanation": "Flexibility is paid for in predictability and testability."
+  },
+  {
+    "id": "7.1-q8",
+    "topic": "adr line",
+    "difficulty": 2,
+    "stem": "The ADR sentence that justifies an agent is…",
+    "options": [
+      "'Agents are the modern approach'",
+      "'The demo worked well'",
+      "'We have many tools'",
+      "'The path cannot be known in advance because ___' filled with something discovered mid-task"
+    ],
+    "answer": 3,
+    "explanation": "If the blank cannot be filled, choose a row higher."
+  },
+  {
+    "id": "7.1-q9",
+    "topic": "demotion",
+    "difficulty": 2,
+    "stem": "80% of your agent's runs follow the same three calls in order. The refactor is…",
+    "options": [
+      "Increase the budget",
+      "Add more tools",
+      "Retrain the model",
+      "Promote the common path to a chain; keep the loop for the variable 20%"
+    ],
+    "answer": 3,
+    "explanation": "A stable majority path is a workflow wearing an agent costume."
+  },
+  {
+    "id": "7.1-q10",
+    "topic": "composition",
+    "difficulty": 2,
+    "stem": "Real systems typically…",
+    "options": [
+      "Avoid chains",
+      "Mix rows: routers over chains, agents whose inner steps are chains, judged retries around retrieval",
+      "Use exactly one pattern",
+      "Use agents for everything"
+    ],
+    "answer": 1,
+    "explanation": "The patterns are vocabulary; the discipline is simplest-that-fits per decision point."
+  }
+]
