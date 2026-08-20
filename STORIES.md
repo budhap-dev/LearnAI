@@ -773,8 +773,8 @@ Nothing exists yet. This is the target.
 | 8 | Evaluation & quality | 🟣 | 6 | 4 | 2 | 60 | 25 |
 | 9 | Production | 🟣 | 8 | 5 | 2 | 80 | 30 |
 | 10 | Customising models | 🟣 | 5 | 5 | 1 | 50 | 20 |
-| 11 | Lifecycle & capstones | 🟣 | 4 | 1 | 0 | 40 | 15 |
-| | **Total** | | **66** | **49** | **~20** | **660** | **280** |
+| 11 | Lifecycle & capstones | 🟣 | 4 | 4 | 0 | 40 | 15 |
+| | **Total** | | **70** | **53** | **~20** | **660** | **280** |
 
 ---
 
@@ -911,3 +911,13 @@ themed · ≤15 KB gz lazy chunk · has a "what am I looking at" caption and a "
     leave-one-out-tuned, parity-safe adapter over real `nomic-embed-text` embeddings; 5
     diagrams; reuses the finetune-vs-rag explorer; 10 check cards. **The course content is
     complete through Module 10 (62/66); only Module 11 (lifecycle & capstones) remains.**
+
+15. ~~Module 11 (AI in the software lifecycle & capstones)~~ — **done**: 4 lessons — AI-assisted
+    engineering (the review loop; what to never delegate), designing an AI feature (the one-page
+    design doc; eval plan and failure modes first), team/process/skills (a RACI for prompts,
+    evals, cost, guardrails, serving; the living artefacts), and frameworks & the ecosystem
+    (what LangChain/LlamaIndex/SK/DSPy abstract, and how to build so you can leave one). One twin
+    example: a dozen-line `Chain` "framework" run against the identical task in raw primitives,
+    byte-identical, with a shared `show()` renderer for cross-language parity; 4 diagrams
+    (review loop, design-doc skeleton, RACI, abstraction layers); 8 check cards. **All 11
+    modules are written — 70 lessons in total. The course content is complete.**

@@ -30,6 +30,9 @@ import {
 import {
   EmbeddingAdaptation, FinetuneDecision, LoraAdapter, QuantisationTradeoff, TeacherStudent,
 } from './diagrams/customising';
+import {
+  AbstractionLayers, DesignDocSkeleton, RaciMatrix, ReviewLoop,
+} from './diagrams/lifecycle';
 
 /**
  * Every diagram the notes can reference, by name. A note embeds one with a fence:
@@ -106,6 +109,10 @@ const REGISTRY: Record<string, ComponentType> = {
   'teacher-student': TeacherStudent,
   'quantisation-tradeoff': QuantisationTradeoff,
   'embedding-adaptation': EmbeddingAdaptation,
+  'review-loop': ReviewLoop,
+  'design-doc-skeleton': DesignDocSkeleton,
+  'raci': RaciMatrix,
+  'abstraction-layers': AbstractionLayers,
 };
 
 export function Diagram({ name }: { name: string }) {
