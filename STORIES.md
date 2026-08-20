@@ -772,9 +772,9 @@ Nothing exists yet. This is the target.
 | 7 | Agents & orchestration | 🔵 | 7 | 6 | 1 | 70 | 30 |
 | 8 | Evaluation & quality | 🟣 | 6 | 4 | 2 | 60 | 25 |
 | 9 | Production | 🟣 | 8 | 5 | 2 | 80 | 30 |
-| 10 | Customising models | 🟣 | 5 | 4 | 1 | 50 | 20 |
+| 10 | Customising models | 🟣 | 5 | 5 | 1 | 50 | 20 |
 | 11 | Lifecycle & capstones | 🟣 | 4 | 1 | 0 | 40 | 15 |
-| | **Total** | | **66** | **48** | **~20** | **660** | **280** |
+| | **Total** | | **66** | **49** | **~20** | **660** | **280** |
 
 ---
 
@@ -898,5 +898,16 @@ themed · ≤15 KB gz lazy chunk · has a "what am I looking at" caption and a "
     7 diagrams; chunking / hybrid-search / RAG-stepper / finetune-vs-rag explorers; 70 questions.
     The recordings again taught honestly: the g9 substring checker flagged a correct
     hyphenated answer — the brittle-checker lesson from 4.4, now in 6.7.
-12. Module 7 (Agents) — next; the tool loop from 5.3 grows into orchestration patterns, MCP,
-    memory, multi-agent and approval gates; needs recordings of longer tool trajectories.
+12. ~~Module 7 (Agents)~~ — **done**: the tool loop from 5.3 grown into orchestration
+    patterns, MCP, memory, multi-agent and approval gates, with recorded tool trajectories.
+13. ~~Module 8 (Evaluation)~~ and ~~Module 9 (Production)~~ — **done**: golden sets, scorers,
+    LLM-as-judge, rollout gates (M8); reference architecture, gateway, cost/latency, OWASP
+    controls, guardrails, operations (M9, 8 lessons). Adapter and cassette flow unchanged.
+14. ~~Module 10 (Customising models)~~ — **done**: 5 lessons; 4 twin examples — a LoRA vs
+    full fine-tune on a frozen layer (256× fewer trainable params at scale), teacher→student
+    distillation (60%→100% held-out agreement), a real local `qwen3:8b` call plus the
+    quantisation size/quality table (int4 ≈ params/2 GB) and licence tiers, and embedding
+    domain adaptation lifting held-out recall@1 5/8→7/8 (MRR 0.81→0.94) from 16 pairs via a
+    leave-one-out-tuned, parity-safe adapter over real `nomic-embed-text` embeddings; 5
+    diagrams; reuses the finetune-vs-rag explorer; 10 check cards. **The course content is
+    complete through Module 10 (62/66); only Module 11 (lifecycle & capstones) remains.**
