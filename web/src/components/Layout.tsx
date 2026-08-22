@@ -69,6 +69,12 @@ export function Layout() {
         </button>
 
         <div id="site-nav" className={`site-nav ${menuOpen ? 'open' : ''}`}>
+          <div className="nav-header">
+            <span className="nav-header-title" aria-hidden="true">Learn<span>AI</span></span>
+            <button type="button" className="nav-close" aria-label="Close menu" onClick={() => setMenuOpen(false)}>
+              ✕
+            </button>
+          </div>
           <nav aria-label="Primary">
             {NAV.map((item) => (
               <NavLink key={item.to} to={item.to} end={item.end}>

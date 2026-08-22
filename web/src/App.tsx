@@ -3,6 +3,7 @@ import { RouterProvider, createHashRouter } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Home } from './routes/Home';
 import { Syllabus } from './routes/Syllabus';
+import { Module } from './routes/Module';
 import { Explore } from './routes/Explore';
 import { Search } from './routes/Search';
 import { Progress } from './routes/Progress';
@@ -26,6 +27,7 @@ const router = createHashRouter([
     children: [
       { index: true, element: <Home /> },
       { path: 'syllabus', element: <Syllabus /> },
+      { path: 'module/:id', element: <Module /> },
       { path: 'explore', element: <Explore /> },
       { path: 'search', element: <Search /> },
       { path: 'progress', element: <Progress /> },

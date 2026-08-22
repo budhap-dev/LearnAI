@@ -57,6 +57,7 @@ export function search(records: SearchRecord[], query: string): SearchHit[] {
 
   const hits: SearchHit[] = [];
   for (const record of records) {
+    const id = record.id.toLowerCase();
     const title = record.title.toLowerCase();
     const summary = record.summary.toLowerCase();
     const objectives = record.objectives.join(' ').toLowerCase();
@@ -67,6 +68,9 @@ export function search(records: SearchRecord[], query: string): SearchHit[] {
     let matchedAll = true;
     for (const term of words) {
       let s = 0;
+      // An explicit lesson id ("3.6") should jump straight to that lesson - rank it above all else.
+      if (id === term) s += 40;
+      else if (id.startsWith(term)) s += 20;
       // A title hit is worth far more than a body hit; tags are curated so they rank high too.
       if (title.includes(term)) s += 10;
       if (title.split(/\W+/).includes(term)) s += 6;

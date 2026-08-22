@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import type { PluggableList } from 'unified';
+import { rehypeGlossary } from '../lib/rehypeGlossary';
+import { rehypeLessonRefs } from '../lib/rehypeLessonRefs';
 import { LEVEL_LABEL, loadLessonData, loadNotes, type LessonData } from '../lib/lessons';
 import { useSyllabus } from '../lib/useSyllabus';
 import { MarkdownLink } from '../components/MarkdownLink';
@@ -14,7 +17,7 @@ import { Quiz, type Question } from '../components/Quiz';
 import { Check, parseCheck } from '../components/Check';
 import { bestScore, currentPathway, setLessonState } from '../lib/progress';
 import { navigationOrder, pathwayById, stepOn } from '../lib/pathways';
-import { termsForLesson } from '../lib/reference';
+import { chipCandidates, termsForLesson } from '../lib/reference';
 
 const quizzes = import.meta.glob('../data/quizzes/*.json', { import: 'default' });
 
@@ -103,6 +106,15 @@ export function Lesson() {
     window.scrollTo(0, 0);
   }, [id]);
 
+  // Must run before any early return (hooks are unconditional). Empty when the lesson is unknown.
+  const rehypePlugins = useMemo<PluggableList>(
+    () => [
+      [rehypeLessonRefs, { ids: syllabus ? syllabus.lessons.map((l) => l.id) : [] }],
+      [rehypeGlossary, { candidates: id ? chipCandidates(id) : [] }],
+    ],
+    [id, syllabus],
+  );
+
   if (!syllabus) return <p className="muted">Loading…</p>;
 
   if (!lesson) {
@@ -178,7 +190,7 @@ export function Lesson() {
 
       {notes ? (
         <div className="prose">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ a: MarkdownLink, pre: PreBlock }}>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={rehypePlugins} components={{ a: MarkdownLink, pre: PreBlock }}>
             {notes}
           </ReactMarkdown>
         </div>

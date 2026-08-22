@@ -18,8 +18,8 @@ export function Syllabus() {
     <>
       <h1>Syllabus</h1>
       <p className="syllabus-lede muted">
-        11 modules · 66 lessons planned · {syllabus.lessons.length} written so far. Every code
-        lesson has runnable Python and TypeScript examples with captured output.
+        11 modules · {syllabus.lessons.length} lessons. Every code lesson has runnable Python
+        and TypeScript examples with captured, byte-identical output.
       </p>
 
       <div className="route-bar" role="group" aria-label="Pathway">
@@ -38,7 +38,7 @@ export function Syllabus() {
       </div>
 
       {pathway && route.length > 0 && (
-        <details className="module-accordion route-order" open>
+        <details className="module-accordion route-order">
           <summary>
             <span className="num">→</span>
             <span className="module-title">
@@ -66,7 +66,7 @@ export function Syllabus() {
         const lessons = lessonsIn(syllabus, m.id);
         const done = lessons.filter((l) => progress.lessons[l.id] === 'done').length;
         return (
-          <details className="module-accordion" key={m.id} open={lessons.length > 0} style={{ ['--mc' as string]: `var(--m${m.id})` }}>
+          <details className="module-accordion" key={m.id} style={{ ['--mc' as string]: `var(--m${m.id})` }}>
             <summary>
               <span className="num">{m.id}</span>
               <span className="module-title">
@@ -79,6 +79,7 @@ export function Syllabus() {
             </summary>
             <div className="module-body">
               <p className="blurb">{m.blurb}</p>
+              <p className="module-overview-link"><Link to={`/module/${m.id}`}>Module {m.id} overview →</Link></p>
               {lessons.length > 0 && (
                 <ul className="lesson-list">
                   {lessons.map((l) => {

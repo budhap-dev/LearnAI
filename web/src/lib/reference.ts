@@ -38,6 +38,30 @@ export function termsForLesson(lessonId: string): GlossaryEntry[] {
   return GLOSSARY.filter((g) => g.lessons.includes(lessonId));
 }
 
+/** An acronym-ish token (MCP, LLM, LoRA, RAG, SFT...): short, alphanumeric, two+ capitals. */
+function isAcronym(s: string): boolean {
+  return /^[A-Za-z0-9]{2,8}$/.test(s) && s.replace(/[^A-Z]/g, '').length >= 2;
+}
+
+/**
+ * The glossary terms worth auto-linking inline in a lesson's prose: every acronym in the
+ * glossary (safe to match anywhere - LLM, MCP, RAG...) plus the full names of the terms this
+ * lesson teaches. Deliberately conservative - common English words are not auto-linked.
+ */
+export function chipCandidates(lessonId: string): { text: string; slug: string }[] {
+  const out = new Map<string, { text: string; slug: string }>();
+  const add = (text: string, slug: string) => {
+    const key = text.toLowerCase();
+    if (!out.has(key)) out.set(key, { text, slug });
+  };
+  for (const g of GLOSSARY) for (const cand of [g.term, ...g.aliases]) if (isAcronym(cand)) add(cand, g.slug);
+  for (const g of termsForLesson(lessonId)) {
+    add(g.term, g.slug);
+    for (const a of g.aliases) if (isAcronym(a)) add(a, g.slug);
+  }
+  return [...out.values()];
+}
+
 /** Simple glossary search over term, aliases and definition. */
 export function searchGlossary(query: string): GlossaryEntry[] {
   const q = query.trim().toLowerCase();
