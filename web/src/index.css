@@ -494,7 +494,9 @@ button:disabled { cursor: default; }
     flex-direction: column; align-items: stretch;
     width: 100%; margin: 0.6rem 0 0; gap: 0.7rem;
   }
-  .site-nav .header-search, .site-nav .header-search input { width: 100%; }
+  /* block, not flex, so the (static) suggestion list flows BELOW the input, not beside it */
+  .site-nav .header-search { display: block; width: 100%; }
+  .site-nav .header-search input { width: 100%; }
   .site-nav .theme-picker { width: 100%; }
   .site-nav .theme-button { width: 100%; justify-content: flex-start; }
   .site-nav .theme-menu {
@@ -1273,3 +1275,30 @@ ol.emb-list li button { flex: 1; }
   .module-nav { grid-template-columns: 1fr; }
   .module-nav-link.next { text-align: left; }
 }
+
+/* ---- Inline glossary term chips (hover definition) -------------------------------- */
+.term-chip { position: relative; }
+.term-chip-link {
+  color: var(--accent); text-decoration: none; cursor: help;
+  border-bottom: 1px dotted color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.term-chip-link:hover, .term-chip-link:focus { border-bottom-style: solid; }
+.term-card {
+  position: absolute; left: 0; top: calc(100% + 6px); z-index: 30;
+  width: min(22rem, 78vw); display: none;
+  padding: 0.7rem 0.8rem; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 10px;
+  box-shadow: 0 8px 28px rgb(0 0 0 / 0.16);
+}
+.term-chip:hover .term-card, .term-chip:focus-within .term-card { display: block; }
+.term-card-title { display: block; font-weight: 700; font-size: 0.85rem; color: var(--text); margin-bottom: 0.2rem; }
+.term-card-def { display: block; font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+/* glossary rows in the header search dropdown */
+.search-suggest .ss-group { padding: 0.4rem 0.9rem 0.2rem; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.ss-kind { margin-left: auto; font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.search-suggest .ss-term .ss-title { font-weight: 600; }
+
+/* Inline lesson-citation links in prose - "(8.4)", "(6.1, 10.1)". Subtle until hovered. */
+.prose a.lesson-ref { color: var(--accent); text-decoration: none; font-variant-numeric: tabular-nums; }
+.prose a.lesson-ref:hover, .prose a.lesson-ref:focus { text-decoration: underline; }

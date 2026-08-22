@@ -38,7 +38,7 @@ export function Syllabus() {
       </div>
 
       {pathway && route.length > 0 && (
-        <details className="module-accordion route-order" open>
+        <details className="module-accordion route-order">
           <summary>
             <span className="num">→</span>
             <span className="module-title">
@@ -66,7 +66,7 @@ export function Syllabus() {
         const lessons = lessonsIn(syllabus, m.id);
         const done = lessons.filter((l) => progress.lessons[l.id] === 'done').length;
         return (
-          <details className="module-accordion" key={m.id} open={lessons.length > 0} style={{ ['--mc' as string]: `var(--m${m.id})` }}>
+          <details className="module-accordion" key={m.id} style={{ ['--mc' as string]: `var(--m${m.id})` }}>
             <summary>
               <span className="num">{m.id}</span>
               <span className="module-title">
