@@ -475,7 +475,7 @@ about it.
 - [ ] Labs needing a key say so and give a cassette-based fallback
 
 ### US-502 · Model solutions *(Should, M)* · ⬜ — Python and TS solutions in `examples/labs/`, run by CI
-### US-503 · Capstone projects *(Could, L)* · ⬜ — Module 11: support assistant with RAG + evals + guardrails; document pipeline; coding agent over a repo; a classic-ML classifier in production
+### US-503 · Capstone projects *(Could, L)* · ✅ done — four end-to-end guide pages at `/capstones` (own nav section, `docs/capstones/*.md`): the support assistant (RAG + tools + guardrails + evals), the document-processing pipeline (multimodal + structured output + batch), the repo-aware coding agent (agent loop hardened), and a churn model in production (classic ML end to end). Each is a design-doc-shaped guide — architecture diagram (reused from the registry), a box-by-box build that links the lessons that build each piece, an eval plan, failure modes/guardrails, cost/rollout, and "what to harden next"; inline lesson citations auto-link
 
 ---
 

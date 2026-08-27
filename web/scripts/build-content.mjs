@@ -255,6 +255,39 @@ for (const file of (await readdir(REFERENCE)).filter((f) => f.endsWith('.md')).s
 }
 await writeFile(join(OUT_REFERENCE, 'pages.json'), JSON.stringify(referencePages));
 
+// ---- capstones: end-to-end guide pages -----------------------------------------------
+const CAPSTONES = here('../../docs/capstones/');
+const OUT_CAPSTONES = here('../src/content/capstones/');
+await rm(OUT_CAPSTONES, { recursive: true, force: true });
+await mkdir(OUT_CAPSTONES, { recursive: true });
+
+const CapstoneFrontmatter = z.object({
+  id: z.string().regex(/^[a-z-]+$/),
+  title: z.string().min(1),
+  summary: z.string().min(1),
+  modules: z.array(z.number().int().positive()).default([]),
+  diagram: z.string().optional(),
+});
+const capstones = [];
+let capstoneFiles = [];
+try {
+  capstoneFiles = (await readdir(CAPSTONES)).filter((f) => f.endsWith('.md')).sort();
+} catch {
+  /* no capstones directory yet */
+}
+for (const file of capstoneFiles) {
+  const rel = `docs/capstones/${file}`;
+  const split = splitFrontmatter(await readFile(join(CAPSTONES, file), 'utf8'));
+  if (!split) { fail(rel, 'missing frontmatter block'); continue; }
+  const parsed = CapstoneFrontmatter.safeParse(split.frontmatter);
+  if (!parsed.success) { for (const issue of parsed.error.issues) fail(rel, `${issue.path.join('.')}: ${issue.message}`); continue; }
+  if (parsed.data.id !== basename(file, '.md')) fail(rel, `id "${parsed.data.id}" does not match the file name`);
+  if (parsed.data.diagram && !KNOWN_DIAGRAMS.has(parsed.data.diagram)) fail(rel, `diagram "${parsed.data.diagram}" is not in the Diagram registry`);
+  capstones.push(parsed.data);
+  await writeFile(join(OUT_CAPSTONES, `${parsed.data.id}.md`), split.body);
+}
+await writeFile(join(OUT_CAPSTONES, 'capstones.json'), JSON.stringify(capstones));
+
 // Cross-lesson checks.
 const ids = new Set(lessons.map((l) => l.id));
 for (const l of lessons) {
@@ -278,3 +311,4 @@ console.log(`Content: ${lessons.length} lesson(s) validated -> src/content/lesso
 console.log(`Syllabus: ${modules.length} modules -> public/data/syllabus.json`);
 console.log(`Search: ${searchIndex.length} lessons -> public/data/search-index.json`);
 console.log(`Reference: ${glossary.length} glossary terms, ${referencePages.length} pages -> src/content/reference/`);
+console.log(`Capstones: ${capstones.length} -> src/content/capstones/`);
