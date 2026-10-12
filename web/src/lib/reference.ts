@@ -51,13 +51,23 @@ function isAcronym(s: string): boolean {
  * lesson teaches. Deliberately conservative - common English words are not auto-linked.
  */
 export function chipCandidates(lessonId: string): { text: string; slug: string }[] {
+  return candidatesFor(termsForLesson(lessonId));
+}
+
+/** The same for a capstone page: acronyms plus the terms taught anywhere in its modules. */
+export function capstoneChipCandidates(modules: number[]): { text: string; slug: string }[] {
+  const inModules = (id: string) => modules.some((m) => id.startsWith(`${m}.`));
+  return candidatesFor(GLOSSARY.filter((g) => g.lessons.some(inModules)));
+}
+
+function candidatesFor(taught: GlossaryEntry[]): { text: string; slug: string }[] {
   const out = new Map<string, { text: string; slug: string }>();
   const add = (text: string, slug: string) => {
     const key = text.toLowerCase();
     if (!out.has(key)) out.set(key, { text, slug });
   };
   for (const g of GLOSSARY) for (const cand of [g.term, ...g.aliases]) if (isAcronym(cand)) add(cand, g.slug);
-  for (const g of termsForLesson(lessonId)) {
+  for (const g of taught) {
     add(g.term, g.slug);
     for (const a of g.aliases) if (isAcronym(a)) add(a, g.slug);
   }
