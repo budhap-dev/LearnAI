@@ -1296,9 +1296,18 @@ ol.emb-list li button { flex: 1; }
   border: 1px solid var(--border); border-radius: 10px;
   box-shadow: 0 8px 28px rgb(0 0 0 / 0.16);
 }
+.term-card.has-example { width: min(30rem, 78vw); }
+/* Bridges the gap above the card so the pointer can move into it (to scroll the example). */
+.term-card::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 8px; }
 .term-chip:hover .term-card, .term-chip:focus-within .term-card { display: block; }
 .term-card-title { display: block; font-weight: 700; font-size: 0.85rem; color: var(--text); margin-bottom: 0.2rem; }
 .term-card-def { display: block; font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+.term-card-label { display: block; margin-top: 0.55rem; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.term-card-code {
+  display: block; margin-top: 0.25rem; padding: 0.5rem 0.6rem; max-height: 10.5rem; overflow: auto;
+  white-space: pre; font-family: var(--mono); font-size: 0.72rem; line-height: 1.45;
+  background: var(--code-bg); color: var(--code-text); border: 1px solid var(--code-border); border-radius: 6px;
+}
 
 /* glossary rows in the header search dropdown */
 .search-suggest .ss-group { padding: 0.4rem 0.9rem 0.2rem; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
