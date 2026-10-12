@@ -10,6 +10,8 @@ export interface GlossaryEntry {
   slug: string;
   aliases: string[];
   definition: string;
+  /** Markdown - what the term looks like in practice. */
+  example?: string;
   lessons: string[];
   plannedLessons: string[];
   related: string[];
