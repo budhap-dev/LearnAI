@@ -28,6 +28,7 @@ const NAV = [
   { to: '/syllabus', label: 'Syllabus', end: false, icon: (<svg {...ICON}><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H19a1 1 0 0 1 1 1v13.5" /><path d="M4 5.5V19a1 1 0 0 0 1 1h15" /><path d="M8 8h8M8 12h8" /></svg>) },
   { to: '/explore', label: 'Explore', end: false, icon: (<svg {...ICON}><circle cx="12" cy="12" r="9" /><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" /></svg>) },
   { to: '/reference', label: 'Reference', end: false, icon: (<svg {...ICON}><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z" /><path d="M4 5v14" /><path d="M9 7h6" /></svg>) },
+  { to: '/capstones', label: 'Capstones', end: false, icon: (<svg {...ICON}><path d="M12 3 3 8l9 5 9-5-9-5Z" /><path d="m3 13 9 5 9-5" /></svg>) },
 ] as const;
 
 export function Layout() {

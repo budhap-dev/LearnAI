@@ -8,6 +8,7 @@ web/dist/
 web/public/data/
 web/src/content/lessons/
 web/src/content/reference/
+web/src/content/capstones/
 
 # python
 __pycache__/
