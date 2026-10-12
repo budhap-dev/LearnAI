@@ -100,11 +100,27 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close staging environment
+    permissions:
+      id-token: write   # close needs the same GitHub OIDC token as upload, or Azure reports
+                        # "No matching static site found" and the staging environment lingers
     env:
       SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_GLACIER_086E9A910 }}
     steps:
+      - name: Install OIDC client
+        if: env.SWA_TOKEN != ''
+        run: npm install @actions/core@1.6.0 @actions/http-client
+      - name: Get id token
+        if: env.SWA_TOKEN != ''
+        uses: actions/github-script@v7
+        id: idtoken
+        with:
+          script: |
+            const coredemo = require('@actions/core')
+            return await coredemo.getIDToken()
+          result-encoding: string
       - if: env.SWA_TOKEN != ''
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_GLACIER_086E9A910 }}
+          github_id_token: ${{ steps.idtoken.outputs.result }}
           action: close
