@@ -9,6 +9,8 @@ import { MarkdownLink } from '../components/MarkdownLink';
 import { Diagram } from '../components/Diagram';
 import { CodeBlock } from '../components/CodeBlock';
 import { rehypeLessonRefs } from '../lib/rehypeLessonRefs';
+import { rehypeGlossary } from '../lib/rehypeGlossary';
+import { capstoneChipCandidates } from '../lib/reference';
 
 /** /capstones - index; /capstones/:id - one guide. */
 export function Capstones() {
@@ -66,8 +68,11 @@ function CapstonePage({ id }: { id: string }) {
   }, [id]);
 
   const rehypePlugins = useMemo<PluggableList>(
-    () => [[rehypeLessonRefs, { ids: syllabus ? syllabus.lessons.map((l) => l.id) : [] }]],
-    [syllabus],
+    () => [
+      [rehypeLessonRefs, { ids: syllabus ? syllabus.lessons.map((l) => l.id) : [] }],
+      [rehypeGlossary, { candidates: meta ? capstoneChipCandidates(meta.modules) : [] }],
+    ],
+    [syllabus, meta],
   );
 
   if (!meta) {
