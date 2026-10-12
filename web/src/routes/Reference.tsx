@@ -3,6 +3,7 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { MarkdownLink } from '../components/MarkdownLink';
+import { TermExample } from '../components/TermExample';
 import { GLOSSARY, REFERENCE_PAGES, loadReferencePage, searchGlossary, termBySlug, type GlossaryEntry } from '../lib/reference';
 import { useSyllabus } from '../lib/useSyllabus';
 
@@ -123,6 +124,12 @@ function GlossaryItem({ entry, highlighted, lessonTitle }: { entry: GlossaryEntr
       </dt>
       <dd>
         <p>{entry.definition}</p>
+        {entry.example && (
+          <div className="glossary-example">
+            <span className="glossary-example-label">Example</span>
+            <TermExample markdown={entry.example} />
+          </div>
+        )}
         <p className="small glossary-meta">
           {entry.lessons.length > 0 && (
             <>

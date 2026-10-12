@@ -220,6 +220,8 @@ const GlossaryEntry = z.object({
   term: z.string().min(1),
   aliases: z.array(z.string()).default([]),
   definition: z.string().min(20),
+  // Markdown: a concrete instance of the term (a trace, a snippet, worked numbers).
+  example: z.string().min(20).optional(),
   lessons: z.array(z.string()).default([]),
   related: z.array(z.string()).default([]),
 });

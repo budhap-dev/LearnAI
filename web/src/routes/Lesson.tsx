@@ -13,6 +13,7 @@ import { CodeTabs } from '../components/CodeTabs';
 import { OutputBlock } from '../components/OutputBlock';
 import { Explorer } from '../components/Explorer';
 import { CodeBlock } from '../components/CodeBlock';
+import { TermExample } from '../components/TermExample';
 import { Quiz, type Question } from '../components/Quiz';
 import { Check, parseCheck } from '../components/Check';
 import { bestScore, currentPathway, setLessonState } from '../lib/progress';
@@ -71,7 +72,15 @@ function KeyTerms({ lessonId }: { lessonId: string }) {
         {terms.map((t) => (
           <div key={t.slug}>
             <dt><Link to={`/reference/glossary?term=${t.slug}`}>{t.term}</Link></dt>
-            <dd>{t.definition}</dd>
+            <dd>
+              {t.definition}
+              {t.example && (
+                <details className="key-term-example">
+                  <summary>Example</summary>
+                  <TermExample markdown={t.example} />
+                </details>
+              )}
+            </dd>
           </div>
         ))}
       </dl>

@@ -1143,12 +1143,18 @@ ol.emb-list li button { flex: 1; }
 .glossary-item dd { margin: 0.25rem 0 0; }
 .glossary-item dd p { margin: 0.2rem 0; }
 .glossary-meta a { text-decoration: none; }
+.glossary-example { margin: 0.5rem 0 0.4rem; }
+.glossary-example-label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.term-example pre { margin: 0.3rem 0; font-size: 0.8rem; padding: 0.7rem 0.9rem; }
+.term-example p { color: var(--muted); font-size: 0.92rem; margin: 0.2rem 0; }
 .key-terms { margin: 2.5rem 0; }
 .key-terms dl { display: grid; gap: 0.6rem; }
 .key-terms dt { font-weight: 600; }
 .key-terms dt a { text-decoration: none; color: var(--text); }
 .key-terms dt a:hover { color: var(--accent); }
 .key-terms dd { margin: 0.1rem 0 0; color: var(--muted); font-size: 0.92rem; }
+.key-term-example summary { cursor: pointer; width: fit-content; margin-top: 0.2rem; font-size: 0.82rem; font-weight: 600; color: var(--accent); }
+.key-term-example summary:hover { text-decoration: underline; }
 .reference-prose table { display: table; }
 .reference-prose h2 { margin-top: 2.2rem; }
 .reference-prose input[type="checkbox"] { margin-right: 0.4rem; }
